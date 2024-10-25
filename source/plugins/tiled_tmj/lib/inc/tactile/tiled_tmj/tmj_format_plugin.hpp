@@ -4,14 +4,13 @@
 
 #include <memory>  // unique_ptr
 
-#include "tactile/base/prelude.hpp"
+#include "tactile/base/io/save/save_format.hpp"
 #include "tactile/base/runtime/plugin.hpp"
 #include "tactile/tiled_tmj/api.hpp"
-#include "tactile/tiled_tmj/tmj_save_format.hpp"
 
-namespace tactile {
+namespace tactile::tiled_tmj {
 
-class TACTILE_TMJ_FORMAT_API TmjFormatPlugin final : public IPlugin
+class TACTILE_TILED_TMJ_API TmjFormatPlugin final : public IPlugin
 {
  public:
   void load(IRuntime* runtime) override;
@@ -19,14 +18,14 @@ class TACTILE_TMJ_FORMAT_API TmjFormatPlugin final : public IPlugin
   void unload() override;
 
  private:
-  IRuntime* mRuntime {};
-  std::unique_ptr<TmjSaveFormat> mFormat {};
+  IRuntime* m_runtime {};
+  std::unique_ptr<ISaveFormat> m_format {};
 };
 
 extern "C"
 {
-  TACTILE_TMJ_FORMAT_API auto tactile_make_plugin() -> IPlugin*;
-  TACTILE_TMJ_FORMAT_API void tactile_free_plugin(IPlugin* plugin);
+  TACTILE_TILED_TMJ_API auto tactile_make_plugin() -> IPlugin*;
+  TACTILE_TILED_TMJ_API void tactile_free_plugin(IPlugin* plugin);
 }
 
-}  // namespace tactile
+}  // namespace tactile::tiled_tmj

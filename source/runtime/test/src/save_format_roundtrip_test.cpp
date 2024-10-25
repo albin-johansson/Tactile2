@@ -135,7 +135,7 @@ class SaveFormatRoundtripTest : public testing::TestWithParam<SaveFormatRoundtri
 #endif
 
 #ifdef TACTILE_HAS_TILED_TMJ
-  TmjFormatPlugin m_tmj_format_plugin {};
+  tiled_tmj::TmjFormatPlugin m_tmj_format_plugin {};
 #endif
 
   IRenderer* m_renderer {};

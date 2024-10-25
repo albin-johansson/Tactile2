@@ -3,22 +3,20 @@
 #pragma once
 
 #include "tactile/base/io/save/save_format.hpp"
-#include "tactile/base/prelude.hpp"
+#include "tactile/base/runtime/runtime.hpp"
 #include "tactile/tiled_tmj/api.hpp"
 
-namespace tactile {
-
-class IRuntime;
+namespace tactile::tiled_tmj {
 
 /**
  * Implements the Tiled TMJ save format.
  *
  * \see https://doc.mapeditor.org/en/stable/reference/json-map-format/
  */
-class TACTILE_TMJ_FORMAT_API TmjSaveFormat final : public ISaveFormat
+class TACTILE_TILED_TMJ_API TmjSaveFormat final : public ISaveFormat
 {
  public:
-  TmjSaveFormat(IRuntime* runtime);
+  explicit TmjSaveFormat(IRuntime* runtime);
 
   [[nodiscard]]
   auto load_map(const std::filesystem::path& map_path,
@@ -30,7 +28,7 @@ class TACTILE_TMJ_FORMAT_API TmjSaveFormat final : public ISaveFormat
       -> std::expected<void, ErrorCode> override;
 
  private:
-  IRuntime* mRuntime;
+  IRuntime* m_runtime;
 };
 
-}  // namespace tactile
+}  // namespace tactile::tiled_tmj
