@@ -13,13 +13,14 @@
 
 #include "tactile/base/render/renderer.hpp"
 #include "tactile/core/debug/terminate.hpp"
-#include "tactile/core/log/logger.hpp"
-#include "tactile/core/log/set_log_scope.hpp"
-#include "tactile/core/log/terminal_log_sink.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/numeric/random.hpp"
 #include "tactile/core/platform/win32.hpp"
 #include "tactile/core/ui/common/style.hpp"
+#include "tactile/log/file_log_sink.hpp"
+#include "tactile/log/terminal_log_sink.hpp"
 #include "tactile/runtime/command_line_options.hpp"
+#include "tactile/runtime/logging.hpp"
 #include "tactile/runtime/protobuf_context.hpp"
 #include "tactile/runtime/sdl_context.hpp"
 #include "tactile/runtime/window.hpp"
@@ -39,36 +40,40 @@ void _imgui_free(void* memory, void*)
 }
 
 [[nodiscard]]
-auto _make_logger(const LogLevel log_level) -> core::Logger
+auto _make_logger(const log::LogLevel log_level) -> log::Logger
 {
-  core::win32_enable_virtual_terminal_processing();
+  log::Logger logger {};
 
-  auto terminal_sink = std::make_unique<core::TerminalLogSink>();
-  terminal_sink->use_ansi_colors(true);
+  auto terminal_sink = std::make_unique<log::TerminalLogSink>();
+  terminal_sink->set_use_ansi_colors(true);
 
-  core::Logger logger {};
+  auto file_sink = std::make_unique<log::FileLogSink>("log.txt");
 
-  logger.set_reference_instant(std::chrono::steady_clock::now());
-  logger.set_min_level(log_level);
   logger.add_sink(std::move(terminal_sink));
+  logger.add_sink(std::move(file_sink));
+
+  logger.set_reference_instant(log::Logger::clock_type::now());
+  logger.set_log_level(log_level);
+  logger.set_flush_level(log::LogLevel::kError);
 
   return logger;
 }
 
 void _log_command_line_options(const CommandLineOptions& options)
 {
-  TACTILE_LOG_TRACE("renderer: {}", options.renderer_backend);
-  TACTILE_LOG_TRACE("load_zlib: {}", options.load_zlib);
-  TACTILE_LOG_TRACE("load_zstd: {}", options.load_zstd);
-  TACTILE_LOG_TRACE("load_yaml_format: {}", options.load_yaml_format);
-  TACTILE_LOG_TRACE("load_tiled_tmj_format: {}", options.load_tiled_tmj_format);
-  TACTILE_LOG_TRACE("load_tiled_tmx_format: {}", options.load_tiled_tmx_format);
-  TACTILE_LOG_TRACE("load_godot_tscn_format: {}", options.load_godot_tscn_format);
-  TACTILE_LOG_TRACE("texture_filter_mode: {}", options.renderer_options.texture_filter_mode);
-  TACTILE_LOG_TRACE("use_mipmaps: {}", options.renderer_options.use_mipmaps);
-  TACTILE_LOG_TRACE("use_vsync: {}", options.renderer_options.use_vsync);
-  TACTILE_LOG_TRACE("limit_fps: {}", options.renderer_options.limit_fps);
-  TACTILE_LOG_TRACE("vulkan_validation: {}", options.renderer_options.vulkan_validation);
+  TACTILE_RUNTIME_TRACE("renderer: {}", options.renderer_backend);
+  TACTILE_RUNTIME_TRACE("load_zlib: {}", options.load_zlib);
+  TACTILE_RUNTIME_TRACE("load_zstd: {}", options.load_zstd);
+  TACTILE_RUNTIME_TRACE("load_yaml_format: {}", options.load_yaml_format);
+  TACTILE_RUNTIME_TRACE("load_tiled_tmj_format: {}", options.load_tiled_tmj_format);
+  TACTILE_RUNTIME_TRACE("load_tiled_tmx_format: {}", options.load_tiled_tmx_format);
+  TACTILE_RUNTIME_TRACE("load_godot_tscn_format: {}", options.load_godot_tscn_format);
+  TACTILE_RUNTIME_TRACE("texture_filter_mode: {}",
+                        options.renderer_options.texture_filter_mode);
+  TACTILE_RUNTIME_TRACE("use_mipmaps: {}", options.renderer_options.use_mipmaps);
+  TACTILE_RUNTIME_TRACE("use_vsync: {}", options.renderer_options.use_vsync);
+  TACTILE_RUNTIME_TRACE("limit_fps: {}", options.renderer_options.limit_fps);
+  TACTILE_RUNTIME_TRACE("vulkan_validation: {}", options.renderer_options.vulkan_validation);
 }
 
 }  // namespace
@@ -78,7 +83,7 @@ struct Runtime::Data final
   RendererOptions renderer_options;
   ProtobufContext protobuf_context;
   SDLContext sdl_context;
-  core::Logger logger;
+  log::Logger logger;
   std::optional<Window> window {};
   IRenderer* renderer {};
   std::unordered_map<CompressionFormatId, ICompressionFormat*> compression_formats {};
@@ -88,15 +93,17 @@ struct Runtime::Data final
     : renderer_options {options.renderer_options},
       logger {_make_logger(options.log_level)}
   {
-    core::set_default_logger(&logger);
+    set_logger(&logger);
+    core::set_logger(&logger);
+
     _log_command_line_options(options);
-    TACTILE_LOG_DEBUG("Tactile " TACTILE_VERSION_STRING);
+    TACTILE_RUNTIME_DEBUG("Tactile " TACTILE_VERSION_STRING);
   }
 
   ~Data() noexcept
   {
-    TACTILE_LOG_TRACE("Destroying runtime data");
-    core::set_default_logger(nullptr);
+    core::set_logger(nullptr);
+    set_logger(nullptr);
   }
 
   TACTILE_DELETE_COPY(Data);
@@ -199,6 +206,11 @@ void Runtime::get_imgui_allocator_functions(imgui_malloc_fn** malloc_fn,
 auto Runtime::get_renderer_options() const -> const RendererOptions&
 {
   return mData->renderer_options;
+}
+
+auto Runtime::get_logger() const -> log::Logger*
+{
+  return &mData->logger;
 }
 
 }  // namespace tactile::runtime

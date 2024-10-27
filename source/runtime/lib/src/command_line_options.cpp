@@ -18,7 +18,7 @@ constexpr const char* kUsageHelpMessage =
                [--limit-fps <on|off>] [--zlib <on|off>] [--zstd <on|off>]
                [--yaml-format <on|off>] [--tiled-tmj-format <on|off>]
                [--tiled-tmx-format <on|off>] [--godot-tscn-format <on|off>]
-               [--vulkan-validation <on|off>] [--log-level <trc|dbg|inf|wrn|err|ftl>]
+               [--vulkan-validation <on|off>] [--log-level <trc|dbg|inf|wrn|err>]
 
 Options:
   -h, --help           Prints this help message
@@ -53,7 +53,7 @@ void _add_bool_argument(argparse::ArgumentParser& parser,
 auto get_default_command_line_options() -> CommandLineOptions
 {
   return {
-    .log_level = LogLevel::kInfo,
+    .log_level = log::LogLevel::kInfo,
     .renderer_backend = RendererBackendId::kOpenGL,
     .renderer_options =
         RendererOptions {
@@ -113,26 +113,23 @@ auto parse_command_line_options(const int argc, char* argv[])
 
   parser.add_argument("--log-level")
       .nargs(1)
-      .choices("trc", "dbg", "inf", "wrn", "err", "ftl")
+      .choices("trc", "dbg", "inf", "wrn", "err")
       .default_value("inf")
       .action([&](const std::string& value) {
         if (value == "trc") {
-          options.log_level = LogLevel::kTrace;
+          options.log_level = log::LogLevel::kTrace;
         }
         else if (value == "dbg") {
-          options.log_level = LogLevel::kDebug;
+          options.log_level = log::LogLevel::kDebug;
         }
         else if (value == "inf") {
-          options.log_level = LogLevel::kInfo;
+          options.log_level = log::LogLevel::kInfo;
         }
         else if (value == "wrn") {
-          options.log_level = LogLevel::kWarn;
+          options.log_level = log::LogLevel::kWarn;
         }
         else if (value == "err") {
-          options.log_level = LogLevel::kError;
-        }
-        else if (value == "ftl") {
-          options.log_level = LogLevel::kFatal;
+          options.log_level = log::LogLevel::kError;
         }
       });
 

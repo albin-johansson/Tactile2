@@ -9,7 +9,7 @@
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/layer_types.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -24,7 +24,7 @@ MoveObjectCommand::MoveObjectCommand(IDocument* document,
 
 void MoveObjectCommand::undo()
 {
-  TACTILE_LOG_TRACE("Moving object {} to {}", entity_to_string(m_object_id), m_old_position);
+  TACTILE_CORE_TRACE("Moving object {} to {}", entity_to_string(m_object_id), m_old_position);
   auto& registry = m_document->get_registry();
 
   auto& object = registry.get<CObject>(m_object_id);
@@ -33,7 +33,7 @@ void MoveObjectCommand::undo()
 
 void MoveObjectCommand::redo()
 {
-  TACTILE_LOG_TRACE("Moving object {} to {}", entity_to_string(m_object_id), m_new_position);
+  TACTILE_CORE_TRACE("Moving object {} to {}", entity_to_string(m_object_id), m_new_position);
   auto& registry = m_document->get_registry();
 
   auto& object = registry.get<CObject>(m_object_id);

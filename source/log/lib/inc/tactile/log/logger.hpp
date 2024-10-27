@@ -114,3 +114,18 @@ class Logger final
       tactile_log_macro_logger_ptr->log((Lvl), (Fmt) __VA_OPT__(, ) __VA_ARGS__);         \
     }                                                                                     \
   } while (false)
+
+#define TACTILE_LOG_TRACE(LoggerPtr, Fmt, ...) \
+  TACTILE_LOG(LoggerPtr, ::tactile::log::LogLevel::kTrace, Fmt, __VA_ARGS__)
+
+#define TACTILE_LOG_DEBUG(LoggerPtr, Fmt, ...) \
+  TACTILE_LOG(LoggerPtr, ::tactile::log::LogLevel::kDebug, Fmt, __VA_ARGS__)
+
+#define TACTILE_LOG_INFO(LoggerPtr, Fmt, ...) \
+  TACTILE_LOG(LoggerPtr, ::tactile::log::LogLevel::kInfo, Fmt, __VA_ARGS__)
+
+#define TACTILE_LOG_WARN(LoggerPtr, Fmt, ...) \
+  TACTILE_LOG(LoggerPtr, ::tactile::log::LogLevel::kWarn, Fmt, __VA_ARGS__)
+
+#define TACTILE_LOG_ERROR(LoggerPtr, Fmt, ...) \
+  TACTILE_LOG(LoggerPtr, ::tactile::log::LogLevel::kError, Fmt, __VA_ARGS__)

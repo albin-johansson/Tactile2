@@ -144,7 +144,7 @@ class SaveFormatRoundtripTest : public testing::TestWithParam<SaveFormatRoundtri
   static auto _get_command_line_options() noexcept -> CommandLineOptions
   {
     auto options = get_default_command_line_options();
-    options.log_level = LogLevel::kTrace;
+    options.log_level = log::LogLevel::kTrace;
     return options;
   }
 };

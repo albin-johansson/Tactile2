@@ -7,7 +7,7 @@
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/model/model.hpp"
 #include "tactile/core/model/settings.hpp"
 #include "tactile/core/ui/widget_manager.hpp"
@@ -24,7 +24,7 @@ ViewEventHandler::ViewEventHandler(Model* model,
 
 void ViewEventHandler::install(EventDispatcher& dispatcher)
 {
-  TACTILE_LOG_DEBUG("Installing view event handler");
+  TACTILE_CORE_DEBUG("Installing view event handler");
 
   using Self = ViewEventHandler;
 
@@ -49,7 +49,7 @@ void ViewEventHandler::install(EventDispatcher& dispatcher)
 
 void ViewEventHandler::on_reset_layout(const ResetLayoutEvent&)
 {
-  TACTILE_LOG_TRACE("ResetLayoutEvent");
+  TACTILE_CORE_TRACE("ResetLayoutEvent");
 
   auto& dock_space = mWidgetManager->get_dock_space();
   dock_space.reset_layout(mModel->get_language());
@@ -57,67 +57,67 @@ void ViewEventHandler::on_reset_layout(const ResetLayoutEvent&)
 
 void ViewEventHandler::on_toggle_property_dock(const TogglePropertyDockEvent&)
 {
-  TACTILE_LOG_TRACE("TogglePropertyDockEvent");
+  TACTILE_CORE_TRACE("TogglePropertyDockEvent");
   // TODO
 }
 
 void ViewEventHandler::on_toggle_component_dock(const ToggleComponentDockEvent&)
 {
-  TACTILE_LOG_TRACE("ToggleComponentDockEvent");
+  TACTILE_CORE_TRACE("ToggleComponentDockEvent");
   // TODO
 }
 
 void ViewEventHandler::on_toggle_layer_dock(const ToggleLayerDockEvent&)
 {
-  TACTILE_LOG_TRACE("ToggleLayerDockEvent");
+  TACTILE_CORE_TRACE("ToggleLayerDockEvent");
   // TODO
 }
 
 void ViewEventHandler::on_toggle_tileset_dock(const ToggleTilesetDockEvent&)
 {
-  TACTILE_LOG_TRACE("ToggleTilesetDockEvent");
+  TACTILE_CORE_TRACE("ToggleTilesetDockEvent");
   // TODO
 }
 
 void ViewEventHandler::on_toggle_animation_dock(const ToggleAnimationDockEvent&)
 {
-  TACTILE_LOG_TRACE("ToggleAnimationDockEvent");
+  TACTILE_CORE_TRACE("ToggleAnimationDockEvent");
   // TODO
 }
 
 void ViewEventHandler::on_toggle_log_dock(const ToggleLogDockEvent&)
 {
-  TACTILE_LOG_TRACE("ToggleLogDockEvent");
+  TACTILE_CORE_TRACE("ToggleLogDockEvent");
   // TODO
 }
 
 void ViewEventHandler::on_set_theme(const SetThemeEvent&)
 {
-  TACTILE_LOG_TRACE("SetThemeEvent");
+  TACTILE_CORE_TRACE("SetThemeEvent");
   // TODO
 }
 
 void ViewEventHandler::on_increase_font_size(const IncreaseFontSizeEvent&)
 {
-  TACTILE_LOG_TRACE("IncreaseFontSizeEvent");
+  TACTILE_CORE_TRACE("IncreaseFontSizeEvent");
   // TODO
 }
 
 void ViewEventHandler::on_decrease_font_size(const DecreaseFontSizeEvent&)
 {
-  TACTILE_LOG_TRACE("DecreaseFontSizeEvent");
+  TACTILE_CORE_TRACE("DecreaseFontSizeEvent");
   // TODO
 }
 
 void ViewEventHandler::on_reset_font_size(const ResetFontSizeEvent&)
 {
-  TACTILE_LOG_TRACE("ResetFontSizeEvent");
+  TACTILE_CORE_TRACE("ResetFontSizeEvent");
   // TODO
 }
 
 void ViewEventHandler::on_set_font(const SetFontEvent& event)
 {
-  TACTILE_LOG_TRACE("SetFontEvent");
+  TACTILE_CORE_TRACE("SetFontEvent");
 
   auto& settings = mModel->get_settings();
   settings.font = event.font;
@@ -130,19 +130,19 @@ void ViewEventHandler::on_set_font(const SetFontEvent& event)
 
 void ViewEventHandler::on_reload_fonts(const ReloadFontsEvent& event)
 {
-  TACTILE_LOG_TRACE("ReloadFontsEvent(framebuffer scale: {})", event.framebuffer_scale);
+  TACTILE_CORE_TRACE("ReloadFontsEvent(framebuffer scale: {})", event.framebuffer_scale);
   ui::reload_fonts(*mRenderer, mModel->get_settings(), event.framebuffer_scale);
 }
 
 void ViewEventHandler::on_toggle_grid(const ToggleGridEvent&)
 {
-  TACTILE_LOG_TRACE("ToggleGridEvent");
+  TACTILE_CORE_TRACE("ToggleGridEvent");
   // TODO
 }
 
 void ViewEventHandler::on_toggle_layer_highlight(const ToggleLayerHighlightEvent&)
 {
-  TACTILE_LOG_TRACE("ToggleLayerHighlightEvent");
+  TACTILE_CORE_TRACE("ToggleLayerHighlightEvent");
   // TODO
 }
 

@@ -4,7 +4,7 @@
 
 #include <exception>  // exception
 
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -18,10 +18,10 @@ ScopeProfiler::~ScopeProfiler() noexcept
   try {
     const auto end = std::chrono::steady_clock::now();
     const auto duration = duration_cast<std::chrono::microseconds>(end - mStartInstant);
-    TACTILE_LOG_DEBUG("Scope '{}' took {}", mDescription, duration);
+    TACTILE_CORE_DEBUG("Scope '{}' took {}", mDescription, duration);
   }
   catch (const std::exception& e) {
-    TACTILE_LOG_ERROR("Scope profiler destructor threw unexpected exception: {}", e.what());
+    TACTILE_CORE_ERROR("Scope profiler destructor threw unexpected exception: {}", e.what());
   }
 }
 

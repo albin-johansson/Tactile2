@@ -5,6 +5,7 @@ add_library(tactile::tiled_tmx ALIAS tactile-tiled-tmx)
 
 target_sources(tactile-tiled-tmx
                PRIVATE
+               "src/logging.cpp"
                "src/tmx_common.cpp"
                "src/tmx_format_parser.cpp"
                "src/tmx_format_plugin.cpp"
@@ -13,6 +14,7 @@ target_sources(tactile-tiled-tmx
 
                PUBLIC FILE_SET "HEADERS" BASE_DIRS "inc" FILES
                "inc/tactile/tiled_tmx/api.hpp"
+               "inc/tactile/tiled_tmx/logging.hpp"
                "inc/tactile/tiled_tmx/tmx_common.hpp"
                "inc/tactile/tiled_tmx/tmx_format_parser.hpp"
                "inc/tactile/tiled_tmx/tmx_format_plugin.hpp"
@@ -35,6 +37,6 @@ target_include_directories(tactile-tiled-tmx
 target_link_libraries(tactile-tiled-tmx
                       PUBLIC
                       tactile::base
-                      tactile::runtime
+                      tactile::log
                       pugixml::pugixml
                       )

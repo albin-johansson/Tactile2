@@ -10,6 +10,7 @@ target_sources(tactile-godot-tscn
                "src/gd3_scene_writer.cpp"
                "src/godot_scene_format.cpp"
                "src/godot_scene_format_plugin.cpp"
+               "src/logging.cpp"
 
                PUBLIC FILE_SET "HEADERS" BASE_DIRS "inc" FILES
                "inc/tactile/godot_tscn/api.hpp"
@@ -19,6 +20,7 @@ target_sources(tactile-godot-tscn
                "inc/tactile/godot_tscn/gd3_types.hpp"
                "inc/tactile/godot_tscn/godot_scene_format.hpp"
                "inc/tactile/godot_tscn/godot_scene_format_plugin.hpp"
+               "inc/tactile/godot_tscn/logging.hpp"
                )
 
 tactile_prepare_target(tactile-godot-tscn)
@@ -31,5 +33,5 @@ target_compile_definitions(tactile-godot-tscn
 target_link_libraries(tactile-godot-tscn
                       PUBLIC
                       tactile::base
-                      tactile::runtime
+                      tactile::log
                       )

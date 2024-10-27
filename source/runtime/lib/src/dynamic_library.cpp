@@ -10,7 +10,7 @@
   #include <windows.h>
 #endif
 
-#include "tactile/core/log/logger.hpp"
+#include "tactile/runtime/logging.hpp"
 
 namespace tactile::runtime {
 namespace {
@@ -41,7 +41,7 @@ class UnixDynamicLibrary final : public IDynamicLibrary
     void* handle = dlopen(path.c_str(), RTLD_LAZY);
 
     if (!handle) {
-      TACTILE_LOG_ERROR("Could not load dynamic library: {}", dlerror());
+      TACTILE_RUNTIME_ERROR("Could not load dynamic library: {}", dlerror());
       return nullptr;
     }
 
@@ -86,7 +86,7 @@ class Win32DynamicLibrary final : public IDynamicLibrary
     const auto handle = LoadLibraryA(path.string().c_str());
 
     if (!handle) {
-      TACTILE_LOG_ERROR("Could not load dynamic library: {}", GetLastError());
+      TACTILE_RUNTIME_ERROR("Could not load dynamic library: {}", GetLastError());
       return nullptr;
     }
 

@@ -2,33 +2,29 @@
 
 #pragma once
 
-#include <format>       // make_format_args, format_args
-#include <string_view>  // string_view
-
-#include "tactile/base/log/log_level.hpp"
-#include "tactile/base/prelude.hpp"
+#include "tactile/log/logger.hpp"
 #include "tactile/runtime/api.hpp"
 
 namespace tactile::runtime {
-namespace internal {
 
-TACTILE_RUNTIME_API void log(LogLevel level, std::string_view fmt, std::format_args args);
+TACTILE_RUNTIME_API void set_logger(log::Logger* logger) noexcept;
 
-}  // namespace internal
-
-/**
- * Logs a message using the internal logger.
- *
- * \tparam Args The format argument types.
- *
- * \param level The severity of the message.
- * \param fmt   The format string.
- * \param args  The format arguments.
- */
-template <typename... Args>
-void log(const LogLevel level, const std::string_view fmt, const Args&... args)
-{
-  internal::log(level, fmt, std::make_format_args(args...));
-}
+[[nodiscard]]
+TACTILE_RUNTIME_API auto get_logger() noexcept -> log::Logger*;
 
 }  // namespace tactile::runtime
+
+#define TACTILE_RUNTIME_TRACE(Fmt, ...) \
+  TACTILE_LOG_TRACE(::tactile::runtime::get_logger(), Fmt, __VA_ARGS__)
+
+#define TACTILE_RUNTIME_DEBUG(Fmt, ...) \
+  TACTILE_LOG_DEBUG(::tactile::runtime::get_logger(), Fmt, __VA_ARGS__)
+
+#define TACTILE_RUNTIME_INFO(Fmt, ...) \
+  TACTILE_LOG_INFO(::tactile::runtime::get_logger(), Fmt, __VA_ARGS__)
+
+#define TACTILE_RUNTIME_WARN(Fmt, ...) \
+  TACTILE_LOG_WARN(::tactile::runtime::get_logger(), Fmt, __VA_ARGS__)
+
+#define TACTILE_RUNTIME_ERROR(Fmt, ...) \
+  TACTILE_LOG_ERROR(::tactile::runtime::get_logger(), Fmt, __VA_ARGS__)

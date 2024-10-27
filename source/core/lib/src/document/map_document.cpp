@@ -9,7 +9,7 @@
 #include "tactile/core/document/document_info.hpp"
 #include "tactile/core/document/map_view_impl.hpp"
 #include "tactile/core/entity/registry.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/map/map.hpp"
 #include "tactile/core/map/map_spec.hpp"
 #include "tactile/core/tile/tileset_types.hpp"
@@ -49,7 +49,7 @@ auto MapDocument::make(const MapSpec& spec) -> std::expected<MapDocument, ErrorC
 
   const auto map_id = make_map(registry, spec);
   if (map_id == kInvalidEntity) {
-    TACTILE_LOG_ERROR("Could not create map document");
+    TACTILE_CORE_ERROR("Could not create map document");
     return std::unexpected {ErrorCode::kBadInit};
   }
 
@@ -71,7 +71,7 @@ auto MapDocument::make(IRenderer& renderer, const ir::Map& ir_map)
 
   const auto map_id = make_map(registry, renderer, ir_map);
   if (!map_id.has_value()) {
-    TACTILE_LOG_ERROR("Could not create map document: {}", to_string(map_id.error()));
+    TACTILE_CORE_ERROR("Could not create map document: {}", to_string(map_id.error()));
     return std::unexpected {map_id.error()};
   }
 

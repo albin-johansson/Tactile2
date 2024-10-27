@@ -9,7 +9,7 @@
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/map/map.hpp"
 #include "tactile/core/model/model.hpp"
 #include "tactile/core/platform/filesystem.hpp"
@@ -448,7 +448,7 @@ void _push_help_menu(const Model& model, EventDispatcher& dispatcher)
 
     if (ImGui::MenuItem(language.get(ActionLabel::kReportBug))) {
       if (SDL_OpenURL("https://github.com/albin-johansson/tactile/issues/new") != 0) {
-        TACTILE_LOG_ERROR("Could not open issue URL: {}", SDL_GetError());
+        TACTILE_CORE_ERROR("Could not open issue URL: {}", SDL_GetError());
       }
     }
 

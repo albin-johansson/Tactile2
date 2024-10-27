@@ -5,6 +5,7 @@ add_library(tactile::tiled_tmj ALIAS tactile-tiled-tmj)
 
 target_sources(tactile-tiled-tmj
                PRIVATE
+               "src/logging.cpp"
                "src/tmj_common.cpp"
                "src/tmj_format_parser.cpp"
                "src/tmj_format_plugin.cpp"
@@ -13,6 +14,7 @@ target_sources(tactile-tiled-tmj
 
                PUBLIC FILE_SET "HEADERS" BASE_DIRS "inc" FILES
                "inc/tactile/tiled_tmj/api.hpp"
+               "inc/tactile/tiled_tmj/logging.hpp"
                "inc/tactile/tiled_tmj/tmj_common.hpp"
                "inc/tactile/tiled_tmj/tmj_format_parser.hpp"
                "inc/tactile/tiled_tmj/tmj_format_plugin.hpp"
@@ -35,7 +37,7 @@ target_include_directories(tactile-tiled-tmj
 target_link_libraries(tactile-tiled-tmj
                       PUBLIC
                       tactile::base
-                      tactile::runtime
+                      tactile::log
                       tactile::json_util
                       nlohmann_json::nlohmann_json
                       )

@@ -4,7 +4,7 @@
 
 #include <utility>  // exchange
 
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
 namespace tactile {
@@ -61,9 +61,7 @@ auto create_vulkan_command_buffer(VkDevice device, VkCommandPool pool)
       vkAllocateCommandBuffers(device, &command_buffer_allocate_info, &command_buffer.handle);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError,
-                 "Could not create Vulkan command buffer: {}",
-                 to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan command buffer: {}", to_string(result));
     return std::unexpected {result};
   }
 

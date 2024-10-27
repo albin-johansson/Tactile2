@@ -5,7 +5,7 @@
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/model/model.hpp"
 #include "tactile/core/ui/widget_manager.hpp"
 
@@ -29,13 +29,13 @@ void ComponentEventHandler::install(EventDispatcher& dispatcher)
 void ComponentEventHandler::on_show_component_editor_dialog(
     const ShowComponentEditorDialogEvent&)
 {
-  TACTILE_LOG_TRACE("ShowComponentEditorDialogEvent");
+  TACTILE_CORE_TRACE("ShowComponentEditorDialogEvent");
   // TODO
 }
 
 void ComponentEventHandler::on_create_component(const CreateComponentEvent&)
 {
-  TACTILE_LOG_TRACE("CreateComponentEvent");
+  TACTILE_CORE_TRACE("CreateComponentEvent");
   // TODO
 }
 

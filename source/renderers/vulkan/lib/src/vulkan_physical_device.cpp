@@ -5,7 +5,7 @@
 #include <algorithm>      // sort, unique, max_element
 #include <unordered_map>  // unordered_map
 
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 
 namespace tactile {
 
@@ -115,7 +115,7 @@ auto select_physical_device(VkInstance instance, VkSurfaceKHR surface)
   auto physical_devices = get_physical_devices(instance);
 
   if (physical_devices.empty()) {
-    runtime::log(LogLevel::kError, "Found no physical devices with Vulkan support");
+    TACTILE_VULKAN_ERROR("Found no physical devices with Vulkan support");
     return std::unexpected {VK_ERROR_UNKNOWN};
   }
 
@@ -167,16 +167,15 @@ auto select_physical_device(VkInstance instance, VkSurfaceKHR surface)
       });
 
   if (max_elem_iter == physical_device_scores.end()) {
-    runtime::log(LogLevel::kError, "Could not find a suitable physical device for Vulkan");
+    TACTILE_VULKAN_ERROR("Could not find a suitable physical device for Vulkan");
     return std::unexpected {VK_ERROR_UNKNOWN};
   }
 
   VkPhysicalDeviceProperties final_properties {};
   vkGetPhysicalDeviceProperties(max_elem_iter->first, &final_properties);
 
-  runtime::log(LogLevel::kDebug,
-               "Using VkPhysicalDevice '{}'",
-               static_cast<const char*>(final_properties.deviceName));
+  TACTILE_VULKAN_DEBUG("Using VkPhysicalDevice '{}'",
+                       static_cast<const char*>(final_properties.deviceName));
 
   return max_elem_iter->first;
 }

@@ -8,7 +8,7 @@
 #include "tactile/base/document/document.hpp"
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/entity/registry.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/meta/meta.hpp"
 
 namespace tactile::core {
@@ -24,7 +24,7 @@ RemovePropertyCommand::RemovePropertyCommand(IDocument* document,
 
 void RemovePropertyCommand::undo()
 {
-  TACTILE_LOG_TRACE("Restoring property '{}' to {}", m_name, entity_to_string(m_context_id));
+  TACTILE_CORE_TRACE("Restoring property '{}' to {}", m_name, entity_to_string(m_context_id));
 
   auto& registry = m_document->get_registry();
   auto& meta = registry.get<CMeta>(m_context_id);
@@ -34,7 +34,7 @@ void RemovePropertyCommand::undo()
 
 void RemovePropertyCommand::redo()
 {
-  TACTILE_LOG_TRACE("Removing property '{}' from {}", m_name, entity_to_string(m_context_id));
+  TACTILE_CORE_TRACE("Removing property '{}' from {}", m_name, entity_to_string(m_context_id));
 
   auto& registry = m_document->get_registry();
   auto& meta = registry.get<CMeta>(m_context_id);

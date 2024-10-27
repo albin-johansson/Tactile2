@@ -8,7 +8,7 @@
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/layer_types.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -23,7 +23,7 @@ SetObjectVisibilityCommand::SetObjectVisibilityCommand(IDocument* document,
 
 void SetObjectVisibilityCommand::undo()
 {
-  TACTILE_LOG_TRACE("Setting visibility of object {} to {}",
+  TACTILE_CORE_TRACE("Setting visibility of object {} to {}",
                     entity_to_string(m_object_id),
                     m_old_visibility);
 
@@ -35,7 +35,7 @@ void SetObjectVisibilityCommand::undo()
 
 void SetObjectVisibilityCommand::redo()
 {
-  TACTILE_LOG_TRACE("Setting visibility of object {} to {}",
+  TACTILE_CORE_TRACE("Setting visibility of object {} to {}",
                     entity_to_string(m_object_id),
                     m_new_visibility);
 

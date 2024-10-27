@@ -5,6 +5,7 @@ add_library(tactile::opengl_renderer ALIAS tactile-opengl-renderer)
 
 target_sources(tactile-opengl-renderer
                PRIVATE
+               "src/logging.cpp"
                "src/opengl_error.cpp"
                "src/opengl_renderer.cpp"
                "src/opengl_renderer_plugin.cpp"
@@ -12,6 +13,7 @@ target_sources(tactile-opengl-renderer
 
                PUBLIC FILE_SET "HEADERS" BASE_DIRS "inc" FILES
                "inc/tactile/opengl/api.hpp"
+               "inc/tactile/opengl/logging.hpp"
                "inc/tactile/opengl/opengl_error.hpp"
                "inc/tactile/opengl/opengl_renderer.hpp"
                "inc/tactile/opengl/opengl_renderer_plugin.hpp"
@@ -33,7 +35,7 @@ target_include_directories(tactile-opengl-renderer
 target_link_libraries(tactile-opengl-renderer
                       PUBLIC
                       tactile::base
-                      tactile::runtime
+                      tactile::log
 
                       PRIVATE
                       imgui::imgui

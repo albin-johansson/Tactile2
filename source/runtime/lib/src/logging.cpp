@@ -2,16 +2,21 @@
 
 #include "tactile/runtime/logging.hpp"
 
-#include "tactile/base/container/buffer.hpp"
-#include "tactile/core/log/logger.hpp"
+namespace tactile::runtime {
+namespace {
 
-namespace tactile::runtime::internal {
+inline constinit log::Logger* gLogger {};
 
-void log(const LogLevel level, const std::string_view fmt, const std::format_args args)
+}  // namespace
+
+void set_logger(log::Logger* logger) noexcept
 {
-  Buffer<char, 256> buffer;  // NOLINT uninitialized
-  vformat_to_buffer(buffer, fmt, args);
-  TACTILE_LOG(level, "{}", buffer.view());
+  gLogger = logger;
 }
 
-}  // namespace tactile::runtime::internal
+auto get_logger() noexcept -> log::Logger*
+{
+  return gLogger;
+}
+
+}  // namespace tactile::runtime

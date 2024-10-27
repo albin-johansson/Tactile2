@@ -13,6 +13,22 @@
 #include "tactile/log/log_sink.hpp"
 
 namespace tactile::log {
+namespace {
+
+[[nodiscard]]
+auto _get_log_level_prefix(const LogLevel level) noexcept -> std::string_view
+{
+  switch (level) {
+    case LogLevel::kTrace: return "TRC";
+    case LogLevel::kDebug: return "DBG";
+    case LogLevel::kInfo:  return "INF";
+    case LogLevel::kWarn:  return "WRN";
+    case LogLevel::kError: return "ERR";
+    default:               return "???";
+  }
+}
+
+}  // namespace
 
 struct Logger::Data final
 {
@@ -44,14 +60,17 @@ void Logger::_log(const LogLevel level,
     }
 
     const auto log_instant = clock_type::now();
-    const auto elapsed_time =
-        log_instant - data.ref_instant.value_or(clock_type::time_point {});
+    const auto elapsed_time = duration_cast<std::chrono::microseconds>(
+        log_instant - data.ref_instant.value_or(clock_type::time_point {}));
 
     data.text_buffer.clear();
-    data.prefix_buffer.clear();
-
     vformat_to_buffer(data.text_buffer, fmt, std::move(args));
-    format_to_buffer(data.prefix_buffer, "[{} {:.>12%Q}]", "XXX", elapsed_time);
+
+    data.prefix_buffer.clear();
+    format_to_buffer(data.prefix_buffer,
+                     "[{} {:.>12%Q}]",
+                     _get_log_level_prefix(level),
+                     elapsed_time);
 
     const LogMessage message {
       .level = level,

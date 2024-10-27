@@ -8,7 +8,7 @@
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/layer_common.hpp"
 #include "tactile/core/layer/tile_layer.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/map/map.hpp"
 
 namespace tactile::core {
@@ -23,7 +23,7 @@ CreateLayerCommand::CreateLayerCommand(MapDocument* document, const LayerType ty
 
 void CreateLayerCommand::undo()
 {
-  TACTILE_LOG_DEBUG("Removing layer {}", entity_to_string(m_layer_id));
+  TACTILE_CORE_DEBUG("Removing layer {}", entity_to_string(m_layer_id));
 
   auto& registry = m_document->get_registry();
 
@@ -57,7 +57,7 @@ void CreateLayerCommand::redo()
     map.active_layer = old_active_layer;
   }
 
-  TACTILE_LOG_DEBUG("Created layer {}", entity_to_string(m_layer_id));
+  TACTILE_CORE_DEBUG("Created layer {}", entity_to_string(m_layer_id));
   m_layer_was_added = true;
 }
 

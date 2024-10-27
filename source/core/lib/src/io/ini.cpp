@@ -10,8 +10,7 @@
 
 #include "tactile/base/container/string.hpp"
 #include "tactile/core/debug/assert.hpp"
-#include "tactile/core/log/logger.hpp"
-#include "tactile/core/log/set_log_scope.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 namespace {
@@ -28,7 +27,7 @@ auto _parse_section_header_name(const std::string_view current_line, const int l
   TACTILE_ASSERT(current_line.starts_with(kSectionOpenToken));
 
   if (!current_line.ends_with(kSectionCloseToken)) {
-    TACTILE_LOG_ERROR("Detected unterminated section (line {})", line_number);
+    TACTILE_CORE_ERROR("Detected unterminated section (line {})", line_number);
     return std::unexpected {ErrorCode::kParseError};
   }
 
@@ -44,15 +43,15 @@ auto _parse_key_value_pair(const std::string_view current_line,
   const auto eq_pos = current_line.find_first_of(kAssignmentToken);
 
   if (eq_pos == std::string::npos || eq_pos == 0) {
-    TACTILE_LOG_ERROR("Detected missing assignment ('{}') operator (line {})",
-                      kAssignmentToken,
-                      line_number);
+    TACTILE_CORE_ERROR("Detected missing assignment ('{}') operator (line {})",
+                       kAssignmentToken,
+                       line_number);
     return std::unexpected {ErrorCode::kParseError};
   }
 
   auto key = trim_string(current_line.substr(0, eq_pos));
   if (key.empty()) {
-    TACTILE_LOG_ERROR("Detected empty key (line {})", line_number);
+    TACTILE_CORE_ERROR("Detected empty key (line {})", line_number);
     return std::unexpected {ErrorCode::kParseError};
   }
 
@@ -63,7 +62,7 @@ auto _parse_key_value_pair(const std::string_view current_line,
   });
 
   if (value.empty() || value_is_just_whitespace) {
-    TACTILE_LOG_ERROR("Detected empty value (line {})", line_number);
+    TACTILE_CORE_ERROR("Detected empty value (line {})", line_number);
     return std::unexpected {ErrorCode::kParseError};
   }
 
@@ -75,14 +74,13 @@ auto _parse_key_value_pair(const std::string_view current_line,
 
 auto parse_ini(const std::filesystem::path& path) -> std::expected<IniData, ErrorCode>
 {
-  const SetLogScope log_scope {"INI"};
-  TACTILE_LOG_DEBUG("Parsing INI from {}", path.string());
+  TACTILE_CORE_DEBUG("Parsing INI from {}", path.string());
 
   IniData ini_data {};
 
   std::ifstream stream {path, std::ios::in};
   if (!stream.good()) {
-    TACTILE_LOG_ERROR("Could not read file");
+    TACTILE_CORE_ERROR("Could not read file");
     return std::unexpected {ErrorCode::kBadFileStream};
   }
 
@@ -112,7 +110,7 @@ auto parse_ini(const std::filesystem::path& path) -> std::expected<IniData, Erro
     }
     else {
       if (current_section.empty()) {
-        TACTILE_LOG_ERROR("Detected entry without parent section (line {})", line_number);
+        TACTILE_CORE_ERROR("Detected entry without parent section (line {})", line_number);
         return std::unexpected {ErrorCode::kParseError};
       }
 

@@ -31,5 +31,4 @@ target_include_directories(tactile-null-renderer
 target_link_libraries(tactile-null-renderer
                       PUBLIC
                       tactile::base
-                      tactile::runtime
                       )

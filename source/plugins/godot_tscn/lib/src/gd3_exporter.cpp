@@ -13,7 +13,7 @@
 #include "tactile/base/numeric/saturate_cast.hpp"
 #include "tactile/godot_tscn/gd3_scene_writer.hpp"
 #include "tactile/godot_tscn/gd3_types.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/godot_tscn/logging.hpp"
 
 namespace tactile::godot_tscn {
 namespace {
@@ -436,7 +436,7 @@ auto _emit_map_file(const Gd3Map& map, const SaveFormatWriteOptions& options)
     -> std::expected<void, ErrorCode>
 {
   const auto path = options.base_dir / "map.tscn";
-  runtime::log(LogLevel::kDebug, "Generating map scene '{}'", path.string());
+  TACTILE_GODOT_TSCN_DEBUG("Generating map scene '{}'", path.string());
 
   std::ofstream stream {path, std::ios::out | std::ios::trunc};
   if (!stream.good()) {
@@ -481,10 +481,9 @@ auto _save_tileset_images(const Gd3Tileset& tileset, const SaveFormatWriteOption
   for (const auto& tile_atlas : tileset.atlases) {
     const auto dest = options.base_dir / tile_atlas.image_path.filename();  // FIXME
 
-    runtime::log(LogLevel::kDebug,
-                 "Copying texture '{}' to '{}'",
-                 tile_atlas.image_path.filename().string(),
-                 dest.string());
+    TACTILE_GODOT_TSCN_DEBUG("Copying texture '{}' to '{}'",
+                             tile_atlas.image_path.filename().string(),
+                             dest.string());
 
     std::error_code copy_error {};
     std::filesystem::copy(tile_atlas.image_path,

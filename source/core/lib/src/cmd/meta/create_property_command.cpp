@@ -8,7 +8,7 @@
 #include "tactile/base/document/document.hpp"
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/entity/registry.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/meta/meta.hpp"
 
 namespace tactile::core {
@@ -25,7 +25,7 @@ CreatePropertyCommand::CreatePropertyCommand(IDocument* document,
 
 void CreatePropertyCommand::undo()
 {
-  TACTILE_LOG_TRACE("Removing property '{}' from entity {}",
+  TACTILE_CORE_TRACE("Removing property '{}' from entity {}",
                     m_name,
                     entity_to_string(m_context_id));
 
@@ -37,7 +37,7 @@ void CreatePropertyCommand::undo()
 
 void CreatePropertyCommand::redo()
 {
-  TACTILE_LOG_TRACE("Adding property '{}' to entity {}",
+  TACTILE_CORE_TRACE("Adding property '{}' to entity {}",
                     m_name,
                     entity_to_string(m_context_id));
 

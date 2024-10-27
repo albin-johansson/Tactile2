@@ -5,14 +5,14 @@
 #include <new>  // nothrow
 
 #include "tactile/base/runtime/runtime.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/godot_tscn/logging.hpp"
 
 namespace tactile::godot_tscn {
 
 void GodotSceneFormatPlugin::load(IRuntime* runtime)
 {
-  runtime::log(LogLevel::kTrace, "Loading Godot TSCN format plugin");
   m_runtime = runtime;
+  set_logger(m_runtime->get_logger());
 
   m_format = std::make_unique<GodotSceneFormat>();
   m_runtime->set_save_format(SaveFormatId::kGodotTscn, m_format.get());
@@ -20,11 +20,10 @@ void GodotSceneFormatPlugin::load(IRuntime* runtime)
 
 void GodotSceneFormatPlugin::unload()
 {
-  runtime::log(LogLevel::kTrace, "Unloading Godot TSCN format plugin");
-
   m_runtime->set_save_format(SaveFormatId::kGodotTscn, nullptr);
   m_format.reset();
 
+  set_logger(nullptr);
   m_runtime = nullptr;
 }
 

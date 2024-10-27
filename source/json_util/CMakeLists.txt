@@ -13,6 +13,5 @@ target_sources(tactile-json-util
 target_link_libraries(tactile-json-util
                       INTERFACE
                       tactile::base
-                      tactile::runtime
                       nlohmann_json::nlohmann_json
                       )

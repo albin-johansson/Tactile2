@@ -86,6 +86,7 @@ if (TACTILE_BUILD_TESTS)
   add_subdirectory("source/test_util")
 endif ()
 
+add_subdirectory("source/log")
 add_subdirectory("source/core")
 add_subdirectory("source/runtime")
 add_subdirectory("source/json_util")

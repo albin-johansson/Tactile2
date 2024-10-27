@@ -6,8 +6,7 @@
 #include <imgui_internal.h>
 
 #include "tactile/core/debug/validation.hpp"
-#include "tactile/core/log/logger.hpp"
-#include "tactile/core/log/set_log_scope.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/platform/filesystem.hpp"
 #include "tactile/core/ui/i18n/language.hpp"
 
@@ -35,8 +34,7 @@ void DockSpace::update(const Language& language)
 
 void DockSpace::reset_layout(const Language& language)
 {
-  const SetLogScope log_scope {"DockSpace"};
-  TACTILE_LOG_DEBUG("Resetting layout");
+  TACTILE_CORE_DEBUG("Resetting layout");
 
   const auto root_node = mRootId.value();
   ImGui::DockBuilderRemoveNodeChildNodes(root_node);

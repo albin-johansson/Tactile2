@@ -9,7 +9,7 @@
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/model/model.hpp"
 #include "tactile/core/model/settings.hpp"
 #include "tactile/core/ui/imgui_compat.hpp"
@@ -23,7 +23,7 @@ ViewportEventHandler::ViewportEventHandler(Model* model)
 
 void ViewportEventHandler::install(EventDispatcher& dispatcher)
 {
-  TACTILE_LOG_DEBUG("Installing viewport event handler");
+  TACTILE_CORE_DEBUG("Installing viewport event handler");
 
   using Self = ViewportEventHandler;
 
@@ -45,7 +45,7 @@ void ViewportEventHandler::install(EventDispatcher& dispatcher)
 void ViewportEventHandler::on_offset_viewport(const OffsetViewportEvent& event)
 {
   if (mModel->get_settings().log_verbose_events) {
-    TACTILE_LOG_TRACE("OffsetViewportEvent(viewport: {}, offset: {})",
+    TACTILE_CORE_TRACE("OffsetViewportEvent(viewport: {}, offset: {})",
                       entity_to_string(event.viewport_entity),
                       event.delta);
   }
@@ -63,7 +63,7 @@ void ViewportEventHandler::on_offset_viewport(const OffsetViewportEvent& event)
 void ViewportEventHandler::on_update_viewport_size(const UpdateViewportSizeEvent& event)
 {
   if (mModel->get_settings().log_verbose_events) {
-    TACTILE_LOG_TRACE("UpdateViewportSizeEvent(viewport: {}, size: {})",
+    TACTILE_CORE_TRACE("UpdateViewportSizeEvent(viewport: {}, size: {})",
                       entity_to_string(event.viewport_entity),
                       event.new_size);
   }
@@ -78,7 +78,7 @@ void ViewportEventHandler::on_update_viewport_size(const UpdateViewportSizeEvent
 void ViewportEventHandler::on_update_viewport_limits(const UpdateViewportLimitsEvent& event)
 {
   if (mModel->get_settings().log_verbose_events) {
-    TACTILE_LOG_TRACE("UpdateViewportLimitsEvent(viewport: {}, min: {}, max: {})",
+    TACTILE_CORE_TRACE("UpdateViewportLimitsEvent(viewport: {}, min: {}, max: {})",
                       entity_to_string(event.viewport_entity),
                       event.min_pos,
                       event.max_pos);
@@ -98,7 +98,7 @@ void ViewportEventHandler::on_update_viewport_limits(const UpdateViewportLimitsE
 void ViewportEventHandler::on_increase_viewport_zoom(const IncreaseViewportZoomEvent& event)
 {
   if (mModel->get_settings().log_verbose_events) {
-    TACTILE_LOG_TRACE("IncreaseViewportZoomEvent(viewport: {})",
+    TACTILE_CORE_TRACE("IncreaseViewportZoomEvent(viewport: {})",
                       entity_to_string(event.viewport_entity));
   }
 
@@ -115,7 +115,7 @@ void ViewportEventHandler::on_increase_viewport_zoom(const IncreaseViewportZoomE
 void ViewportEventHandler::on_decrease_viewport_zoom(const DecreaseViewportZoomEvent& event)
 {
   if (mModel->get_settings().log_verbose_events) {
-    TACTILE_LOG_TRACE("DecreaseViewportZoomEvent(viewport: {})",
+    TACTILE_CORE_TRACE("DecreaseViewportZoomEvent(viewport: {})",
                       entity_to_string(event.viewport_entity));
   }
 
@@ -131,7 +131,7 @@ void ViewportEventHandler::on_decrease_viewport_zoom(const DecreaseViewportZoomE
 
 void ViewportEventHandler::on_reset_viewport_zoom(const ResetViewportZoomEvent& event)
 {
-  TACTILE_LOG_TRACE("ResetViewportZoomEvent(viewport: {})",
+  TACTILE_CORE_TRACE("ResetViewportZoomEvent(viewport: {})",
                     entity_to_string(event.viewport_entity));
 
   if (auto* document = mModel->get_current_document()) {
@@ -143,7 +143,7 @@ void ViewportEventHandler::on_reset_viewport_zoom(const ResetViewportZoomEvent& 
 
 void ViewportEventHandler::on_center_viewport(const CenterViewportEvent& event)
 {
-  TACTILE_LOG_TRACE("CenterViewportEvent(viewport: {}, content_size: {})",
+  TACTILE_CORE_TRACE("CenterViewportEvent(viewport: {}, content_size: {})",
                     entity_to_string(event.viewport_entity),
                     event.content_size);
 
@@ -160,7 +160,7 @@ void ViewportEventHandler::on_center_viewport(const CenterViewportEvent& event)
 void ViewportEventHandler::on_pan_viewport_up(const PanViewportUpEvent& event)
 {
   if (mModel->get_settings().log_verbose_events) {
-    TACTILE_LOG_TRACE("PanViewportUpEvent(viewport: {})",
+    TACTILE_CORE_TRACE("PanViewportUpEvent(viewport: {})",
                       entity_to_string(event.viewport_entity));
   }
   _pan_viewport(event.viewport_entity, Float2 {0.0f, -1.0f});
@@ -169,7 +169,7 @@ void ViewportEventHandler::on_pan_viewport_up(const PanViewportUpEvent& event)
 void ViewportEventHandler::on_pan_viewport_down(const PanViewportDownEvent& event)
 {
   if (mModel->get_settings().log_verbose_events) {
-    TACTILE_LOG_TRACE("PanViewportDownEvent(viewport: {})",
+    TACTILE_CORE_TRACE("PanViewportDownEvent(viewport: {})",
                       entity_to_string(event.viewport_entity));
   }
   _pan_viewport(event.viewport_entity, Float2 {0.0f, 1.0f});
@@ -178,7 +178,7 @@ void ViewportEventHandler::on_pan_viewport_down(const PanViewportDownEvent& even
 void ViewportEventHandler::on_pan_viewport_left(const PanViewportLeftEvent& event)
 {
   if (mModel->get_settings().log_verbose_events) {
-    TACTILE_LOG_TRACE("PanViewportLeftEvent(viewport: {})",
+    TACTILE_CORE_TRACE("PanViewportLeftEvent(viewport: {})",
                       entity_to_string(event.viewport_entity));
   }
   _pan_viewport(event.viewport_entity, Float2 {-1.0f, 0.0f});
@@ -187,7 +187,7 @@ void ViewportEventHandler::on_pan_viewport_left(const PanViewportLeftEvent& even
 void ViewportEventHandler::on_pan_viewport_right(const PanViewportRightEvent& event)
 {
   if (mModel->get_settings().log_verbose_events) {
-    TACTILE_LOG_TRACE("PanViewportRightEvent(viewport: {})",
+    TACTILE_CORE_TRACE("PanViewportRightEvent(viewport: {})",
                       entity_to_string(event.viewport_entity));
   }
   _pan_viewport(event.viewport_entity, Float2 {1.0f, 0.0f});

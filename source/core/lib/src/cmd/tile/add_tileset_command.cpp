@@ -9,7 +9,7 @@
 #include "tactile/core/document/document_info.hpp"
 #include "tactile/core/document/map_document.hpp"
 #include "tactile/core/entity/registry.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/map/map.hpp"
 #include "tactile/core/tile/tileset.hpp"
 
@@ -31,7 +31,7 @@ AddTilesetCommand::~AddTilesetCommand() noexcept
     }
   }
   catch (const std::exception& error) {
-    TACTILE_LOG_ERROR("Unexpected exception in AddTilesetCommand destructor: {}",
+    TACTILE_CORE_ERROR("Unexpected exception in AddTilesetCommand destructor: {}",
                       error.what());
   }
 }

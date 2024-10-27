@@ -11,8 +11,7 @@
 #include "tactile/core/layer/layer_common.hpp"
 #include "tactile/core/layer/object_layer.hpp"
 #include "tactile/core/layer/tile_layer.hpp"
-#include "tactile/core/log/logger.hpp"
-#include "tactile/core/log/set_log_scope.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/map/map_spec.hpp"
 #include "tactile/core/meta/meta.hpp"
 #include "tactile/core/tile/tileset.hpp"
@@ -33,10 +32,8 @@ auto is_map(const Registry& registry, const EntityID entity) -> bool
 
 auto make_map(Registry& registry, const MapSpec& spec) -> EntityID
 {
-  const SetLogScope log_scope {"Map"};
-
   if (!is_valid(spec)) {
-    TACTILE_LOG_ERROR("Tried to create map from invalid map specification");
+    TACTILE_CORE_ERROR("Tried to create map from invalid map specification");
     return kInvalidEntity;
   }
 
@@ -179,7 +176,7 @@ auto add_tileset_to_map(Registry& registry,
   map.attached_tilesets.push_back(*tileset_id);
   map.active_tileset = *tileset_id;
 
-  TACTILE_LOG_DEBUG("Added tileset {} to map {}",
+  TACTILE_CORE_DEBUG("Added tileset {} to map {}",
                     entity_to_string(*tileset_id),
                     entity_to_string(map_id));
   return tileset_id;
@@ -192,7 +189,7 @@ void remove_tileset_from_map(Registry& registry,
   TACTILE_ASSERT(is_map(registry, map_id));
   TACTILE_ASSERT(is_tileset_instance(registry, tileset_id));
 
-  TACTILE_LOG_DEBUG("Removing tileset {} from map {}",
+  TACTILE_CORE_DEBUG("Removing tileset {} from map {}",
                     entity_to_string(tileset_id),
                     entity_to_string(map_id));
 

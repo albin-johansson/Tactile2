@@ -4,7 +4,7 @@
 
 #include <utility>  // exchange
 
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
 namespace tactile {
@@ -66,9 +66,8 @@ auto create_vulkan_imgui_descriptor_pool(VkDevice device)
       vkCreateDescriptorPool(device, &descriptor_pool_info, nullptr, &descriptor_pool.handle);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError,
-                 "Could not create Vulkan ImGui descriptor pool: {}",
-                 to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan ImGui descriptor pool: {}",
+                         to_string(result));
     return std::unexpected {result};
   }
 

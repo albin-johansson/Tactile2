@@ -7,7 +7,7 @@
 #include <magic_enum.hpp>
 
 #include "tactile/base/render/renderer_options.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
 namespace tactile {
@@ -53,12 +53,9 @@ auto create_vulkan_sampler(VkDevice device, const RendererOptions& options)
                                       ? VK_SAMPLER_MIPMAP_MODE_NEAREST
                                       : VK_SAMPLER_MIPMAP_MODE_LINEAR;
 
-  runtime::log(LogLevel::kDebug,
-               "Using sampler filter mode '{}'",
-               magic_enum::enum_name(filter_mode));
-  runtime::log(LogLevel::kDebug,
-               "Using sampler mipmap filter mode '{}'",
-               magic_enum::enum_name(mipmap_filter_mode));
+  TACTILE_VULKAN_DEBUG("Using sampler filter mode '{}'", magic_enum::enum_name(filter_mode));
+  TACTILE_VULKAN_DEBUG("Using sampler mipmap filter mode '{}'",
+                       magic_enum::enum_name(mipmap_filter_mode));
 
   const VkSamplerCreateInfo create_info {
     .sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO,
@@ -87,7 +84,7 @@ auto create_vulkan_sampler(VkDevice device, const RendererOptions& options)
   const auto result = vkCreateSampler(device, &create_info, nullptr, &sampler.handle);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError, "Could not create Vulkan sampler: {}", to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan sampler: {}", to_string(result));
     return std::unexpected {result};
   }
 

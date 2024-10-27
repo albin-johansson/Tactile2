@@ -19,8 +19,8 @@
 #include "tactile/base/layer/tile_encoding.hpp"
 #include "tactile/base/meta/attribute_type.hpp"
 #include "tactile/base/numeric/conversion.hpp"
-#include "tactile/runtime/logging.hpp"
 #include "tactile/tiled_tmj/api.hpp"
+#include "tactile/tiled_tmj/logging.hpp"
 
 namespace tactile::tiled_tmj {
 
@@ -129,13 +129,13 @@ template <typename T>
   const auto attr_iter = json_object.find(name);
   if (attr_iter == json_object.end()) {
     // This is pretty common, so we don't log it as a hard error.
-    runtime::log(LogLevel::kTrace, "Could not find JSON attribute '{}'", name);
+    TACTILE_TILED_TMJ_TRACE("Could not find JSON attribute '{}'", name);
     return std::unexpected {ErrorCode::kParseError};
   }
 
   const auto* attr_value = attr_iter->get_ptr<const JsonReprOf<T>*>();
   if (!attr_value) {
-    runtime::log(LogLevel::kError, "Unexpected type of JSON attribute '{}'", name);
+    TACTILE_TILED_TMJ_ERROR("Unexpected type of JSON attribute '{}'", name);
     return std::unexpected {ErrorCode::kParseError};
   }
 

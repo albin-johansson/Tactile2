@@ -7,7 +7,7 @@
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/layer_types.hpp"
 #include "tactile/core/layer/object.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -22,7 +22,7 @@ RemoveObjectCommand::RemoveObjectCommand(MapDocument* document,
 
 void RemoveObjectCommand::undo()
 {
-  TACTILE_LOG_TRACE("Restoring object {}", entity_to_string(m_object_id));
+  TACTILE_CORE_TRACE("Restoring object {}", entity_to_string(m_object_id));
   auto& registry = m_document->get_registry();
 
   auto& object_layer = registry.get<CObjectLayer>(m_layer_id);
@@ -33,7 +33,7 @@ void RemoveObjectCommand::undo()
 
 void RemoveObjectCommand::redo()
 {
-  TACTILE_LOG_TRACE("Removing object {}", entity_to_string(m_object_id));
+  TACTILE_CORE_TRACE("Removing object {}", entity_to_string(m_object_id));
   auto& registry = m_document->get_registry();
 
   auto& object_layer = registry.get<CObjectLayer>(m_layer_id);

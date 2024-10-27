@@ -8,7 +8,7 @@
 #include <imgui.h>
 
 #include "tactile/base/render/renderer.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/model/settings.hpp"
 
 namespace tactile::core::ui {
@@ -21,7 +21,7 @@ inline constexpr std::array<ImWchar, 3> kFontIconRange {ICON_MIN_FA, ICON_MAX_FA
 void reload_fonts(IRenderer& renderer, const Settings& settings, const float framebuffer_scale)
 {
   if (renderer.can_reload_fonts()) {
-    TACTILE_LOG_DEBUG("Reloading fonts (size: {})", settings.font_size);
+    TACTILE_CORE_DEBUG("Reloading fonts (size: {})", settings.font_size);
 
     auto& io = ImGui::GetIO();
     io.Fonts->Clear();
@@ -61,7 +61,7 @@ void reload_fonts(IRenderer& renderer, const Settings& settings, const float fra
     ImGui::GetStyle().ScaleAllSizes(1.0f);
   }
   else {
-    TACTILE_LOG_WARN("Tried to reload fonts, but the renderer didn't support it");
+    TACTILE_CORE_WARN("Tried to reload fonts, but the renderer didn't support it");
   }
 }
 

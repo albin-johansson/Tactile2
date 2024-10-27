@@ -4,13 +4,13 @@
 
 #include <exception>  // terminate
 
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
 void on_assertion_failed(const char* expr, const char* msg, const char* file, const int line)
 {
-  TACTILE_LOG_FATAL("{}:{} expression '{}' is false: {}", file, line, expr, msg ? msg : "?");
+  TACTILE_CORE_ERROR("{}:{} expression '{}' is false: {}", file, line, expr, msg ? msg : "?");
   std::terminate();
 }
 

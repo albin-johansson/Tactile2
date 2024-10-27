@@ -8,7 +8,7 @@
 #include <imgui.h>
 
 #include "tactile/base/runtime/runtime.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/opengl/logging.hpp"
 
 namespace tactile {
 namespace {
@@ -36,13 +36,15 @@ void _set_hints()
 void OpenGLRendererPlugin::load(IRuntime* runtime)
 {
   m_runtime = runtime;
+  gl::set_logger(runtime->get_logger());
+
   _set_hints();
 
   m_runtime->init_window(SDL_WINDOW_OPENGL);
   auto* window = m_runtime->get_window();
 
   if (!window) {
-    runtime::log(LogLevel::kError, "Could not initialize OpenGL window");
+    TACTILE_OPENGL_ERROR("Could not initialize OpenGL window");
     return;
   }
 
@@ -61,8 +63,10 @@ void OpenGLRendererPlugin::load(IRuntime* runtime)
 void OpenGLRendererPlugin::unload()
 {
   m_runtime->set_renderer(nullptr);
-  m_runtime = nullptr;
   m_renderer.reset();
+
+  gl::set_logger(nullptr);
+  m_runtime = nullptr;
 }
 
 auto tactile_make_plugin() -> IPlugin*

@@ -2,6 +2,7 @@
 
 #include "tactile/core/tile/tileset.hpp"
 
+#include <limits>   // numeric_limits
 #include <utility>  // move
 
 #include "tactile/base/container/lookup.hpp"
@@ -11,8 +12,7 @@
 #include "tactile/core/debug/assert.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/io/texture.hpp"
-#include "tactile/core/log/logger.hpp"
-#include "tactile/core/log/set_log_scope.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/meta/meta.hpp"
 #include "tactile/core/tile/animation.hpp"
 #include "tactile/core/tile/animation_types.hpp"
@@ -30,7 +30,7 @@ auto _add_tileset_component(Registry& registry,
                             const Int2& tile_size) -> std::expected<void, ErrorCode>
 {
   if (tile_size.x() <= 0 || tile_size.y() <= 0) {
-    TACTILE_LOG_ERROR("Invalid tileset tile size: {}", tile_size);
+    TACTILE_CORE_ERROR("Invalid tileset tile size: {}", tile_size);
     return std::unexpected {ErrorCode::kBadParam};
   }
 
@@ -40,7 +40,7 @@ auto _add_tileset_component(Registry& registry,
   };
 
   if (extent.rows <= 0 || extent.cols <= 0) {
-    TACTILE_LOG_ERROR("Invalid tileset extent: {}", extent);
+    TACTILE_CORE_ERROR("Invalid tileset extent: {}", extent);
     return std::unexpected {ErrorCode::kBadParam};
   }
 
@@ -196,15 +196,14 @@ auto init_tileset_instance(Registry& registry,
                            const TileID first_tile_id) -> std::expected<void, ErrorCode>
 {
   TACTILE_ASSERT(is_tileset(registry, tileset_entity));
-  const SetLogScope log_scope {"Tileset"};
 
   if (first_tile_id < TileID {1}) {
-    TACTILE_LOG_ERROR("Tried to use invalid first tile identifier: {}", first_tile_id);
+    TACTILE_CORE_ERROR("Tried to use invalid first tile identifier: {}", first_tile_id);
     return std::unexpected {ErrorCode::kBadParam};
   }
 
   if (registry.has<CTilesetInstance>(tileset_entity)) {
-    TACTILE_LOG_ERROR("Tried to initialize tileset instance more than once");
+    TACTILE_CORE_ERROR("Tried to initialize tileset instance more than once");
     return std::unexpected {ErrorCode::kBadParam};
   }
 
@@ -216,9 +215,9 @@ auto init_tileset_instance(Registry& registry,
   };
 
   if (!is_tile_range_available(registry, tile_range)) {
-    TACTILE_LOG_ERROR("Requested tile range is unavailable: [{}, {})",
-                      tile_range.first_id,
-                      tile_range.first_id + tile_range.count);
+    TACTILE_CORE_ERROR("Requested tile range is unavailable: [{}, {})",
+                       tile_range.first_id,
+                       tile_range.first_id + tile_range.count);
     return std::unexpected {ErrorCode::kBadParam};
   }
 
@@ -234,9 +233,9 @@ auto init_tileset_instance(Registry& registry,
     tile_cache.tileset_mapping.insert_or_assign(tile_id, tileset_entity);
   }
 
-  TACTILE_LOG_DEBUG("Initialized tileset instance with tile range [{}, {})",
-                    tile_range.first_id,
-                    tile_range.first_id + tile_range.count);
+  TACTILE_CORE_DEBUG("Initialized tileset instance with tile range [{}, {})",
+                     tile_range.first_id,
+                     tile_range.first_id + tile_range.count);
   return {};
 }
 
@@ -247,14 +246,14 @@ auto make_tileset_instance(Registry& registry,
   const auto tileset_id = make_tileset(registry, spec);
 
   if (tileset_id == kInvalidEntity) {
-    TACTILE_LOG_ERROR("Could not create tileset");
+    TACTILE_CORE_ERROR("Could not create tileset");
     return std::unexpected {ErrorCode::kBadInit};
   }
 
   const auto init_instance_result = init_tileset_instance(registry, tileset_id, first_tile_id);
   if (!init_instance_result) {
-    TACTILE_LOG_ERROR("Could not create tileset instance: {}",
-                      to_string(init_instance_result.error()));
+    TACTILE_CORE_ERROR("Could not create tileset instance: {}",
+                       to_string(init_instance_result.error()));
     return std::unexpected {init_instance_result.error()};
   }
 

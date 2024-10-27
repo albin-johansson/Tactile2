@@ -18,6 +18,7 @@ target_link_libraries(tactile-opengl-renderer-test
                       GTest::gtest
 
                       PRIVATE
+                      tactile::runtime
                       glad::glad
                       SDL2::SDL2
                       imgui::imgui

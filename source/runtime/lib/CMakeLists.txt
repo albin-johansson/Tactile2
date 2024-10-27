@@ -40,6 +40,7 @@ target_compile_definitions(tactile-runtime
 target_link_libraries(tactile-runtime
                       PUBLIC
                       tactile::base
+                      tactile::log
 
                       PRIVATE
                       tactile::core

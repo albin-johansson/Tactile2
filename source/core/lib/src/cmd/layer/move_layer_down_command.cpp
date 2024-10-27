@@ -7,7 +7,7 @@
 #include "tactile/core/document/map_document.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/group_layer.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/map/map.hpp"
 
 namespace tactile::core {
@@ -19,7 +19,7 @@ MoveLayerDownCommand::MoveLayerDownCommand(MapDocument* document, const EntityID
 
 void MoveLayerDownCommand::undo()
 {
-  TACTILE_LOG_TRACE("Moving layer {} up", entity_to_string(m_layer_id));
+  TACTILE_CORE_TRACE("Moving layer {} up", entity_to_string(m_layer_id));
   auto& registry = m_document->get_registry();
 
   const auto map_id = registry.get<CDocumentInfo>().root;
@@ -30,7 +30,7 @@ void MoveLayerDownCommand::undo()
 
 void MoveLayerDownCommand::redo()
 {
-  TACTILE_LOG_TRACE("Moving layer {} down", entity_to_string(m_layer_id));
+  TACTILE_CORE_TRACE("Moving layer {} down", entity_to_string(m_layer_id));
   auto& registry = m_document->get_registry();
 
   const auto map_id = registry.get<CDocumentInfo>().root;

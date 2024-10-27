@@ -4,7 +4,7 @@
 
 #include <utility>  // exchange
 
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
 namespace tactile {
@@ -53,7 +53,7 @@ auto create_vulkan_fence(VkDevice device, const VkFenceCreateFlags flags)
   const auto result = vkCreateFence(device, &create_info, nullptr, &fence.handle);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError, "Could not create Vulkan fence: {}", to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan fence: {}", to_string(result));
     return std::unexpected {result};
   }
 

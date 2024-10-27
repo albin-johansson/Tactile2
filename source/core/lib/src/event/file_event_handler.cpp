@@ -8,7 +8,7 @@
 #include "tactile/core/document/map_view_impl.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/model/model.hpp"
 
 namespace tactile::core {
@@ -34,23 +34,23 @@ void FileEventHandler::install(EventDispatcher& dispatcher)
 
 void FileEventHandler::on_save(const SaveEvent& event)
 {
-  TACTILE_LOG_TRACE("SaveEvent");
+  TACTILE_CORE_TRACE("SaveEvent");
 
   const auto* document = dynamic_cast<const MapDocument*>(mModel->get_current_document());
   if (!document) {
-    TACTILE_LOG_ERROR("No map document is active");
+    TACTILE_CORE_ERROR("No map document is active");
     return;
   }
 
   const auto* document_path = document->get_path();
   if (!document_path) {
-    TACTILE_LOG_ERROR("Document has no associated path");
+    TACTILE_CORE_ERROR("Document has no associated path");
     return;
   }
 
   const auto* save_format = mRuntime->get_save_format(document->get_format());
   if (!save_format) {
-    TACTILE_LOG_ERROR("Could not find suitable save format");
+    TACTILE_CORE_ERROR("Could not find suitable save format");
     return;
   }
 
@@ -66,17 +66,17 @@ void FileEventHandler::on_save(const SaveEvent& event)
 
   const auto save_result = save_format->save_map(map_view, options);
   if (!save_result.has_value()) {
-    TACTILE_LOG_ERROR("Could not save map: {}", to_string(save_result.error()));
+    TACTILE_CORE_ERROR("Could not save map: {}", to_string(save_result.error()));
   }
 }
 
 void FileEventHandler::on_save_as(const SaveAsEvent& event)
 {
-  TACTILE_LOG_TRACE("SaveAsEvent(path: {})", event.path.string());
+  TACTILE_CORE_TRACE("SaveAsEvent(path: {})", event.path.string());
 
   auto* document = dynamic_cast<MapDocument*>(mModel->get_current_document());
   if (!document) {
-    TACTILE_LOG_ERROR("No map document is active");
+    TACTILE_CORE_ERROR("No map document is active");
     return;
   }
 
@@ -86,25 +86,25 @@ void FileEventHandler::on_save_as(const SaveAsEvent& event)
 
 void FileEventHandler::on_reopen_last_closed_file(const ReopenLastClosedFileEvent& event)
 {
-  TACTILE_LOG_TRACE("ReopenLastClosedFileEvent");
+  TACTILE_CORE_TRACE("ReopenLastClosedFileEvent");
   // TODO
 }
 
 void FileEventHandler::on_clear_file_history(const ClearFileHistoryEvent& event)
 {
-  TACTILE_LOG_TRACE("ClearFileHistoryEvent");
+  TACTILE_CORE_TRACE("ClearFileHistoryEvent");
   // TODO
 }
 
 void FileEventHandler::on_close(const CloseEvent& event)
 {
-  TACTILE_LOG_TRACE("CloseEvent");
+  TACTILE_CORE_TRACE("CloseEvent");
   // TODO
 }
 
 void FileEventHandler::on_quit(const QuitEvent& event)
 {
-  TACTILE_LOG_TRACE("QuitEvent");
+  TACTILE_CORE_TRACE("QuitEvent");
   // TODO
 }
 

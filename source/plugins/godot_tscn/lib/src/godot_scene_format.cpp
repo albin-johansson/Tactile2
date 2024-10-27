@@ -9,7 +9,7 @@
 #include "tactile/base/numeric/saturate_cast.hpp"
 #include "tactile/godot_tscn/gd3_document_converter.hpp"
 #include "tactile/godot_tscn/gd3_exporter.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/godot_tscn/logging.hpp"
 
 namespace tactile::godot_tscn {
 namespace {
@@ -74,7 +74,7 @@ auto GodotSceneFormat::save_map(const IMapView& map,
     return std::unexpected {ErrorCode::kNotSupported};
   }
   catch (const std::exception& error) {
-    runtime::log(LogLevel::kError, "Unexpected Godot export error: {}", error.what());
+    TACTILE_GODOT_TSCN_ERROR("Unexpected Godot export error: {}", error.what());
   }
 
   return std::unexpected {ErrorCode::kUnknown};

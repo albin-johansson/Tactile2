@@ -8,7 +8,7 @@
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/layer_types.hpp"
 #include "tactile/core/layer/object.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/map/map.hpp"
 
 namespace tactile::core {
@@ -29,7 +29,7 @@ CreateObjectCommand::CreateObjectCommand(MapDocument* document,
 
 void CreateObjectCommand::undo()
 {
-  TACTILE_LOG_TRACE("Removing object {}", entity_to_string(m_object_id));
+  TACTILE_CORE_TRACE("Removing object {}", entity_to_string(m_object_id));
   auto& registry = m_document->get_registry();
 
   auto& object_layer = registry.get<CObjectLayer>(m_layer_id);
@@ -56,7 +56,7 @@ void CreateObjectCommand::redo()
   auto& object_layer = registry.get<CObjectLayer>(m_layer_id);
   object_layer.objects.push_back(m_object_id);
 
-  TACTILE_LOG_TRACE("Created object {}", entity_to_string(m_object_id));
+  TACTILE_CORE_TRACE("Created object {}", entity_to_string(m_object_id));
   m_object_was_added = true;
 }
 

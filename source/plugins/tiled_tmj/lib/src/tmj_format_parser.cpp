@@ -16,7 +16,7 @@
 #include "tactile/base/meta/color.hpp"
 #include "tactile/base/numeric/literals.hpp"
 #include "tactile/base/util/tile_matrix.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/tiled_tmj/logging.hpp"
 #include "tactile/tiled_tmj/tmj_common.hpp"
 
 namespace tactile::tiled_tmj {
@@ -266,7 +266,7 @@ auto _read_base64_tile_data(const IRuntime& runtime,
   if (tile_format.compression.has_value()) {
     const auto* compression_format = runtime.get_compression_format(*tile_format.compression);
     if (!compression_format) {
-      runtime::log(LogLevel::kError, "No suitable compression plugin available");
+      TACTILE_TILED_TMJ_ERROR("No suitable compression plugin available");
       return std::unexpected {ErrorCode::kNotSupported};
     }
 
@@ -281,7 +281,7 @@ auto _read_base64_tile_data(const IRuntime& runtime,
   auto tile_matrix = parse_raw_tile_matrix(decoded_bytes, extent, TileIdFormat::kTiled);
 
   if (!tile_matrix.has_value()) {
-    runtime::log(LogLevel::kError, "Could not parse raw tile matrix");
+    TACTILE_TILED_TMJ_ERROR("Could not parse raw tile matrix");
     return std::unexpected {ErrorCode::kParseError};
   }
 
@@ -300,10 +300,9 @@ auto _read_plain_text_tile_data(const JSON& layer_json, const Extent2D& extent)
   const auto real_tile_count = std::ranges::distance(data_json.items());
 
   if (std::cmp_not_equal(expected_tile_count, real_tile_count)) {
-    runtime::log(LogLevel::kError,
-                 "Invalid tile count in layer (expected {} but got {})",
-                 expected_tile_count,
-                 real_tile_count);
+    TACTILE_TILED_TMJ_ERROR("Invalid tile count in layer (expected {} but got {})",
+                            expected_tile_count,
+                            real_tile_count);
     return std::unexpected {ErrorCode::kParseError};
   }
 
@@ -463,7 +462,7 @@ auto parse_tmj_map(const IRuntime& runtime,
   ir::Map map {};
 
   if (read_attr<std::string>(map_json, "orientation") != "orthogonal") {
-    runtime::log(LogLevel::kError, "Unsupported map orientation");
+    TACTILE_TILED_TMJ_ERROR("Unsupported map orientation");
     return std::unexpected {ErrorCode::kNotSupported};
   }
 

@@ -4,7 +4,7 @@
 
 #include "tactile/base/document/map_view.hpp"
 #include "tactile/json_util/json_io.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/tiled_tmj/logging.hpp"
 #include "tactile/tiled_tmj/tmj_format_parser.hpp"
 #include "tactile/tiled_tmj/tmj_format_save_visitor.hpp"
 
@@ -24,13 +24,12 @@ auto TmjSaveFormat::load_map(const std::filesystem::path& map_path,
     });
   }
   catch (const std::exception& error) {
-    runtime::log(LogLevel::kError,
-                 "An unexpected error occurred during TMJ map parsing: {}",
-                 error.what());
+    TACTILE_TILED_TMJ_ERROR("An unexpected error occurred during TMJ map parsing: {}",
+                            error.what());
     return std::unexpected {ErrorCode::kParseError};
   }
   catch (...) {
-    runtime::log(LogLevel::kError, "An unknown error occurred during TMJ map parsing");
+    TACTILE_TILED_TMJ_ERROR("An unknown error occurred during TMJ map parsing");
     return std::unexpected {ErrorCode::kUnknown};
   }
 }
@@ -42,11 +41,11 @@ auto TmjSaveFormat::save_map(const IMapView& map, const SaveFormatWriteOptions& 
     const auto* map_path = map.get_path();
 
     if (!map_path) {
-      runtime::log(LogLevel::kError, "Map has no associated file path");
+      TACTILE_TILED_TMJ_ERROR("Map has no associated file path");
       return std::unexpected {ErrorCode::kBadState};
     }
 
-    runtime::log(LogLevel::kDebug, "Saving TMJ map to {}", map_path->string());
+    TACTILE_TILED_TMJ_DEBUG("Saving TMJ map to {}", map_path->string());
 
     TmjFormatSaveVisitor visitor {m_runtime, options};
 
@@ -63,7 +62,7 @@ auto TmjSaveFormat::save_map(const IMapView& map, const SaveFormatWriteOptions& 
                                                        external_tileset.json,
                                                        options.use_indentation ? 2 : 0);
             if (!save_tileset_result.has_value()) {
-              runtime::log(LogLevel::kError, "Could not save external tileset");
+              TACTILE_TILED_TMJ_ERROR("Could not save external tileset");
               return std::unexpected {save_tileset_result.error()};
             }
           }
@@ -72,13 +71,11 @@ auto TmjSaveFormat::save_map(const IMapView& map, const SaveFormatWriteOptions& 
         });
   }
   catch (const std::exception& error) {
-    runtime::log(LogLevel::kError,
-                 "An error occurred during TMJ map emission: {}",
-                 error.what());
+    TACTILE_TILED_TMJ_ERROR("An error occurred during TMJ map emission: {}", error.what());
     return std::unexpected {ErrorCode::kWriteError};
   }
   catch (...) {
-    runtime::log(LogLevel::kError, "An unknown error occurred during TMJ map emission");
+    TACTILE_TILED_TMJ_ERROR("An unknown error occurred during TMJ map emission");
     return std::unexpected {ErrorCode::kUnknown};
   }
 }

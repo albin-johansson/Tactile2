@@ -11,8 +11,8 @@
 
 #include "tactile/base/render/window.hpp"
 #include "tactile/base/util/scope_exit.hpp"
-#include "tactile/runtime/logging.hpp"
 #include "tactile/vulkan/imgui_shader_code.hpp"
+#include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_shader_module.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
@@ -45,9 +45,8 @@ auto _create_imgui_descriptor_set_layout(VkDevice device)
       vkCreateDescriptorSetLayout(device, &create_info, nullptr, &layout.handle);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError,
-                 "Could not create Vulkan ImGui descriptor set layout: {}",
-                 to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan ImGui descriptor set layout: {}",
+                         to_string(result));
     return std::unexpected {result};
   }
 
@@ -80,9 +79,8 @@ auto _create_imgui_pipeline_layout(VkDevice device,
   const auto result = vkCreatePipelineLayout(device, &create_info, nullptr, &layout.handle);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError,
-                 "Could not create Vulkan ImGui pipeline layout: {}",
-                 to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan ImGui pipeline layout: {}",
+                         to_string(result));
     return std::unexpected {result};
   }
 
@@ -288,9 +286,7 @@ auto _create_imgui_graphics_pipeline(VkDevice device,
       vkCreateGraphicsPipelines(device, nullptr, 1, &create_info, nullptr, &pipeline.handle);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError,
-                 "Could not create Vulkan ImGui pipeline: {}",
-                 to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan ImGui pipeline: {}", to_string(result));
     return std::unexpected {result};
   }
 
@@ -306,33 +302,32 @@ auto VulkanImGuiContext::init(IWindow& window, ImGui_ImplVulkan_InitInfo& vulkan
 
   context.m_ctx = ImGui::CreateContext();
   if (!context.m_ctx) {
-    runtime::log(LogLevel::kError, "Could not create ImGui context");
+    TACTILE_VULKAN_ERROR("Could not create ImGui context");
     return std::nullopt;
   }
 
   context.m_context_deleter = ScopeExit {[ctx = context.m_ctx] {
-    runtime::log(LogLevel::kTrace, "ImGui::DestroyContext");
+    TACTILE_VULKAN_TRACE("ImGui::DestroyContext");
     ImGui::DestroyContext(ctx);
   }};
 
   if (!ImGui_ImplSDL2_InitForVulkan(window.get_handle())) {
-    runtime::log(LogLevel::kError, "Could not initialize SDL2 ImGui backend implementation");
+    TACTILE_VULKAN_ERROR("Could not initialize SDL2 ImGui backend implementation");
     return std::nullopt;
   }
 
   context.m_backend_impl_deleter = ScopeExit {[] {
-    runtime::log(LogLevel::kTrace, "ImGui_ImplSDL2_Shutdown");
+    TACTILE_VULKAN_TRACE("ImGui_ImplSDL2_Shutdown");
     ImGui_ImplSDL2_Shutdown();
   }};
 
   if (!ImGui_ImplVulkan_Init(&vulkan_info)) {
-    runtime::log(LogLevel::kError,
-                 "Could not initialize Vulkan ImGui renderer implementation");
+    TACTILE_VULKAN_ERROR("Could not initialize Vulkan ImGui renderer implementation");
     return std::nullopt;
   }
 
   context.m_renderer_impl_deleter = ScopeExit {[] {
-    runtime::log(LogLevel::kTrace, "ImGui_ImplVulkan_Shutdown");
+    TACTILE_VULKAN_TRACE("ImGui_ImplVulkan_Shutdown");
     ImGui_ImplVulkan_Shutdown();
   }};
 

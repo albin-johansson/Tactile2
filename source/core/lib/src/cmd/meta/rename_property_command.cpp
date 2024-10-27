@@ -9,8 +9,7 @@
 #include "tactile/core/debug/assert.hpp"
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/entity/registry.hpp"
-#include "tactile/core/log/logger.hpp"
-#include "tactile/core/log/set_log_scope.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/meta/meta.hpp"
 
 namespace tactile::core {
@@ -56,7 +55,7 @@ auto RenamePropertyCommand::merge_with(const ICommand* cmd) -> bool
 
 void RenamePropertyCommand::_rename_property(const std::string_view from, std::string to)
 {
-  TACTILE_LOG_TRACE("Renaming property '{}' to '{}'", from, to);
+  TACTILE_CORE_TRACE("Renaming property '{}' to '{}'", from, to);
 
   auto& registry = m_document->get_registry();
   auto& meta = registry.get<CMeta>(m_context_id);

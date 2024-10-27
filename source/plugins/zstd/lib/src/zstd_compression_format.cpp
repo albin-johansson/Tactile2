@@ -9,7 +9,7 @@
 
 #include <zstd.h>
 
-#include "tactile/runtime/logging.hpp"
+#include "tactile/zstd/logging.hpp"
 
 namespace tactile {
 namespace {
@@ -41,9 +41,7 @@ auto ZstdCompressionFormat::compress(const ByteSpan input_data) const
                                                 ZSTD_CLEVEL_DEFAULT);
 
   if (ZSTD_isError(written_byte_count)) {
-    runtime::log(LogLevel::kError,
-                 "Compression failed: {}",
-                 ZSTD_getErrorName(written_byte_count));
+    TACTILE_ZSTD_ERROR("Compression failed: {}", ZSTD_getErrorName(written_byte_count));
     return std::unexpected {ErrorCode::kCouldNotCompress};
   }
 
@@ -58,15 +56,14 @@ auto ZstdCompressionFormat::decompress(const ByteSpan input_data) const
 {
   const UniqueDStream stream {ZSTD_createDStream()};
   if (!stream) {
-    runtime::log(LogLevel::kError, "Could not create stream");
+    TACTILE_ZSTD_ERROR("Could not create stream");
     return std::unexpected {ErrorCode::kOutOfMemory};
   }
 
   const auto init_stream_result = ZSTD_initDStream(stream.get());
   if (ZSTD_isError(init_stream_result)) {
-    runtime::log(LogLevel::kError,
-                 "Could not initialize stream: {}",
-                 ZSTD_getErrorName(init_stream_result));
+    TACTILE_ZSTD_ERROR("Could not initialize stream: {}",
+                       ZSTD_getErrorName(init_stream_result));
     return std::unexpected {ErrorCode::kBadInit};
   }
 
@@ -102,9 +99,7 @@ auto ZstdCompressionFormat::decompress(const ByteSpan input_data) const
         ZSTD_decompressStream(stream.get(), &output_view, &input_view);
 
     if (ZSTD_isError(decompress_result)) {
-      runtime::log(LogLevel::kError,
-                   "Decompression failed: {}",
-                   ZSTD_getErrorName(decompress_result));
+      TACTILE_ZSTD_ERROR("Decompression failed: {}", ZSTD_getErrorName(decompress_result));
       return std::unexpected {ErrorCode::kCouldNotDecompress};
     }
 

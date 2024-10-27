@@ -32,7 +32,6 @@ target_sources(tactile-base
                "inc/tactile/base/layer/object_type.hpp"
                "inc/tactile/base/layer/tile_encoding.hpp"
                "inc/tactile/base/layer/tile_orientation.hpp"
-               "inc/tactile/base/log/log_level.hpp"
                "inc/tactile/base/meta/attribute.hpp"
                "inc/tactile/base/meta/attribute_type.hpp"
                "inc/tactile/base/meta/color.hpp"

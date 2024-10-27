@@ -5,15 +5,15 @@
 #include <new>  // nothrow
 
 #include "tactile/base/runtime/runtime.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/tiled_tmx/logging.hpp"
 #include "tactile/tiled_tmx/tmx_save_format.hpp"
 
 namespace tactile::tiled_tmx {
 
 void TmxFormatPlugin::load(IRuntime* runtime)
 {
-  runtime::log(LogLevel::kTrace, "Loading Tiled TMX format plugin");
   m_runtime = runtime;
+  set_logger(m_runtime->get_logger());
 
   m_format = std::make_unique<TmxSaveFormat>(m_runtime);
   m_runtime->set_save_format(SaveFormatId::kTiledTmx, m_format.get());
@@ -21,11 +21,10 @@ void TmxFormatPlugin::load(IRuntime* runtime)
 
 void TmxFormatPlugin::unload()
 {
-  runtime::log(LogLevel::kTrace, "Unloading Tiled TMX format plugin");
-
   m_runtime->set_save_format(SaveFormatId::kTiledTmx, nullptr);
   m_format.reset();
 
+  set_logger(nullptr);
   m_runtime = nullptr;
 }
 

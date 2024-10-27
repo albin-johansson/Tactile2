@@ -7,7 +7,7 @@
 #define VMA_IMPLEMENTATION
 #include <vk_mem_alloc.h>
 
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
 namespace tactile {
@@ -66,7 +66,7 @@ auto create_vulkan_allocator(VkInstance instance,
   const auto result = vmaCreateAllocator(&create_info, &allocator.handle);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError, "Could not create Vulkan allocator: {}", to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan allocator: {}", to_string(result));
     return std::unexpected {result};
   }
 

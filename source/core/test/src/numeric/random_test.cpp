@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -59,10 +59,10 @@ TEST(Random, GetRandomBool)
 
   const auto true_count = std::ranges::count(values, true);
   const auto false_count = std::ssize(values) - true_count;
-  TACTILE_LOG_DEBUG("Called get_random_bool {} times: {} true, {} false",
-                    values.size(),
-                    true_count,
-                    false_count);
+  TACTILE_CORE_DEBUG("Called get_random_bool {} times: {} true, {} false",
+                     values.size(),
+                     true_count,
+                     false_count);
 
   // This is far from perfect, but detects suspicious (unlikely) ratios.
   const auto ratio = static_cast<double>(true_count) / static_cast<double>(false_count);

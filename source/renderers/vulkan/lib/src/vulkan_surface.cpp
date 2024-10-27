@@ -7,7 +7,7 @@
 #include <SDL2/SDL_vulkan.h>
 
 #include "tactile/base/render/window.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 
 namespace tactile {
 
@@ -48,7 +48,7 @@ auto create_vulkan_surface(VkInstance instance, IWindow& window)
   surface.instance = instance;
 
   if (!SDL_Vulkan_CreateSurface(window.get_handle(), instance, &surface.handle)) {
-    runtime::log(LogLevel::kError, "Could not create Vulkan surface: {}", SDL_GetError());
+    TACTILE_VULKAN_ERROR("Could not create Vulkan surface: {}", SDL_GetError());
     return std::unexpected {VK_ERROR_UNKNOWN};
   }
 

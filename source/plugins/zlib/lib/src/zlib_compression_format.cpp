@@ -12,7 +12,7 @@
 
 #include "tactile/base/io/byte_stream.hpp"
 #include "tactile/base/numeric/saturate_cast.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/zlib/logging.hpp"
 
 namespace tactile {
 namespace {
@@ -65,9 +65,7 @@ auto _init_stream(const ZlibCallbacks& callbacks,
 
   const auto init_stream_result = callbacks.init_stream(&stream);
   if (init_stream_result != Z_OK) {
-    runtime::log(LogLevel::kError,
-                 "Could not initialize z_stream: {}",
-                 zError(init_stream_result));
+    TACTILE_ZLIB_ERROR("Could not initialize z_stream: {}", zError(init_stream_result));
     return std::unexpected {ErrorCode::kBadInit};
   }
 
@@ -107,7 +105,7 @@ auto _process_stream(const ZlibCallbacks& callbacks,
     }
 
     if (process_result == Z_OK || process_result == Z_BUF_ERROR) {
-      runtime::log(LogLevel::kTrace, "Flushing and resetting output buffer");
+      TACTILE_ZLIB_TRACE("Flushing and resetting output buffer");
 
       // We ran out of space in the staging buffer, so we need to flush and
       // reuse it.
@@ -116,9 +114,7 @@ auto _process_stream(const ZlibCallbacks& callbacks,
       stream.avail_out = saturate_cast<z_uint>(staging_buffer.size());
     }
     else {
-      runtime::log(LogLevel::kError,
-                   "Could not process Zlib chunk: {}",
-                   zError(process_result));
+      TACTILE_ZLIB_ERROR("Could not process Zlib chunk: {}", zError(process_result));
       return std::unexpected {ErrorCode::kBadState};
     }
   }
@@ -136,15 +132,13 @@ auto _process_stream(const ZlibCallbacks& callbacks,
  * Nothing if successful; an error code otherwise.
  */
 [[nodiscard]]
-auto _end_stream(const ZlibCallbacks& callbacks,
-                 z_stream& stream) -> std::expected<void, ErrorCode>
+auto _end_stream(const ZlibCallbacks& callbacks, z_stream& stream)
+    -> std::expected<void, ErrorCode>
 {
   const auto end_stream_result = callbacks.end_stream(&stream);
 
   if (end_stream_result != Z_OK) {
-    runtime::log(LogLevel::kError,
-                 "Could not finalize z_stream: {}",
-                 zError(end_stream_result));
+    TACTILE_ZLIB_ERROR("Could not finalize z_stream: {}", zError(end_stream_result));
     return std::unexpected {ErrorCode::kBadState};
   }
 

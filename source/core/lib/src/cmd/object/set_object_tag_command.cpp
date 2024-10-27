@@ -8,7 +8,7 @@
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/layer_types.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -23,7 +23,7 @@ SetObjectTagCommand::SetObjectTagCommand(IDocument* document,
 
 void SetObjectTagCommand::undo()
 {
-  TACTILE_LOG_TRACE("Reverting tag of object {} to {}",
+  TACTILE_CORE_TRACE("Reverting tag of object {} to {}",
                     entity_to_string(m_object_id),
                     m_old_tag);
 
@@ -36,7 +36,7 @@ void SetObjectTagCommand::undo()
 
 void SetObjectTagCommand::redo()
 {
-  TACTILE_LOG_TRACE("Changing tag of object {} to {}",
+  TACTILE_CORE_TRACE("Changing tag of object {} to {}",
                     entity_to_string(m_object_id),
                     m_new_tag);
 

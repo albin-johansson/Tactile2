@@ -20,7 +20,7 @@
 #include "tactile/base/numeric/literals.hpp"
 #include "tactile/base/numeric/saturate_cast.hpp"
 #include "tactile/base/platform/filesystem.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/tiled_tmj/logging.hpp"
 
 namespace tactile::tiled_tmj {
 namespace {
@@ -212,7 +212,7 @@ auto _emit_tile_layer(const IRuntime& runtime,
     if (tile_compression.has_value()) {
       const auto* compression_format = runtime.get_compression_format(*tile_compression);
       if (!compression_format) {
-        runtime::log(LogLevel::kError, "Could not find suitable compression format");
+        TACTILE_TILED_TMJ_ERROR("Could not find suitable compression format");
         return std::unexpected {ErrorCode::kNotSupported};
       }
 
@@ -274,7 +274,7 @@ TmjFormatSaveVisitor::TmjFormatSaveVisitor(IRuntime* runtime, SaveFormatWriteOpt
 auto TmjFormatSaveVisitor::visit(const IMapView& map) -> std::expected<void, ErrorCode>
 {
   if (map.component_count() > 0) {
-    runtime::log(LogLevel::kWarn, "Components are ignored in Tiled TMJ save files");
+    TACTILE_TILED_TMJ_WARN("Components are ignored in Tiled TMJ save files");
   }
 
   const auto extent = map.get_extent();
@@ -467,7 +467,7 @@ auto TmjFormatSaveVisitor::visit(const IObjectView& object) -> std::expected<voi
     tile_json.at("objectgroup").at("objects").push_back(std::move(object_json));
   }
   else {
-    runtime::log(LogLevel::kError, "Object {} has no parent layer or tile", object.get_id());
+    TACTILE_TILED_TMJ_ERROR("Object {} has no parent layer or tile", object.get_id());
     return std::unexpected {ErrorCode::kBadState};
   }
 

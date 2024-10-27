@@ -19,9 +19,8 @@
 #include "tactile/base/container/string.hpp"
 #include "tactile/base/io/compress/compression_format.hpp"
 #include "tactile/base/io/tile_io.hpp"
-#include "tactile/base/log/log_level.hpp"
 #include "tactile/base/util/tile_matrix.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/tiled_tmx/logging.hpp"
 #include "tactile/tiled_tmx/tmx_common.hpp"
 
 namespace tactile::tiled_tmx {
@@ -296,7 +295,7 @@ auto _read_tile_layer_data_encoding(const pugi::xml_node& data_node)
       return TmxTileEncoding::kBase64;
     }
 
-    runtime::log(LogLevel::kError, "Unsupported tile encoding '{}'", encoding);
+    TACTILE_TILED_TMX_ERROR("Unsupported tile encoding '{}'", encoding);
     return std::unexpected {ErrorCode::kNotSupported};
   }
 
@@ -354,7 +353,7 @@ auto _read_csv_tile_data(const pugi::xml_node& data_node, const Extent2D& extent
       });
 
   if (!split_ok) {
-    runtime::log(LogLevel::kError, "Could not parse CSV tile data");
+    TACTILE_TILED_TMX_ERROR("Could not parse CSV tile data");
     return std::unexpected {ErrorCode::kParseError};
   }
 
@@ -388,7 +387,7 @@ auto _read_base64_tile_data(const IRuntime& runtime,
     const auto* compression_format = runtime.get_compression_format(*tile_format.compression);
 
     if (!compression_format) {
-      runtime::log(LogLevel::kError, "No suitable compression plugin available");
+      TACTILE_TILED_TMX_ERROR("No suitable compression plugin available");
       return std::unexpected {ErrorCode::kNotSupported};
     }
 
@@ -577,12 +576,12 @@ auto _read_map(std::string map_name,
   map.meta.name = std::move(map_name);
 
   if (read_attr<std::string>(map_node, "orientation") != "orthogonal") {
-    runtime::log(LogLevel::kError, "Non-orthogonal maps are not supported");
+    TACTILE_TILED_TMX_ERROR("Non-orthogonal maps are not supported");
     return std::unexpected {ErrorCode::kNotSupported};
   }
 
   if (read_attr<bool>(map_node, "infinite").value_or(false)) {
-    runtime::log(LogLevel::kError, "Infinite maps are not supported");
+    TACTILE_TILED_TMX_ERROR("Infinite maps are not supported");
     return std::unexpected {ErrorCode::kNotSupported};
   }
 

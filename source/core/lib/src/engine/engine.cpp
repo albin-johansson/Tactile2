@@ -8,7 +8,7 @@
 #include "tactile/base/engine/engine_app.hpp"
 #include "tactile/base/render/renderer.hpp"
 #include "tactile/core/debug/validation.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -63,7 +63,7 @@ void Engine::_check_framebuffer_scale()
   if (mFramebufferScale != current_framebuffer_scale) {
     mFramebufferScale = current_framebuffer_scale;
 
-    TACTILE_LOG_DEBUG("Framebuffer scale changed to {}", mFramebufferScale);
+    TACTILE_CORE_DEBUG("Framebuffer scale changed to {}", mFramebufferScale);
     mApp->on_framebuffer_scale_changed(mFramebufferScale);
   }
 }

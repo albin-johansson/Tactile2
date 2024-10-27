@@ -6,9 +6,9 @@
 #include <format>    // formatter, format_to
 #include <optional>  // optional
 
-#include "tactile/base/log/log_level.hpp"
 #include "tactile/base/prelude.hpp"
 #include "tactile/base/render/renderer_options.hpp"
+#include "tactile/log/log_level.hpp"
 #include "tactile/runtime/api.hpp"
 
 namespace tactile::runtime {
@@ -21,7 +21,7 @@ enum class RendererBackendId : std::uint8_t
 
 struct CommandLineOptions final
 {
-  LogLevel log_level;
+  log::LogLevel log_level;
   RendererBackendId renderer_backend;
   RendererOptions renderer_options;
   bool load_zlib;

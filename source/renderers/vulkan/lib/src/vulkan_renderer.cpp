@@ -15,7 +15,7 @@
 
 #include "tactile/base/io/file_io.hpp"
 #include "tactile/base/render/window.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_buffer.hpp"
 #include "tactile/vulkan/vulkan_physical_device.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
@@ -75,7 +75,7 @@ VulkanRenderer::VulkanRenderer(const RendererOptions& options, IWindow* window)
   vkGetDeviceQueue(m_device.handle, m_device.presentation_queue_family, 0, &m_present_queue);
 
   if (m_graphics_queue == VK_NULL_HANDLE || m_present_queue == VK_NULL_HANDLE) {
-    runtime::log(LogLevel::kError, "Could not get Vulkan device queues");
+    TACTILE_VULKAN_ERROR("Could not get Vulkan device queues");
     throw std::runtime_error {"Could not get Vulkan device queues"};
   }
 
@@ -283,7 +283,7 @@ auto VulkanRenderer::_reset_and_begin_command_buffer(const VulkanFrame& frame) -
   auto result = vkResetCommandBuffer(frame.command_buffer.handle, 0);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError, "Could not reset command buffer: {}", to_string(result));
+    TACTILE_VULKAN_ERROR("Could not reset command buffer: {}", to_string(result));
     return result;
   }
 
@@ -296,7 +296,7 @@ auto VulkanRenderer::_reset_and_begin_command_buffer(const VulkanFrame& frame) -
 
   result = vkBeginCommandBuffer(frame.command_buffer.handle, &command_buffer_begin_info);
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError, "Could not begin command buffer: {}", to_string(result));
+    TACTILE_VULKAN_ERROR("Could not begin command buffer: {}", to_string(result));
   }
 
   return result;
@@ -470,9 +470,7 @@ void VulkanRenderer::_end_command_buffer(const VulkanFrame& frame)
 {
   if (const auto result = vkEndCommandBuffer(frame.command_buffer.handle);
       result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError,
-                 "Could not end Vulkan command buffer: {}",
-                 to_string(result));
+    TACTILE_VULKAN_ERROR("Could not end Vulkan command buffer: {}", to_string(result));
   }
 }
 
@@ -498,9 +496,8 @@ void VulkanRenderer::_submit_commands()
       vkQueueSubmit(m_graphics_queue, 1, &submit_info, frame.in_flight_fence.handle);
 
   if (submit_result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError,
-                 "Could not submit commands to Vulkan graphics queue: {}",
-                 to_string(submit_result));
+    TACTILE_VULKAN_ERROR("Could not submit commands to Vulkan graphics queue: {}",
+                         to_string(submit_result));
   }
 }
 
@@ -526,24 +523,23 @@ void VulkanRenderer::_present_swapchain_image()
   }
 
   if (result == VK_ERROR_OUT_OF_DATE_KHR) {
-    runtime::log(LogLevel::kDebug, "Vulkan swapchain is outdated");
+    TACTILE_VULKAN_DEBUG("Vulkan swapchain is outdated");
     result = _recreate_swapchain();
   }
   else if (result == VK_SUBOPTIMAL_KHR) {
-    runtime::log(LogLevel::kDebug, "Vulkan swapchain is suboptimal");
+    TACTILE_VULKAN_DEBUG("Vulkan swapchain is suboptimal");
     result = _recreate_swapchain();
   }
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kWarn,
-                 "Could not present image from Vulkan swapchain: {}",
-                 to_string(result));
+    TACTILE_VULKAN_WARN("Could not present image from Vulkan swapchain: {}",
+                        to_string(result));
   }
 }
 
 auto VulkanRenderer::_recreate_swapchain() -> VkResult
 {
-  runtime::log(LogLevel::kDebug, "Recreating Vulkan swapchain");
+  TACTILE_VULKAN_DEBUG("Recreating Vulkan swapchain");
 
   // Avoid touching resources that may still be in use
   if (const auto wait_result = vkDeviceWaitIdle(m_device.handle); wait_result != VK_SUCCESS) {
@@ -563,10 +559,9 @@ auto VulkanRenderer::_recreate_swapchain() -> VkResult
                                               surface_capabilities.minImageExtent.height,
                                               surface_capabilities.maxImageExtent.height);
 
-  runtime::log(LogLevel::kDebug,
-               "New swapchain image extent: {{{}, {}}}",
-               new_params.image_extent.width,
-               new_params.image_extent.height);
+  TACTILE_VULKAN_DEBUG("New swapchain image extent: {{{}, {}}}",
+                       new_params.image_extent.width,
+                       new_params.image_extent.height);
 
   auto new_swapchain = create_vulkan_swapchain(m_surface.handle,
                                                m_device.handle,
@@ -574,9 +569,8 @@ auto VulkanRenderer::_recreate_swapchain() -> VkResult
                                                new_params,
                                                m_swapchain.handle);
   if (!new_swapchain.has_value()) {
-    runtime::log(LogLevel::kError,
-                 "Could not recreate Vulkan swapchain: {}",
-                 to_string(new_swapchain.error()));
+    TACTILE_VULKAN_ERROR("Could not recreate Vulkan swapchain: {}",
+                         to_string(new_swapchain.error()));
     return new_swapchain.error();
   }
 

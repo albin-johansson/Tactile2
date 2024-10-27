@@ -5,7 +5,7 @@
 #include <SDL2/SDL.h>
 
 #include "tactile/core/debug/validation.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/runtime/logging.hpp"
 
 namespace tactile::runtime {
 
@@ -31,7 +31,7 @@ auto Window::create(const std::uint32_t extra_flags) -> std::expected<Window, Er
                                   basic_flags | extra_flags);
 
   if (!handle) {
-    TACTILE_LOG_ERROR("Could not create window: {}", SDL_GetError());
+    TACTILE_RUNTIME_ERROR("Could not create window: {}", SDL_GetError());
     return std::unexpected {ErrorCode::kBadInit};
   }
 

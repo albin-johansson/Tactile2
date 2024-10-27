@@ -9,6 +9,7 @@ add_library(tactile::vulkan_renderer ALIAS tactile-vulkan-renderer)
 
 target_sources(tactile-vulkan-renderer
                PRIVATE
+               "src/logging.cpp"
                "src/vulkan_allocator.cpp"
                "src/vulkan_buffer.cpp"
                "src/vulkan_command_buffer.cpp"
@@ -37,6 +38,7 @@ target_sources(tactile-vulkan-renderer
                PUBLIC FILE_SET "HEADERS" BASE_DIRS "inc" FILES
                "inc/tactile/vulkan/api.hpp"
                "inc/tactile/vulkan/imgui_shader_code.hpp"
+               "inc/tactile/vulkan/logging.hpp"
                "inc/tactile/vulkan/vulkan_allocator.hpp"
                "inc/tactile/vulkan/vulkan_buffer.hpp"
                "inc/tactile/vulkan/vulkan_command_buffer.hpp"
@@ -77,7 +79,7 @@ target_include_directories(tactile-vulkan-renderer
 target_link_libraries(tactile-vulkan-renderer
                       PUBLIC
                       tactile::base
-                      tactile::runtime
+                      tactile::log
                       Vulkan::Vulkan
                       GPUOpen::VulkanMemoryAllocator
 

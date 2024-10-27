@@ -6,7 +6,7 @@
 #include <unordered_map>  // unordered_map
 #include <utility>        // exchange
 
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_buffer.hpp"
 #include "tactile/vulkan/vulkan_command_pool.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
@@ -326,7 +326,7 @@ auto create_vulkan_image(VmaAllocator allocator, const VulkanImageParams& params
                                      nullptr);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError, "Could not create Vulkan image: {}", to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan image: {}", to_string(result));
     return std::unexpected {result};
   }
 

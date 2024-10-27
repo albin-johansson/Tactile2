@@ -13,7 +13,7 @@
 #include "tactile/core/document/map_view_impl.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/model/model.hpp"
 #include "tactile/core/platform/file_dialog.hpp"
 #include "tactile/core/ui/widget_manager.hpp"
@@ -30,7 +30,7 @@ MapEventHandler::MapEventHandler(Model* model,
 
 void MapEventHandler::install(EventDispatcher& dispatcher)
 {
-  TACTILE_LOG_DEBUG("Installing map event handler");
+  TACTILE_CORE_DEBUG("Installing map event handler");
 
   using Self = MapEventHandler;
   dispatcher.bind<ShowNewMapDialogEvent, &Self::on_show_new_map_dialog>(this);
@@ -48,30 +48,30 @@ void MapEventHandler::install(EventDispatcher& dispatcher)
 
 void MapEventHandler::on_show_new_map_dialog(const ShowNewMapDialogEvent&)
 {
-  TACTILE_LOG_TRACE("ShowNewMapDialogEvent");
+  TACTILE_CORE_TRACE("ShowNewMapDialogEvent");
   mWidgetManager->get_new_map_dialog().open();
 }
 
 void MapEventHandler::on_show_open_map_dialog(const ShowOpenMapDialogEvent&)
 {
-  TACTILE_LOG_TRACE("ShowOpenMapDialogEvent");
+  TACTILE_CORE_TRACE("ShowOpenMapDialogEvent");
 
   const auto map_path = FileDialog::open_map();
   if (!map_path.has_value()) {
     return;
   }
 
-  TACTILE_LOG_TRACE("Trying to load map {}", map_path->string());
+  TACTILE_CORE_TRACE("Trying to load map {}", map_path->string());
   const auto format_id = _guess_save_format(*map_path);
   if (!format_id.has_value()) {
-    TACTILE_LOG_ERROR("Unknown save format for extension '{}'",
+    TACTILE_CORE_ERROR("Unknown save format for extension '{}'",
                       map_path->extension().string());
     return;
   }
 
   const auto* save_format = mRuntime->get_save_format(*format_id);
   if (!save_format) {
-    TACTILE_LOG_ERROR("Found no suitable installed save format");
+    TACTILE_CORE_ERROR("Found no suitable installed save format");
     return;
   }
 
@@ -83,7 +83,7 @@ void MapEventHandler::on_show_open_map_dialog(const ShowOpenMapDialogEvent&)
 
   const auto ir_map = save_format->load_map(*map_path, read_options);
   if (!ir_map.has_value()) {
-    TACTILE_LOG_ERROR("Could not load map: {}", to_string(ir_map.error()));
+    TACTILE_CORE_ERROR("Could not load map: {}", to_string(ir_map.error()));
     return;
   }
 
@@ -92,7 +92,7 @@ void MapEventHandler::on_show_open_map_dialog(const ShowOpenMapDialogEvent&)
   const auto document_uuid =
       document_manager.create_and_open_map(*mRuntime->get_renderer(), *ir_map);
   if (!document_uuid.has_value()) {
-    TACTILE_LOG_ERROR("Could not create map document: {}", to_string(document_uuid.error()));
+    TACTILE_CORE_ERROR("Could not create map document: {}", to_string(document_uuid.error()));
     return;
   }
 
@@ -102,13 +102,13 @@ void MapEventHandler::on_show_open_map_dialog(const ShowOpenMapDialogEvent&)
 
 void MapEventHandler::on_show_godot_export_dialog(const ShowGodotExportDialogEvent&)
 {
-  TACTILE_LOG_TRACE("ShowGodotExportDialogEvent");
+  TACTILE_CORE_TRACE("ShowGodotExportDialogEvent");
   mWidgetManager->get_godot_export_dialog().open();
 }
 
 void MapEventHandler::on_create_map(const CreateMapEvent& event)
 {
-  TACTILE_LOG_TRACE("CreateMapEvent(orientation: {}, size: {}, tile_size: {})",
+  TACTILE_CORE_TRACE("CreateMapEvent(orientation: {}, size: {}, tile_size: {})",
                     magic_enum::enum_name(event.spec.orientation),
                     event.spec.extent,
                     event.spec.tile_size);
@@ -116,23 +116,23 @@ void MapEventHandler::on_create_map(const CreateMapEvent& event)
   auto& document_manager = mModel->get_document_manager();
   const auto document_uuid = document_manager.create_and_open_map(event.spec);
   if (document_uuid.has_value()) {
-    TACTILE_LOG_DEBUG("Created map document (uuid: {})", *document_uuid);
+    TACTILE_CORE_DEBUG("Created map document (uuid: {})", *document_uuid);
   }
 }
 
 void MapEventHandler::on_export_as_godot_scene(const ExportAsGodotSceneEvent& event) const
 {
-  TACTILE_LOG_TRACE("ExportMapEvent");
+  TACTILE_CORE_TRACE("ExportMapEvent");
 
   const auto* save_format = mRuntime->get_save_format(SaveFormatId::kGodotTscn);
   if (!save_format) {
-    TACTILE_LOG_ERROR("Godot plugin is not enabled");
+    TACTILE_CORE_ERROR("Godot plugin is not enabled");
     return;
   }
 
   const auto* document = dynamic_cast<const MapDocument*>(mModel->get_current_document());
   if (!document) {
-    TACTILE_LOG_ERROR("No current document");
+    TACTILE_CORE_ERROR("No current document");
     return;
   }
 
@@ -152,7 +152,7 @@ void MapEventHandler::on_export_as_godot_scene(const ExportAsGodotSceneEvent& ev
   const auto save_result = save_format->save_map(map_view, options);
 
   if (!save_result.has_value()) {
-    TACTILE_LOG_ERROR("Could not export Godot scene: {}", to_string(save_result.error()));
+    TACTILE_CORE_ERROR("Could not export Godot scene: {}", to_string(save_result.error()));
   }
 }
 

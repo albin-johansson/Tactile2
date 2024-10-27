@@ -13,7 +13,7 @@ auto read_json_document(const std::filesystem::path& path) -> std::expected<JSON
   try {
     std::ifstream stream {path, std::ios::in};
     if (!stream.good()) {
-      runtime::log(LogLevel::kError, "Could not open JSON document: {}", path.string());
+      TACTILE_TILED_TMJ_ERROR("Could not open JSON document: {}", path.string());
       return std::unexpected {ErrorCode::kBadFileStream};
     }
 
@@ -23,11 +23,11 @@ auto read_json_document(const std::filesystem::path& path) -> std::expected<JSON
     return json;
   }
   catch (const std::exception& error) {
-    runtime::log(LogLevel::kError, "JSON parse error: {}", error.what());
+    TACTILE_TILED_TMJ_ERROR("JSON parse error: {}", error.what());
     return std::unexpected {ErrorCode::kParseError};
   }
   catch (...) {
-    runtime::log(LogLevel::kError, "Unknown JSON parse error");
+    TACTILE_TILED_TMJ_ERROR("Unknown JSON parse error");
     return std::unexpected {ErrorCode::kParseError};
   }
 }
@@ -62,7 +62,7 @@ auto read_property_type(std::string_view name) -> std::expected<AttributeType, E
     return AttributeType::kObject;
   }
 
-  runtime::log(LogLevel::kError, "Unsupported property type '{}'", name);
+  TACTILE_TILED_TMJ_ERROR("Unsupported property type '{}'", name);
   return std::unexpected {ErrorCode::kNotSupported};
 }
 
@@ -80,7 +80,7 @@ auto read_layer_type(const std::string_view name) -> std::expected<LayerType, Er
     return LayerType::kGroupLayer;
   }
 
-  runtime::log(LogLevel::kError, "Unsupported layer type '{}'", name);
+  TACTILE_TILED_TMJ_ERROR("Unsupported layer type '{}'", name);
   return std::unexpected {ErrorCode::kNotSupported};
 }
 
@@ -94,7 +94,7 @@ auto read_tile_encoding(const std::string_view name) -> std::expected<TileEncodi
     return TileEncoding::kBase64;
   }
 
-  runtime::log(LogLevel::kError, "Unsupported tile encoding '{}'", name);
+  TACTILE_TILED_TMJ_ERROR("Unsupported tile encoding '{}'", name);
   return std::unexpected {ErrorCode::kNotSupported};
 }
 
@@ -113,7 +113,7 @@ auto read_compression_format(const std::string_view name)
     return CompressionFormatId::kZstd;
   }
 
-  runtime::log(LogLevel::kError, "Unsupported compression format '{}'", name);
+  TACTILE_TILED_TMJ_ERROR("Unsupported compression format '{}'", name);
   return std::unexpected {ErrorCode::kNotSupported};
 }
 

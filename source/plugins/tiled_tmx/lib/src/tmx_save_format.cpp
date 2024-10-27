@@ -6,7 +6,7 @@
 
 #include "tactile/base/document/map_view.hpp"
 #include "tactile/base/document/meta_view.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/tiled_tmx/logging.hpp"
 #include "tactile/tiled_tmx/tmx_common.hpp"
 #include "tactile/tiled_tmx/tmx_format_parser.hpp"
 #include "tactile/tiled_tmx/tmx_format_save_visitor.hpp"
@@ -25,12 +25,11 @@ auto TmxSaveFormat::load_map(const std::filesystem::path& map_path,
     return parse_map(*m_runtime, map_path, options);
   }
   catch (const std::exception& error) {
-    runtime::log(LogLevel::kError,
-                 "An unexpected error occurred during TMX map parsing: {}",
-                 error.what());
+    TACTILE_TILED_TMX_ERROR("An unexpected error occurred during TMX map parsing: {}",
+                            error.what());
   }
   catch (...) {
-    runtime::log(LogLevel::kError, "An unknown error occurred during TMX map parsing");
+    TACTILE_TILED_TMX_ERROR("An unknown error occurred during TMX map parsing");
   }
 
   return std::unexpected {ErrorCode::kUnknown};
@@ -43,7 +42,7 @@ auto TmxSaveFormat::save_map(const IMapView& map, const SaveFormatWriteOptions& 
     const auto* map_path = map.get_path();
 
     if (!map_path) {
-      runtime::log(LogLevel::kError, "Map has no associated file path");
+      TACTILE_TILED_TMX_ERROR("Map has no associated file path");
       return std::unexpected {ErrorCode::kBadState};
     }
 
@@ -71,12 +70,11 @@ auto TmxSaveFormat::save_map(const IMapView& map, const SaveFormatWriteOptions& 
     });
   }
   catch (const std::exception& error) {
-    runtime::log(LogLevel::kError,
-                 "An unexpected error occurred during TMX map emission: {}",
-                 error.what());
+    TACTILE_TILED_TMX_ERROR("An unexpected error occurred during TMX map emission: {}",
+                            error.what());
   }
   catch (...) {
-    runtime::log(LogLevel::kError, "An unknown error occurred during TMX map emission");
+    TACTILE_TILED_TMX_ERROR("An unknown error occurred during TMX map emission");
   }
 
   return std::unexpected {ErrorCode::kUnknown};

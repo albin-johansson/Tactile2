@@ -5,11 +5,13 @@ add_library(tactile::zstd_compression ALIAS tactile-zstd-compression)
 
 target_sources(tactile-zstd-compression
                PRIVATE
+               "src/logging.cpp"
                "src/zstd_compression_format.cpp"
                "src/zstd_compression_plugin.cpp"
 
                PUBLIC FILE_SET "HEADERS" BASE_DIRS "inc" FILES
                "inc/tactile/zstd/api.hpp"
+               "inc/tactile/zstd/logging.hpp"
                "inc/tactile/zstd/zstd_compression_format.hpp"
                "inc/tactile/zstd/zstd_compression_plugin.hpp"
                )
@@ -24,7 +26,7 @@ target_compile_definitions(tactile-zstd-compression
 target_link_libraries(tactile-zstd-compression
                       PUBLIC
                       tactile::base
-                      tactile::runtime
+                      tactile::log
 
                       PRIVATE
                       zstd::libzstd

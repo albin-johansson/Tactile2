@@ -59,9 +59,6 @@ target_sources(tactile-core
                "src/layer/object.cpp"
                "src/layer/object_layer.cpp"
                "src/layer/tile_layer.cpp"
-               "src/log/logger.cpp"
-               "src/log/set_log_scope.cpp"
-               "src/log/terminal_log_sink.cpp"
                "src/map/map.cpp"
                "src/map/map_spec.cpp"
                "src/meta/meta.cpp"
@@ -110,6 +107,7 @@ target_sources(tactile-core
                "src/ui/widget_manager.cpp"
                "src/util/string_conv.cpp"
                "src/util/uuid.cpp"
+               "src/logging.cpp"
                "src/tactile_app.cpp"
 
                PUBLIC FILE_SET "HEADERS" BASE_DIRS "inc" FILES
@@ -172,10 +170,6 @@ target_sources(tactile-core
                "inc/tactile/core/layer/object.hpp"
                "inc/tactile/core/layer/object_layer.hpp"
                "inc/tactile/core/layer/tile_layer.hpp"
-               "inc/tactile/core/log/log_sink.hpp"
-               "inc/tactile/core/log/logger.hpp"
-               "inc/tactile/core/log/set_log_scope.hpp"
-               "inc/tactile/core/log/terminal_log_sink.hpp"
                "inc/tactile/core/map/map.hpp"
                "inc/tactile/core/map/map_spec.hpp"
                "inc/tactile/core/meta/meta.hpp"
@@ -232,6 +226,7 @@ target_sources(tactile-core
                "inc/tactile/core/ui/widget_manager.hpp"
                "inc/tactile/core/util/string_conv.hpp"
                "inc/tactile/core/util/uuid.hpp"
+               "inc/tactile/core/logging.hpp"
                "inc/tactile/core/tactile_app.hpp"
                )
 
@@ -259,6 +254,7 @@ target_compile_definitions(tactile-core
 target_link_libraries(tactile-core
                       PUBLIC
                       tactile::base
+                      tactile::log
                       EnTT::EnTT
                       imgui::imgui
 

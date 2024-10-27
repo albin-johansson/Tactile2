@@ -8,7 +8,7 @@
 #include "tactile/core/document/map_document.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/layer_types.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -23,7 +23,7 @@ SetLayerVisibilityCommand::SetLayerVisibilityCommand(MapDocument* document,
 
 void SetLayerVisibilityCommand::undo()
 {
-  TACTILE_LOG_TRACE("Changing visibility of layer {} to {}",
+  TACTILE_CORE_TRACE("Changing visibility of layer {} to {}",
                     entity_to_string(m_layer_id),
                     m_old_visibility);
 
@@ -35,7 +35,7 @@ void SetLayerVisibilityCommand::undo()
 
 void SetLayerVisibilityCommand::redo()
 {
-  TACTILE_LOG_TRACE("Changing visibility of layer {} to {}",
+  TACTILE_CORE_TRACE("Changing visibility of layer {} to {}",
                     entity_to_string(m_layer_id),
                     m_new_visibility);
 

@@ -9,18 +9,18 @@
 #include <imgui.h>
 
 #include "tactile/base/runtime/runtime.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 
 namespace tactile {
 
 void VulkanRendererPlugin::load(IRuntime* runtime)
 {
-  runtime::log(LogLevel::kTrace, "Loading Vulkan renderer plugin");
   m_runtime = runtime;
+  vulkan::set_logger(m_runtime->get_logger());
 
   try {
     if (SDL_Vulkan_LoadLibrary(nullptr) == -1) {
-      runtime::log(LogLevel::kError, "Could not load Vulkan library: {}", SDL_GetError());
+      TACTILE_VULKAN_ERROR("Could not load Vulkan library: {}", SDL_GetError());
       return;
     }
 
@@ -29,7 +29,7 @@ void VulkanRendererPlugin::load(IRuntime* runtime)
     m_runtime->init_window(SDL_WINDOW_VULKAN);
     auto* window = m_runtime->get_window();
     if (!window) {
-      runtime::log(LogLevel::kError, "Could not initialize Vulkan window");
+      TACTILE_VULKAN_ERROR("Could not initialize Vulkan window");
       return;
     }
 
@@ -45,18 +45,17 @@ void VulkanRendererPlugin::load(IRuntime* runtime)
     m_runtime->set_renderer(m_renderer.get());
   }
   catch (...) {
-    runtime::log(LogLevel::kError, "Could not load Vulkan renderer");
+    TACTILE_VULKAN_ERROR("Could not load Vulkan renderer");
   }
 }
 
 void VulkanRendererPlugin::unload()
 {
-  runtime::log(LogLevel::kTrace, "Unloading Vulkan renderer plugin");
-
   m_runtime->set_renderer(nullptr);
-  m_runtime = nullptr;
-
   m_renderer.reset();
+
+  vulkan::set_logger(nullptr);
+  m_runtime = nullptr;
 }
 
 auto tactile_make_plugin() -> IPlugin*

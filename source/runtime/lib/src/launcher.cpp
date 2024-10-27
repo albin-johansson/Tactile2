@@ -11,10 +11,10 @@
 #include "tactile/base/render/renderer.hpp"
 #include "tactile/core/debug/exception.hpp"
 #include "tactile/core/engine/engine.hpp"
-#include "tactile/core/log/logger.hpp"
 #include "tactile/core/tactile_app.hpp"
 #include "tactile/runtime/command_line_options.hpp"
 #include "tactile/runtime/dynamic_library.hpp"
+#include "tactile/runtime/logging.hpp"
 #include "tactile/runtime/plugin_instance.hpp"
 #include "tactile/runtime/runtime.hpp"
 
@@ -75,7 +75,7 @@ auto _load_plugins(IRuntime& runtime, const CommandLineOptions& options)
     auto plugin = PluginInstance::load(&runtime, plugin_name);
 
     if (!plugin) {
-      TACTILE_LOG_ERROR("Could not load plugin '{}'", plugin_name);
+      TACTILE_RUNTIME_ERROR("Could not load plugin '{}'", plugin_name);
       continue;
     }
 
@@ -103,12 +103,12 @@ auto launch(const int argc, char* argv[]) -> int
     auto* renderer = runtime.get_renderer();
 
     if (window == nullptr) {
-      TACTILE_LOG_ERROR("Window has not been initialized");
+      TACTILE_RUNTIME_ERROR("Window has not been initialized");
       return EXIT_FAILURE;
     }
 
     if (renderer == nullptr) {
-      TACTILE_LOG_ERROR("A renderer has not been installed");
+      TACTILE_RUNTIME_ERROR("A renderer has not been installed");
       return EXIT_FAILURE;
     }
 
@@ -128,13 +128,13 @@ auto launch(const int argc, char* argv[]) -> int
     return EXIT_SUCCESS;
   }
   catch (const core::Exception& exception) {
-    TACTILE_LOG_FATAL("Unhandled exception: {}\n{}", exception.what(), exception.trace());
+    TACTILE_RUNTIME_ERROR("Unhandled exception: {}\n{}", exception.what(), exception.trace());
   }
   catch (const std::exception& exception) {
-    TACTILE_LOG_FATAL("Unhandled exception: {}", exception.what());
+    TACTILE_RUNTIME_ERROR("Unhandled exception: {}", exception.what());
   }
   catch (...) {
-    TACTILE_LOG_FATAL("Unhandled exception");
+    TACTILE_RUNTIME_ERROR("Unhandled exception");
   }
 
   return EXIT_FAILURE;

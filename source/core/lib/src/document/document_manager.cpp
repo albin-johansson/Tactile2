@@ -9,7 +9,7 @@
 #include "tactile/core/document/document_info.hpp"
 #include "tactile/core/document/map_document.hpp"
 #include "tactile/core/entity/registry.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/map/map.hpp"
 
 namespace tactile::core {
@@ -30,7 +30,7 @@ auto DocumentManager::create_and_open_map(const MapSpec& spec)
 
   // NB: A UUID collision should be exceptionally rare, but we check regardless.
   if (!did_insert) {
-    TACTILE_LOG_ERROR("Could not store map document");
+    TACTILE_CORE_ERROR("Could not store map document");
     return std::unexpected {ErrorCode::kBadState};
   }
 
@@ -58,7 +58,7 @@ auto DocumentManager::create_and_open_map(IRenderer& renderer, const ir::Map& ir
 
   // NB: A UUID collision should be exceptionally rare, but we check regardless.
   if (!did_insert) {
-    TACTILE_LOG_ERROR("Could not store map document");
+    TACTILE_CORE_ERROR("Could not store map document");
     return std::unexpected {ErrorCode::kBadState};
   }
 
@@ -105,7 +105,7 @@ auto DocumentManager::get_open_documents() const -> const std::vector<UUID>&
 
 void DocumentManager::set_command_capacity(const std::size_t capacity)
 {
-  TACTILE_LOG_DEBUG("Setting command capacity to {}", capacity);
+  TACTILE_CORE_DEBUG("Setting command capacity to {}", capacity);
   mCommandCapacity = capacity;
 
   for (auto& [document_uuid, command_stack] : mHistories) {

@@ -5,7 +5,7 @@
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/model/model.hpp"
 
 namespace tactile::core {
@@ -16,7 +16,7 @@ EditEventHandler::EditEventHandler(Model* model)
 
 void EditEventHandler::install(EventDispatcher& dispatcher)
 {
-  TACTILE_LOG_DEBUG("Installing edit event handler");
+  TACTILE_CORE_DEBUG("Installing edit event handler");
 
   dispatcher.bind<UndoEvent, &EditEventHandler::on_undo>(this);
   dispatcher.bind<RedoEvent, &EditEventHandler::on_redo>(this);
@@ -33,7 +33,7 @@ void EditEventHandler::install(EventDispatcher& dispatcher)
 
 void EditEventHandler::on_undo(const UndoEvent& event)
 {
-  TACTILE_LOG_TRACE("UndoEvent");
+  TACTILE_CORE_TRACE("UndoEvent");
   auto& document_manager = mModel->get_document_manager();
 
   if (auto* document = document_manager.get_current_document()) {
@@ -45,7 +45,7 @@ void EditEventHandler::on_undo(const UndoEvent& event)
 
 void EditEventHandler::on_redo(const RedoEvent& event)
 {
-  TACTILE_LOG_TRACE("RedoEvent");
+  TACTILE_CORE_TRACE("RedoEvent");
   auto& document_manager = mModel->get_document_manager();
 
   if (auto* document = document_manager.get_current_document()) {

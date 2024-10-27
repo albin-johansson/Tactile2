@@ -4,13 +4,13 @@
 
 #include <google/protobuf/stubs/common.h>
 
-#include "tactile/core/log/logger.hpp"
+#include "tactile/runtime/logging.hpp"
 
 namespace tactile::runtime {
 
 ProtobufContext::ProtobufContext()
 {
-  TACTILE_LOG_TRACE("Initializing Protobuf library");
+  TACTILE_RUNTIME_TRACE("Initializing Protobuf library");
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 }
 
@@ -20,7 +20,7 @@ ProtobufContext::~ProtobufContext() noexcept
     google::protobuf::ShutdownProtobufLibrary();
   }
   catch (...) {
-    TACTILE_LOG_ERROR("Protobuf shutdown failed");
+    TACTILE_RUNTIME_ERROR("Protobuf shutdown failed");
   }
 }
 

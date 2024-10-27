@@ -5,7 +5,7 @@
 #include <cstdlib>  // abort
 
 #include "tactile/core/debug/stacktrace.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -13,7 +13,7 @@ void on_terminate() noexcept
 {
   try {
     const auto trace = get_stacktrace();
-    TACTILE_LOG_FATAL("Into exile I must go. Failed I have.\n{}", trace);
+    TACTILE_CORE_ERROR("Into exile I must go. Failed I have.\n{}", trace);
   }
   catch (...) {  // NOLINT(*-empty-catch)
     // Not much we can do.

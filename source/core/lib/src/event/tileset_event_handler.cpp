@@ -9,7 +9,7 @@
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/model/model.hpp"
 #include "tactile/core/ui/widget_manager.hpp"
 
@@ -45,25 +45,25 @@ void TilesetEventHandler::install(EventDispatcher& dispatcher)
 
 void TilesetEventHandler::on_show_new_tileset_dialog(const ShowNewTilesetDialogEvent&)
 {
-  TACTILE_LOG_TRACE("ShowNewTilesetDialogEvent");
+  TACTILE_CORE_TRACE("ShowNewTilesetDialogEvent");
   mWidgetManager->get_new_tileset_dialog().open();
 }
 
 void TilesetEventHandler::on_add_tileset(const AddTilesetEvent& event)
 {
-  TACTILE_LOG_TRACE("AddTilesetEvent(path: {}, tile size: {})",
+  TACTILE_CORE_TRACE("AddTilesetEvent(path: {}, tile size: {})",
                     event.texture_path.string(),
                     event.tile_size);
 
   const auto texture_id = mRenderer->load_texture(event.texture_path);
   if (!texture_id.has_value()) {
-    TACTILE_LOG_ERROR("Could not load tileset texture: {}", to_string(texture_id.error()));
+    TACTILE_CORE_ERROR("Could not load tileset texture: {}", to_string(texture_id.error()));
     return;
   }
 
   const auto* texture = mRenderer->find_texture(*texture_id);
   if (!texture) {
-    TACTILE_LOG_ERROR("Could not find tileset texture");
+    TACTILE_CORE_ERROR("Could not find tileset texture");
     return;
   }
 

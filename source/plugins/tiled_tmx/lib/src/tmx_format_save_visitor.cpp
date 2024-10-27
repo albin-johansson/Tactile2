@@ -18,7 +18,7 @@
 #include "tactile/base/document/tileset_view.hpp"
 #include "tactile/base/io/compress/compression_format.hpp"
 #include "tactile/base/numeric/literals.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/tiled_tmx/logging.hpp"
 #include "tactile/tiled_tmx/tmx_common.hpp"
 
 namespace tactile::tiled_tmx {
@@ -179,7 +179,7 @@ auto _add_base64_tile_data(pugi::xml_node data_node,
     auto* compression_format = runtime.get_compression_format(*compress_format_id);
 
     if (!compression_format) {
-      runtime::log(LogLevel::kError, "No suitable compression plugin available");
+      TACTILE_TILED_TMX_ERROR("No suitable compression plugin available");
       return std::unexpected {ErrorCode::kNotSupported};
     }
 
@@ -187,7 +187,7 @@ auto _add_base64_tile_data(pugi::xml_node data_node,
       tile_bytes = std::move(*compressed_tile_bytes);
     }
     else {
-      runtime::log(LogLevel::kError, "Could not compress tile data");
+      TACTILE_TILED_TMX_ERROR("Could not compress tile data");
       return std::unexpected {compressed_tile_bytes.error()};
     }
 

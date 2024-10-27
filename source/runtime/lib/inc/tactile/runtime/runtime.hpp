@@ -61,7 +61,8 @@ class TACTILE_RUNTIME_API Runtime final : public IRuntime
   auto get_renderer() -> IRenderer* override;
 
   [[nodiscard]]
-  auto get_compression_format(CompressionFormatId id) const -> const ICompressionFormat* override;
+  auto get_compression_format(CompressionFormatId id) const
+      -> const ICompressionFormat* override;
 
   [[nodiscard]]
   auto get_save_format(SaveFormatId id) const -> const ISaveFormat* override;
@@ -72,6 +73,9 @@ class TACTILE_RUNTIME_API Runtime final : public IRuntime
 
   [[nodiscard]]
   auto get_renderer_options() const -> const RendererOptions& override;
+
+  [[nodiscard]]
+  auto get_logger() const -> log::Logger* override;
 
  private:
   struct Data;

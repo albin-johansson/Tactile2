@@ -8,7 +8,7 @@
 #include "tactile/core/document/map_document.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/layer_types.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -23,7 +23,7 @@ SetLayerOpacityCommand::SetLayerOpacityCommand(MapDocument* document,
 
 void SetLayerOpacityCommand::undo()
 {
-  TACTILE_LOG_TRACE("Setting layer {} opacity to {}",
+  TACTILE_CORE_TRACE("Setting layer {} opacity to {}",
                     entity_to_string(m_layer_id),
                     m_old_opacity);
   auto& registry = m_document->get_registry();
@@ -34,7 +34,7 @@ void SetLayerOpacityCommand::undo()
 
 void SetLayerOpacityCommand::redo()
 {
-  TACTILE_LOG_TRACE("Setting layer {} opacity to {}",
+  TACTILE_CORE_TRACE("Setting layer {} opacity to {}",
                     entity_to_string(m_layer_id),
                     m_new_opacity);
   auto& registry = m_document->get_registry();

@@ -6,7 +6,7 @@
 
 #include "tactile/base/render/renderer.hpp"
 #include "tactile/base/render/texture.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core {
 
@@ -17,7 +17,7 @@ auto load_texture(IRenderer& renderer, const std::filesystem::path& path)
 
   const auto texture_id = renderer.load_texture(path_string.c_str());
   if (!texture_id.has_value()) {
-    TACTILE_LOG_ERROR("Could not load texture '{}': {}",
+    TACTILE_CORE_ERROR("Could not load texture '{}': {}",
                       path_string,
                       to_string(texture_id.error()));
     return std::unexpected {texture_id.error()};
@@ -25,7 +25,7 @@ auto load_texture(IRenderer& renderer, const std::filesystem::path& path)
 
   const auto* texture = renderer.find_texture(*texture_id);
   if (!texture) {
-    TACTILE_LOG_ERROR("Could not find loaded texture");
+    TACTILE_CORE_ERROR("Could not find loaded texture");
     return std::unexpected {ErrorCode::kBadState};
   }
 

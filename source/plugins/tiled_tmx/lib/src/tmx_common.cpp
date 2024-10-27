@@ -5,7 +5,7 @@
 #include <fstream>    // ifstream
 #include <stdexcept>  // invalid_argument
 
-#include "tactile/runtime/logging.hpp"
+#include "tactile/tiled_tmx/logging.hpp"
 
 namespace tactile::tiled_tmx {
 namespace {
@@ -27,7 +27,7 @@ inline constexpr const char* kGroupLayerTypeName = "group";
 auto read_xml_document(const std::filesystem::path& path)
     -> std::expected<pugi::xml_document, ErrorCode>
 {
-  runtime::log(LogLevel::kTrace, "Parsing XML document at {}", path.string());
+  TACTILE_TILED_TMX_TRACE("Parsing XML document at {}", path.string());
 
   std::ifstream stream {path, std::ios::in};
   if (!stream.good()) {
@@ -40,7 +40,7 @@ auto read_xml_document(const std::filesystem::path& path)
   const auto load_result = xml_document.load(stream, parse_options);
 
   if (load_result.status != pugi::status_ok) {
-    runtime::log(LogLevel::kError, "XML parse error: {}", load_result.description());
+    TACTILE_TILED_TMX_ERROR("XML parse error: {}", load_result.description());
     return std::unexpected {ErrorCode::kParseError};
   }
 
@@ -50,10 +50,10 @@ auto read_xml_document(const std::filesystem::path& path)
 auto save_xml_document(const pugi::xml_document& document, const std::filesystem::path& path)
     -> std::expected<void, ErrorCode>
 {
-  runtime::log(LogLevel::kTrace, "Saving XML document to {}", path.string());
+  TACTILE_TILED_TMX_TRACE("Saving XML document to {}", path.string());
 
   if (!document.save_file(path.c_str(), "  ")) {
-    runtime::log(LogLevel::kError, "Could not save XML document");
+    TACTILE_TILED_TMX_ERROR("Could not save XML document");
     return std::unexpected {ErrorCode::kWriteError};
   }
 
@@ -90,7 +90,7 @@ auto read_property_type(const std::string_view name) -> std::expected<AttributeT
     return AttributeType::kObject;
   }
 
-  runtime::log(LogLevel::kError, "Unsupported property type '{}'", name);
+  TACTILE_TILED_TMX_ERROR("Unsupported property type '{}'", name);
   return std::unexpected {ErrorCode::kNotSupported};
 }
 
@@ -129,7 +129,7 @@ auto read_layer_type(const std::string_view name) -> std::expected<LayerType, Er
     return LayerType::kGroupLayer;
   }
 
-  runtime::log(LogLevel::kError, "Unsupported layer type '{}'", name);
+  TACTILE_TILED_TMX_ERROR("Unsupported layer type '{}'", name);
   return std::unexpected {ErrorCode::kNotSupported};
 }
 
@@ -159,7 +159,7 @@ auto read_compression_format(const std::string_view name)
     return CompressionFormatId::kZstd;
   }
 
-  runtime::log(LogLevel::kError, "Unsupported compression format '{}'", name);
+  TACTILE_TILED_TMX_ERROR("Unsupported compression format '{}'", name);
   return std::unexpected {ErrorCode::kNotSupported};
 }
 

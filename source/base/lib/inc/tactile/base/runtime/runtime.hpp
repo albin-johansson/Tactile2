@@ -17,6 +17,10 @@ class ICompressionFormat;
 class ISaveFormat;
 struct RendererOptions;
 
+namespace log {
+class Logger;
+}  // namespace log
+
 /**
  * Interface that defines the primary API used by dynamic Tactile modules.
  */
@@ -91,7 +95,8 @@ class IRuntime
    * A possibly null pointer to the compression format.
    */
   [[nodiscard]]
-  virtual auto get_compression_format(CompressionFormatId id) const -> const ICompressionFormat* = 0;
+  virtual auto get_compression_format(CompressionFormatId id) const
+      -> const ICompressionFormat* = 0;
 
   /**
    * Returns the save format registered with a given format identifier.
@@ -123,6 +128,15 @@ class IRuntime
    */
   [[nodiscard]]
   virtual auto get_renderer_options() const -> const RendererOptions& = 0;
+
+  /**
+   * Returns the associated runtime logger.
+   *
+   * \return
+   * A pointer to the logger.
+   */
+  [[nodiscard]]
+  virtual auto get_logger() const -> log::Logger* = 0;
 };
 
 }  // namespace tactile

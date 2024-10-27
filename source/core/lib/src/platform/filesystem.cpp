@@ -10,7 +10,7 @@
 
 #include "tactile/base/platform/native_string.hpp"
 #include "tactile/base/util/scope_exit.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/platform/environment.hpp"
 #include "tactile/core/util/string_conv.hpp"
 
@@ -36,7 +36,7 @@ auto open_directory_in_finder(const std::filesystem::path& dir)
     std::system(cmd.c_str());
   }
   else {
-    TACTILE_LOG_ERROR("Cannot open finder on this platform");
+    TACTILE_CORE_ERROR("Cannot open finder on this platform");
     return std::unexpected {ErrorCode::kNotSupported};
   }
 
@@ -50,7 +50,7 @@ auto get_persistent_storage_directory() -> std::expected<std::filesystem::path, 
     return std::filesystem::path {path};
   }
 
-  TACTILE_LOG_ERROR("Could not determine persistent storage directory: {}", SDL_GetError());
+  TACTILE_CORE_ERROR("Could not determine persistent storage directory: {}", SDL_GetError());
   return std::unexpected {ErrorCode::kBadState};
 }
 

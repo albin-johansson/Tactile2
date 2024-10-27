@@ -8,8 +8,7 @@
 #include "tactile/base/document/document.hpp"
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/entity/registry.hpp"
-#include "tactile/core/log/logger.hpp"
-#include "tactile/core/log/set_log_scope.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/meta/meta.hpp"
 
 namespace tactile::core {
@@ -27,7 +26,7 @@ UpdatePropertyCommand::UpdatePropertyCommand(IDocument* document,
 
 void UpdatePropertyCommand::undo()
 {
-  TACTILE_LOG_TRACE("Reverting update of property '{}'", m_property_name);
+  TACTILE_CORE_TRACE("Reverting update of property '{}'", m_property_name);
 
   auto& registry = m_document->get_registry();
   auto& meta = registry.get<CMeta>(m_context_id);
@@ -38,7 +37,7 @@ void UpdatePropertyCommand::undo()
 
 void UpdatePropertyCommand::redo()
 {
-  TACTILE_LOG_TRACE("Updating the value of property '{}'", m_property_name);
+  TACTILE_CORE_TRACE("Updating the value of property '{}'", m_property_name);
 
   auto& registry = m_document->get_registry();
   auto& meta = registry.get<CMeta>(m_context_id);

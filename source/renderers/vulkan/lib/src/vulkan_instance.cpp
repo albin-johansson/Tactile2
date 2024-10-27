@@ -9,7 +9,7 @@
 
 #include "tactile/base/render/renderer_options.hpp"
 #include "tactile/base/render/window.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
 namespace tactile {
@@ -79,18 +79,18 @@ auto create_vulkan_instance(IWindow& window, const RendererOptions& options)
 #endif  // TACTILE_USE_VULKAN_SUBSET
 
   for (const auto* layer : enabled_layers) {
-    runtime::log(LogLevel::kDebug, "Using Vulkan layer '{}'", layer);
+    TACTILE_VULKAN_DEBUG("Using Vulkan layer '{}'", layer);
   }
 
   for (const auto* extension : enabled_extensions) {
-    runtime::log(LogLevel::kDebug, "Using Vulkan instance extension '{}'", extension);
+    TACTILE_VULKAN_DEBUG("Using Vulkan instance extension '{}'", extension);
   }
 
   VkInstance instance {VK_NULL_HANDLE};
   const auto result = vkCreateInstance(&instance_info, nullptr, &instance);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError, "Could not create Vulkan instance: {}", to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan instance: {}", to_string(result));
     return std::unexpected {result};
   }
 

@@ -8,7 +8,7 @@
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/group_layer.hpp"
 #include "tactile/core/layer/layer_common.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/map/map.hpp"
 
 namespace tactile::core {
@@ -22,7 +22,7 @@ DuplicateLayerCommand::DuplicateLayerCommand(MapDocument* document, const Entity
 
 void DuplicateLayerCommand::undo()
 {
-  TACTILE_LOG_TRACE("Removing layer {} (duplicated from {})",
+  TACTILE_CORE_TRACE("Removing layer {} (duplicated from {})",
                     entity_to_string(m_duplicate_layer_id),
                     entity_to_string(m_layer_id));
 
@@ -35,7 +35,7 @@ void DuplicateLayerCommand::undo()
 
 void DuplicateLayerCommand::redo()
 {
-  TACTILE_LOG_TRACE("Duplicating layer {}", entity_to_string(m_layer_id));
+  TACTILE_CORE_TRACE("Duplicating layer {}", entity_to_string(m_layer_id));
 
   auto& registry = m_document->get_registry();
   const auto map_id = registry.get<CDocumentInfo>().root;

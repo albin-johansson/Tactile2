@@ -10,7 +10,7 @@
 #include "tactile/core/debug/validation.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
-#include "tactile/core/log/logger.hpp"
+#include "tactile/core/logging.hpp"
 #include "tactile/core/model/model.hpp"
 
 namespace tactile::core {
@@ -31,7 +31,7 @@ void ObjectEventHandler::install(EventDispatcher& dispatcher)
 
 void ObjectEventHandler::on_create_object(const CreateObjectEvent& event) const
 {
-  TACTILE_LOG_TRACE("CreateObjectEvent");
+  TACTILE_CORE_TRACE("CreateObjectEvent");
   m_model->push_map_command<CreateObjectCommand>(event.layer_id,
                                                  event.type,
                                                  event.position,
@@ -40,25 +40,25 @@ void ObjectEventHandler::on_create_object(const CreateObjectEvent& event) const
 
 void ObjectEventHandler::on_remove_object(const RemoveObjectEvent& event) const
 {
-  TACTILE_LOG_TRACE("RemoveObjectEvent");
+  TACTILE_CORE_TRACE("RemoveObjectEvent");
   m_model->push_map_command<RemoveObjectCommand>(event.layer_id, event.object_id);
 }
 
 void ObjectEventHandler::on_move_object(const MoveObjectEvent& event) const
 {
-  TACTILE_LOG_TRACE("MoveObjectEvent");
+  TACTILE_CORE_TRACE("MoveObjectEvent");
   m_model->push_map_command<MoveObjectCommand>(event.object_id, event.position);
 }
 
 void ObjectEventHandler::on_set_object_tag(const SetObjectTagEvent& event) const
 {
-  TACTILE_LOG_TRACE("SetObjectTagEvent");
+  TACTILE_CORE_TRACE("SetObjectTagEvent");
   m_model->push_map_command<SetObjectTagCommand>(event.object_id, event.tag);
 }
 
 void ObjectEventHandler::on_set_object_visible(const SetObjectVisibleEvent& event) const
 {
-  TACTILE_LOG_TRACE("SetObjectVisibleEvent");
+  TACTILE_CORE_TRACE("SetObjectVisibleEvent");
   m_model->push_map_command<SetObjectVisibilityCommand>(event.object_id, event.visible);
 }
 

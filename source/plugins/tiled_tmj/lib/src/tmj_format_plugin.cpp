@@ -5,15 +5,15 @@
 #include <new>  // nothrow
 
 #include "tactile/base/runtime/runtime.hpp"
-#include "tactile/runtime/logging.hpp"
+#include "tactile/tiled_tmj/logging.hpp"
 #include "tactile/tiled_tmj/tmj_save_format.hpp"
 
 namespace tactile::tiled_tmj {
 
 void TmjFormatPlugin::load(IRuntime* runtime)
 {
-  runtime::log(LogLevel::kTrace, "Loading Tiled TMJ format plugin");
   m_runtime = runtime;
+  set_logger(m_runtime->get_logger());
 
   m_format = std::make_unique<TmjSaveFormat>(m_runtime);
   m_runtime->set_save_format(SaveFormatId::kTiledTmj, m_format.get());
@@ -21,12 +21,11 @@ void TmjFormatPlugin::load(IRuntime* runtime)
 
 void TmjFormatPlugin::unload()
 {
-  runtime::log(LogLevel::kTrace, "Unloading Tiled TMJ format plugin");
-
   m_runtime->set_save_format(SaveFormatId::kTiledTmj, nullptr);
-  m_runtime = nullptr;
-
   m_format.reset();
+
+  set_logger(nullptr);
+  m_runtime = nullptr;
 }
 
 auto tactile_make_plugin() -> IPlugin*

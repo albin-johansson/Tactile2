@@ -4,7 +4,7 @@
 
 #include <utility>  // exchange
 
-#include "tactile/runtime/logging.hpp"
+#include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
 namespace tactile {
@@ -77,9 +77,7 @@ auto create_vulkan_image_view(VkDevice device,
   const auto result = vkCreateImageView(device, &image_view_info, nullptr, &image_view.handle);
 
   if (result != VK_SUCCESS) {
-    runtime::log(LogLevel::kError,
-                 "Could not create Vulkan image view: {}",
-                 to_string(result));
+    TACTILE_VULKAN_ERROR("Could not create Vulkan image view: {}", to_string(result));
     return std::unexpected {result};
   }
 

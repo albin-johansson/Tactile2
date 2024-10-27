@@ -8,8 +8,7 @@
 #include "tactile/base/container/lookup.hpp"
 #include "tactile/core/debug/performance.hpp"
 #include "tactile/core/io/ini.hpp"
-#include "tactile/core/log/logger.hpp"
-#include "tactile/core/log/set_log_scope.hpp"
+#include "tactile/core/logging.hpp"
 
 namespace tactile::core::ui {
 namespace {
@@ -200,7 +199,7 @@ auto _validate_strings(std::vector<std::string>& strings) -> std::expected<void,
 
   for (auto& string : strings) {
     if (string.empty()) {
-      TACTILE_LOG_ERROR("std::string with ID {} is not translated", index);
+      TACTILE_CORE_ERROR("std::string with ID {} is not translated", index);
       return std::unexpected {ErrorCode::kBadState};
     }
 
@@ -224,8 +223,7 @@ LanguageParser::LanguageParser()
 auto LanguageParser::parse(const LanguageID id, const std::filesystem::path& path) const
     -> std::expected<Language, ErrorCode>
 {
-  const SetLogScope log_scope {"LanguageParser"};
-  const ScopeProfiler profiler {"parse"};
+  const ScopeProfiler profiler {"LanguageParser::parse"};
 
   return parse_ini(path)
       .transform([this](const IniData& ini) {
