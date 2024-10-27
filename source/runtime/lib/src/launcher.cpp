@@ -39,11 +39,11 @@ auto _get_plugin_names(const CommandLineOptions& options) -> std::vector<std::st
   }
 
   if (options.load_tiled_tmj_format) {
-    plugin_names.emplace_back("tactile-tiled-tmj-format" TACTILE_DLL_EXT);
+    plugin_names.emplace_back("tactile-tiled-tmj" TACTILE_DLL_EXT);
   }
 
   if (options.load_tiled_tmx_format) {
-    plugin_names.emplace_back("tactile-tiled-tmx-format" TACTILE_DLL_EXT);
+    plugin_names.emplace_back("tactile-tiled-tmx" TACTILE_DLL_EXT);
   }
 
   if (options.load_godot_tscn_format) {
