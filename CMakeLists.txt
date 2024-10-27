@@ -89,7 +89,6 @@ endif ()
 add_subdirectory("source/log")
 add_subdirectory("source/core")
 add_subdirectory("source/runtime")
-add_subdirectory("source/json_util")
 add_subdirectory("source/main")
 
 if (TACTILE_BUILD_YAML_FORMAT)

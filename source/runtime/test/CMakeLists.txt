@@ -12,6 +12,7 @@ tactile_prepare_target(tactile-runtime-test)
 
 target_link_libraries(tactile-runtime-test
                       PRIVATE
+                      tactile::runtime
                       tactile::test_util
                       tactile::null_renderer
                       $<$<BOOL:TACTILE_BUILD_TILED_TMJ_FORMAT>:tactile::tiled_tmj>

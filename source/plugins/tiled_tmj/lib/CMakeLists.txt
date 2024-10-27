@@ -38,6 +38,5 @@ target_link_libraries(tactile-tiled-tmj
                       PUBLIC
                       tactile::base
                       tactile::log
-                      tactile::json_util
                       nlohmann_json::nlohmann_json
                       )

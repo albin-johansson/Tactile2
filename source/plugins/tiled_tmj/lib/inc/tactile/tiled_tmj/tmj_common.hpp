@@ -192,6 +192,12 @@ TACTILE_TILED_TMJ_API auto read_json_document(const std::filesystem::path& path)
     -> std::expected<JSON, ErrorCode>;
 
 [[nodiscard]]
+TACTILE_TILED_TMJ_API auto save_json_document(const std::filesystem::path& path,
+                                              const JSON& json,
+                                              int indentation = 2)
+    -> std::expected<void, ErrorCode>;
+
+[[nodiscard]]
 TACTILE_TILED_TMJ_API auto read_property_type(std::string_view name)
     -> std::expected<AttributeType, ErrorCode>;
 

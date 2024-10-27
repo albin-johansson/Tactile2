@@ -3,7 +3,8 @@
 #include "tactile/tiled_tmj/tmj_common.hpp"
 
 #include <exception>  // exception
-#include <fstream>    // ifstream
+#include <fstream>    // ifstream, ofstream
+#include <iomanip>    // setw
 #include <ios>        // ios
 
 namespace tactile::tiled_tmj {
@@ -29,6 +30,31 @@ auto read_json_document(const std::filesystem::path& path) -> std::expected<JSON
   catch (...) {
     TACTILE_TILED_TMJ_ERROR("Unknown JSON parse error");
     return std::unexpected {ErrorCode::kParseError};
+  }
+}
+
+auto save_json_document(const std::filesystem::path& path,
+                        const JSON& json,
+                        const int indentation) -> std::expected<void, ErrorCode>
+{
+  try {
+    std::ofstream stream {path, std::ios::out | std::ios::trunc};
+    if (!stream.good()) {
+      TACTILE_TILED_TMJ_ERROR("Could not save JSON document: {}", path.string());
+      return std::unexpected {ErrorCode::kBadFileStream};
+    }
+
+    stream << std::setw(indentation) << json;
+
+    return {};
+  }
+  catch (const std::exception& error) {
+    TACTILE_TILED_TMJ_ERROR("JSON save error: {}", error.what());
+    return std::unexpected {ErrorCode::kWriteError};
+  }
+  catch (...) {
+    TACTILE_TILED_TMJ_ERROR("Unknown JSON save error");
+    return std::unexpected {ErrorCode::kWriteError};
   }
 }
 

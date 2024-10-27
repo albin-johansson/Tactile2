@@ -3,7 +3,6 @@
 #include "tactile/tiled_tmj/tmj_save_format.hpp"
 
 #include "tactile/base/document/map_view.hpp"
-#include "tactile/json_util/json_io.hpp"
 #include "tactile/tiled_tmj/logging.hpp"
 #include "tactile/tiled_tmj/tmj_format_parser.hpp"
 #include "tactile/tiled_tmj/tmj_format_save_visitor.hpp"
@@ -52,15 +51,16 @@ auto TmjSaveFormat::save_map(const IMapView& map, const SaveFormatWriteOptions& 
     return map.accept(visitor)
         .and_then([&] {
           const auto& map_json = visitor.get_map_json();
-          return save_json(*map_path, map_json, options.use_indentation ? 2 : 0);
+          return save_json_document(*map_path, map_json, options.use_indentation ? 2 : 0);
         })
         .and_then([&]() -> std::expected<void, ErrorCode> {
           const auto& external_tilesets = visitor.get_external_tilesets();
 
           for (const auto& [first_tiled_id, external_tileset] : external_tilesets) {
-            const auto save_tileset_result = save_json(external_tileset.path,
-                                                       external_tileset.json,
-                                                       options.use_indentation ? 2 : 0);
+            const auto save_tileset_result =
+                save_json_document(external_tileset.path,
+                                   external_tileset.json,
+                                   options.use_indentation ? 2 : 0);
             if (!save_tileset_result.has_value()) {
               TACTILE_TILED_TMJ_ERROR("Could not save external tileset");
               return std::unexpected {save_tileset_result.error()};
