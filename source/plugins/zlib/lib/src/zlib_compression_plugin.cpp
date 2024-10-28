@@ -6,26 +6,27 @@
 
 #include "tactile/base/runtime/runtime.hpp"
 #include "tactile/zlib/logging.hpp"
+#include "tactile/zlib/zlib_compression_format.hpp"
 
-namespace tactile {
+namespace tactile::zlib {
 
 void ZlibCompressionPlugin::load(IRuntime* runtime)
 {
-  mRuntime = runtime;
-  zlib::set_logger(mRuntime->get_logger());
+  m_runtime = runtime;
+  set_logger(m_runtime->get_logger());
 
-  mCompressor = std::make_unique<ZlibCompressionFormat>();
-  mRuntime->set_compression_format(CompressionFormatId::kZlib, mCompressor.get());
+  m_format = std::make_unique<ZlibCompressionFormat>();
+  m_runtime->set_compression_format(CompressionFormatId::kZlib, m_format.get());
 }
 
 void ZlibCompressionPlugin::unload()
 {
-  zlib::set_logger(nullptr);
+  set_logger(nullptr);
 
-  mRuntime->set_compression_format(CompressionFormatId::kZlib, nullptr);
-  mRuntime = nullptr;
+  m_runtime->set_compression_format(CompressionFormatId::kZlib, nullptr);
+  m_runtime = nullptr;
 
-  mCompressor.reset();
+  m_format.reset();
 }
 
 auto tactile_make_plugin() -> IPlugin*
@@ -38,4 +39,4 @@ void tactile_free_plugin(IPlugin* plugin)
   delete plugin;
 }
 
-}  // namespace tactile
+}  // namespace tactile::zlib

@@ -8,10 +8,11 @@
 
 #include "tactile/zlib/zlib_compression_format.hpp"
 
-namespace tactile::test {
+namespace tactile::zlib {
+namespace {
 
-// tactile::ZlibCompressionFormat::compress
-// tactile::ZlibCompressionFormat::decompress
+// tactile::zlib::ZlibCompressionFormat::compress
+// tactile::zlib::ZlibCompressionFormat::decompress
 TEST(ZlibCompressionFormat, CompressAndDecompressBytes)
 {
   const ZlibCompressionFormat compressor {};
@@ -28,13 +29,13 @@ TEST(ZlibCompressionFormat, CompressAndDecompressBytes)
   EXPECT_THAT(*decompressed_bytes, testing::ContainerEq(bytes));
 }
 
-// tactile::ZlibCompressionFormat::compress
-// tactile::ZlibCompressionFormat::decompress
+// tactile::zlib::ZlibCompressionFormat::compress
+// tactile::zlib::ZlibCompressionFormat::decompress
 TEST(ZlibCompressionFormat, CompressAndDecompressString)
 {
   const ZlibCompressionFormat compressor {};
 
-  const std::string_view original_string =
+  constexpr std::string_view original_string =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi bibendum neque egestas congue quisque egestas diam in arcu. Varius duis at consectetur lorem. Ultricies tristique nulla aliquet enim tortor at auctor. Nibh nisl condimentum id venenatis a condimentum vitae sapien pellentesque. Venenatis urna cursus eget nunc scelerisque. Mattis molestie a iaculis at erat pellentesque adipiscing commodo elit. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Vivamus arcu felis bibendum ut. Libero enim sed faucibus turpis in eu mi bibendum neque. Blandit volutpat maecenas volutpat blandit aliquam etiam.";
 
   const auto compressed_bytes = compressor.compress(make_byte_span(original_string));
@@ -47,4 +48,5 @@ TEST(ZlibCompressionFormat, CompressAndDecompressString)
   EXPECT_EQ(restored_string, original_string);
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile::zlib

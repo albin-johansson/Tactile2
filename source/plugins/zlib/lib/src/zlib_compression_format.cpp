@@ -14,7 +14,7 @@
 #include "tactile/base/numeric/saturate_cast.hpp"
 #include "tactile/zlib/logging.hpp"
 
-namespace tactile {
+namespace tactile::zlib {
 namespace {
 
 // Zlib has inconsistently named typedefs, we use these instead.
@@ -195,4 +195,4 @@ auto ZlibCompressionFormat::decompress(const ByteSpan input_data) const
       .transform([&] { return std::move(output_buffer); });
 }
 
-}  // namespace tactile
+}  // namespace tactile::zlib

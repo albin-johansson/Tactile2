@@ -3,10 +3,9 @@
 #pragma once
 
 #include "tactile/base/io/compress/compression_format.hpp"
-#include "tactile/base/prelude.hpp"
 #include "tactile/zlib/api.hpp"
 
-namespace tactile {
+namespace tactile::zlib {
 
 /**
  * Provides compression using the Zlib library.
@@ -23,4 +22,4 @@ class TACTILE_ZLIB_API ZlibCompressionFormat final : public ICompressionFormat
   auto decompress(ByteSpan input_data) const -> std::expected<ByteStream, ErrorCode> override;
 };
 
-}  // namespace tactile
+}  // namespace tactile::zlib
