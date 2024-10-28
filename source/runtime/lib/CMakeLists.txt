@@ -12,7 +12,7 @@ target_sources(tactile-runtime
                "src/logging.cpp"
                "src/plugin_instance.cpp"
                "src/protobuf_context.cpp"
-               "src/runtime.cpp"
+               "src/runtime_impl.cpp"
                "src/sdl_context.cpp"
                "src/window.cpp"
 
@@ -25,7 +25,7 @@ target_sources(tactile-runtime
                "inc/tactile/runtime/logging.hpp"
                "inc/tactile/runtime/plugin_instance.hpp"
                "inc/tactile/runtime/protobuf_context.hpp"
-               "inc/tactile/runtime/runtime.hpp"
+               "inc/tactile/runtime/runtime_impl.hpp"
                "inc/tactile/runtime/sdl_context.hpp"
                "inc/tactile/runtime/window.hpp"
                )

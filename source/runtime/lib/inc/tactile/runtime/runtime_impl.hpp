@@ -20,11 +20,11 @@ struct CommandLineOptions;
 /**
  * Implements the runtime interface.
  */
-class TACTILE_RUNTIME_API Runtime final : public IRuntime
+class TACTILE_RUNTIME_API RuntimeImpl final : public IRuntime
 {
  public:
-  TACTILE_DELETE_COPY(Runtime);
-  TACTILE_DELETE_MOVE(Runtime);
+  TACTILE_DELETE_COPY(RuntimeImpl);
+  TACTILE_DELETE_MOVE(RuntimeImpl);
 
   /**
    * Performs basic initialization of the runtime.
@@ -42,9 +42,9 @@ class TACTILE_RUNTIME_API Runtime final : public IRuntime
    *
    * \param options The provided command line options.
    */
-  explicit Runtime(const CommandLineOptions& options);
+  explicit RuntimeImpl(const CommandLineOptions& options);
 
-  ~Runtime() noexcept override;
+  ~RuntimeImpl() noexcept override;
 
   void init_window(std::uint32_t flags) override;
 

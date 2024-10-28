@@ -13,7 +13,7 @@
 #include "tactile/null_renderer/null_renderer_plugin.hpp"
 #include "tactile/runtime/command_line_options.hpp"
 #include "tactile/runtime/document_factory.hpp"
-#include "tactile/runtime/runtime.hpp"
+#include "tactile/runtime/runtime_impl.hpp"
 #include "tactile/test_util/document_view_mocks.hpp"
 #include "tactile/test_util/ir.hpp"
 #include "tactile/test_util/ir_eq.hpp"
@@ -118,7 +118,7 @@ class SaveFormatRoundtripTest : public testing::TestWithParam<SaveFormatRoundtri
   }
 
  protected:
-  Runtime m_runtime {_get_command_line_options()};
+  RuntimeImpl m_runtime {_get_command_line_options()};
 
   null_renderer::NullRendererPlugin m_null_renderer_plugin {};
 

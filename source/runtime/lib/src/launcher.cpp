@@ -16,7 +16,7 @@
 #include "tactile/runtime/dynamic_library.hpp"
 #include "tactile/runtime/logging.hpp"
 #include "tactile/runtime/plugin_instance.hpp"
-#include "tactile/runtime/runtime.hpp"
+#include "tactile/runtime/runtime_impl.hpp"
 
 namespace tactile::runtime {
 namespace {
@@ -95,7 +95,7 @@ auto launch(const int argc, char* argv[]) -> int
       return EXIT_FAILURE;
     }
 
-    Runtime runtime {*options};
+    RuntimeImpl runtime {*options};
 
     const auto plugins [[maybe_unused]] = _load_plugins(runtime, *options);
 

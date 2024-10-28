@@ -1,6 +1,6 @@
 // Copyright (C) 2024 Albin Johansson (GNU General Public License v3.0)
 
-#include "tactile/runtime/runtime.hpp"
+#include "tactile/runtime/runtime_impl.hpp"
 
 #include <chrono>         // steady_clock
 #include <cstdlib>        // malloc, free, EXIT_SUCCESS, EXIT_FAILURE
@@ -78,7 +78,7 @@ void _log_command_line_options(const CommandLineOptions& options)
 
 }  // namespace
 
-struct Runtime::Data final
+struct RuntimeImpl::Data final
 {
   RendererOptions renderer_options;
   ProtobufContext protobuf_context;
@@ -110,7 +110,7 @@ struct Runtime::Data final
   TACTILE_DELETE_MOVE(Data);
 };
 
-Runtime::Runtime(const CommandLineOptions& options)
+RuntimeImpl::RuntimeImpl(const CommandLineOptions& options)
 {
   std::set_terminate(&core::on_terminate);
   mData = std::make_unique<Data>(options);
@@ -118,9 +118,9 @@ Runtime::Runtime(const CommandLineOptions& options)
   core::init_random_number_generator();
 }
 
-Runtime::~Runtime() noexcept = default;
+RuntimeImpl::~RuntimeImpl() noexcept = default;
 
-void Runtime::init_window(const std::uint32_t flags)
+void RuntimeImpl::init_window(const std::uint32_t flags)
 {
   if (auto window = Window::create(flags)) {
     core::win32_use_immersive_dark_mode(window->get_handle());
@@ -128,12 +128,13 @@ void Runtime::init_window(const std::uint32_t flags)
   }
 }
 
-void Runtime::set_renderer(IRenderer* renderer)
+void RuntimeImpl::set_renderer(IRenderer* renderer)
 {
   mData->renderer = renderer;
 }
 
-void Runtime::set_compression_format(const CompressionFormatId id, ICompressionFormat* format)
+void RuntimeImpl::set_compression_format(const CompressionFormatId id,
+                                         ICompressionFormat* format)
 {
   if (format != nullptr) {
     mData->compression_formats.insert_or_assign(id, format);
@@ -143,7 +144,7 @@ void Runtime::set_compression_format(const CompressionFormatId id, ICompressionF
   }
 }
 
-void Runtime::set_save_format(const SaveFormatId id, ISaveFormat* format)
+void RuntimeImpl::set_save_format(const SaveFormatId id, ISaveFormat* format)
 {
   if (format != nullptr) {
     mData->save_formats.insert_or_assign(id, format);
@@ -153,17 +154,17 @@ void Runtime::set_save_format(const SaveFormatId id, ISaveFormat* format)
   }
 }
 
-auto Runtime::get_window() -> IWindow*
+auto RuntimeImpl::get_window() -> IWindow*
 {
   return mData->window.has_value() ? &mData->window.value() : nullptr;
 }
 
-auto Runtime::get_renderer() -> IRenderer*
+auto RuntimeImpl::get_renderer() -> IRenderer*
 {
   return mData->renderer;
 }
 
-auto Runtime::get_compression_format(const CompressionFormatId id) const
+auto RuntimeImpl::get_compression_format(const CompressionFormatId id) const
     -> const ICompressionFormat*
 {
   const auto iter = mData->compression_formats.find(id);
@@ -175,7 +176,7 @@ auto Runtime::get_compression_format(const CompressionFormatId id) const
   return nullptr;
 }
 
-auto Runtime::get_save_format(const SaveFormatId id) const -> const ISaveFormat*
+auto RuntimeImpl::get_save_format(const SaveFormatId id) const -> const ISaveFormat*
 {
   const auto iter = mData->save_formats.find(id);
 
@@ -186,9 +187,9 @@ auto Runtime::get_save_format(const SaveFormatId id) const -> const ISaveFormat*
   return nullptr;
 }
 
-void Runtime::get_imgui_allocator_functions(imgui_malloc_fn** malloc_fn,
-                                            imgui_free_fn** free_fn,
-                                            void** user_data)
+void RuntimeImpl::get_imgui_allocator_functions(imgui_malloc_fn** malloc_fn,
+                                                imgui_free_fn** free_fn,
+                                                void** user_data)
 {
   if (malloc_fn) {
     *malloc_fn = &_imgui_malloc;
@@ -203,12 +204,12 @@ void Runtime::get_imgui_allocator_functions(imgui_malloc_fn** malloc_fn,
   }
 }
 
-auto Runtime::get_renderer_options() const -> const RendererOptions&
+auto RuntimeImpl::get_renderer_options() const -> const RendererOptions&
 {
   return mData->renderer_options;
 }
 
-auto Runtime::get_logger() const -> log::Logger*
+auto RuntimeImpl::get_logger() const -> log::Logger*
 {
   return &mData->logger;
 }
