@@ -127,7 +127,7 @@ class SaveFormatRoundtripTest : public testing::TestWithParam<SaveFormatRoundtri
 #endif  // TACTILE_HAS_ZLIB
 
 #ifdef TACTILE_HAS_ZSTD
-  ZstdCompressionPlugin m_zstd_compression_plugin {};
+  zstd::ZstdCompressionPlugin m_zstd_compression_plugin {};
 #endif  // TACTILE_HAS_ZSTD
 
 #ifdef TACTILE_HAS_TILED_TMX

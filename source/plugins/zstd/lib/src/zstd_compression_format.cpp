@@ -11,7 +11,7 @@
 
 #include "tactile/zstd/logging.hpp"
 
-namespace tactile {
+namespace tactile::zstd {
 namespace {
 
 struct DStreamDeleter final
@@ -114,4 +114,4 @@ auto ZstdCompressionFormat::decompress(const ByteSpan input_data) const
   return decompressed_data;
 }
 
-}  // namespace tactile
+}  // namespace tactile::zstd

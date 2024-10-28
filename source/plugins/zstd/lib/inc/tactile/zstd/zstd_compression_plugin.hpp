@@ -4,12 +4,11 @@
 
 #include <memory>  // unique_ptr
 
-#include "tactile/base/prelude.hpp"
+#include "tactile/base/io/compress/compression_format.hpp"
 #include "tactile/base/runtime/plugin.hpp"
 #include "tactile/zstd/api.hpp"
-#include "tactile/zstd/zstd_compression_format.hpp"
 
-namespace tactile {
+namespace tactile::zstd {
 
 /**
  * Manages the Zstd compression plugin.
@@ -22,8 +21,8 @@ class TACTILE_ZSTD_API ZstdCompressionPlugin final : public IPlugin
   void unload() override;
 
  private:
-  IRuntime* mRuntime {};
-  std::unique_ptr<ZstdCompressionFormat> mCompressor {};
+  IRuntime* m_runtime {};
+  std::unique_ptr<ICompressionFormat> m_format {};
 };
 
 extern "C"
@@ -32,4 +31,4 @@ extern "C"
   TACTILE_ZSTD_API void tactile_free_plugin(IPlugin* plugin);
 }
 
-}  // namespace tactile
+}  // namespace tactile::zstd
