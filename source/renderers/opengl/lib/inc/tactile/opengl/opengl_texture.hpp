@@ -6,12 +6,11 @@
 
 #include "tactile/base/debug/error_code.hpp"
 #include "tactile/base/prelude.hpp"
+#include "tactile/base/render/renderer_options.hpp"
 #include "tactile/base/render/texture.hpp"
 #include "tactile/opengl/api.hpp"
 
-namespace tactile {
-
-struct RendererOptions;
+namespace tactile::gl {
 
 /**
  * Represents an OpenGL texture.
@@ -54,13 +53,13 @@ class TACTILE_OPENGL_API OpenGLTexture final : public ITexture
   auto get_path() const -> const std::filesystem::path& override;
 
  private:
-  id_type mID;
-  TextureSize mSize;
-  std::filesystem::path mPath;
+  id_type m_id;
+  TextureSize m_size;
+  std::filesystem::path m_path;
 
   OpenGLTexture(id_type id, TextureSize size, std::filesystem::path path);
 
   void _dispose() noexcept;
 };
 
-}  // namespace tactile
+}  // namespace tactile::gl

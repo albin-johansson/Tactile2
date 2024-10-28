@@ -5,9 +5,10 @@
 #include <glad/glad.h>
 #include <gtest/gtest.h>
 
-namespace tactile {
+namespace tactile::gl {
+namespace {
 
-// tactile::map_opengl_error_code
+// tactile::gl::map_opengl_error_code
 TEST(OpenGLError, MapOpenGLErrorCode)
 {
   EXPECT_EQ(map_opengl_error_code(GL_INVALID_ENUM), ErrorCode::kBadParam);
@@ -19,4 +20,5 @@ TEST(OpenGLError, MapOpenGLErrorCode)
   EXPECT_EQ(map_opengl_error_code(GL_INVALID_FRAMEBUFFER_OPERATION), ErrorCode::kBadOperation);
 }
 
-}  // namespace tactile
+}  // namespace
+}  // namespace tactile::gl

@@ -21,7 +21,7 @@
 #include "tactile/opengl/opengl_error.hpp"
 #include "tactile/opengl/opengl_texture.hpp"
 
-namespace tactile {
+namespace tactile::gl {
 
 struct GLContextDeleter final
 {
@@ -56,7 +56,7 @@ auto OpenGLRenderer::make(const RendererOptions& options, IWindow* window)
   }
 
   OpenGLRenderer renderer {};
-  auto& data = *renderer.mData;
+  auto& data = *renderer.m_data;
 
   data.options = options;
   data.window = window;
@@ -108,7 +108,7 @@ auto OpenGLRenderer::make(const RendererOptions& options, IWindow* window)
 }
 
 OpenGLRenderer::OpenGLRenderer()
-  : mData {std::make_unique<Data>()}
+  : m_data {std::make_unique<Data>()}
 {}
 
 OpenGLRenderer::OpenGLRenderer(OpenGLRenderer&& other) noexcept = default;
@@ -140,34 +140,34 @@ void OpenGLRenderer::end_frame()
   if constexpr (kOnMacos) {
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
   }
-  SDL_GL_SwapWindow(mData->window->get_handle());
+  SDL_GL_SwapWindow(m_data->window->get_handle());
 }
 
 auto OpenGLRenderer::load_texture(const std::filesystem::path& image_path)
     -> std::expected<TextureID, ErrorCode>
 {
-  auto texture = OpenGLTexture::load(image_path, mData->options);
+  auto texture = OpenGLTexture::load(image_path, m_data->options);
   if (!texture.has_value()) {
     return std::unexpected {texture.error()};
   }
 
-  auto& data = *mData;
+  auto& data = *m_data;
 
   const auto texture_id = data.next_texture_id;
   ++data.next_texture_id.value;
 
-  mData->textures.try_emplace(texture_id, std::move(*texture));
+  m_data->textures.try_emplace(texture_id, std::move(*texture));
   return texture_id;
 }
 
 void OpenGLRenderer::unload_texture(const TextureID id)
 {
-  mData->textures.erase(id);
+  m_data->textures.erase(id);
 }
 
 auto OpenGLRenderer::find_texture(const TextureID id) const -> const ITexture*
 {
-  if (const auto iter = mData->textures.find(id); iter != mData->textures.end()) {
+  if (const auto iter = m_data->textures.find(id); iter != m_data->textures.end()) {
     return &iter->second;
   }
 
@@ -187,12 +187,12 @@ auto OpenGLRenderer::can_reload_fonts() const -> bool
 
 auto OpenGLRenderer::get_window() -> IWindow*
 {
-  return mData->window;
+  return m_data->window;
 }
 
 auto OpenGLRenderer::get_window() const -> const IWindow*
 {
-  return mData->window;
+  return m_data->window;
 }
 
 auto OpenGLRenderer::get_imgui_context() -> ImGuiContext*
@@ -207,7 +207,7 @@ void OpenGLRenderer::process_event(const SDL_Event& event)
 
 auto OpenGLRenderer::get_options() -> const RendererOptions&
 {
-  return mData->options;
+  return m_data->options;
 }
 
-}  // namespace tactile
+}  // namespace tactile::gl

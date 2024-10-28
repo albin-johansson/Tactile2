@@ -8,27 +8,28 @@
 #include "tactile/runtime/command_line_options.hpp"
 #include "tactile/runtime/runtime_impl.hpp"
 
-namespace tactile {
+namespace tactile::gl {
+namespace {
 
 class OpenGLTextureTest : public testing::Test
 {
  protected:
   void SetUp() override
   {
-    mPlugin.load(&mRuntime);
+    m_plugin.load(&m_runtime);
   }
 
   void TearDown() override
   {
-    mPlugin.unload();
+    m_plugin.unload();
   }
 
-  runtime::RuntimeImpl mRuntime {runtime::get_default_command_line_options()};
-  OpenGLRendererPlugin mPlugin {};
+  runtime::RuntimeImpl m_runtime {runtime::get_default_command_line_options()};
+  OpenGLRendererPlugin m_plugin {};
   RendererOptions m_options {};
 };
 
-// tactile::OpenGLTexture::load
+// tactile::gl::OpenGLTexture::load
 TEST_F(OpenGLTextureTest, Load)
 {
   const auto texture = OpenGLTexture::load("assets/images/dummy.png", m_options);
@@ -39,4 +40,5 @@ TEST_F(OpenGLTextureTest, Load)
   EXPECT_EQ(texture->get_size().height, 64);
 }
 
-}  // namespace tactile
+}  // namespace
+}  // namespace tactile::gl

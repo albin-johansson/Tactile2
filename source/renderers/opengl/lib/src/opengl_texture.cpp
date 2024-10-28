@@ -14,7 +14,7 @@
 #include "tactile/base/render/renderer_options.hpp"
 #include "tactile/opengl/opengl_error.hpp"
 
-namespace tactile {
+namespace tactile::gl {
 
 auto OpenGLTexture::load(const std::filesystem::path& image_path,
                          const RendererOptions& options)
@@ -72,15 +72,15 @@ auto OpenGLTexture::load(const std::filesystem::path& image_path,
 OpenGLTexture::OpenGLTexture(const id_type id,
                              const TextureSize size,
                              std::filesystem::path path)
-  : mID {id},
-    mSize {size},
-    mPath {std::move(path)}
+  : m_id {id},
+    m_size {size},
+    m_path {std::move(path)}
 {}
 
 OpenGLTexture::OpenGLTexture(OpenGLTexture&& other) noexcept
-  : mID {std::exchange(other.mID, 0)},
-    mSize {std::exchange(other.mSize, TextureSize {})},
-    mPath {std::exchange(other.mPath, std::filesystem::path {})}
+  : m_id {std::exchange(other.m_id, 0)},
+    m_size {std::exchange(other.m_size, TextureSize {})},
+    m_path {std::exchange(other.m_path, std::filesystem::path {})}
 {}
 
 auto OpenGLTexture::operator=(OpenGLTexture&& other) noexcept -> OpenGLTexture&
@@ -88,9 +88,9 @@ auto OpenGLTexture::operator=(OpenGLTexture&& other) noexcept -> OpenGLTexture&
   if (this != &other) {
     _dispose();
 
-    mID = std::exchange(other.mID, 0);
-    mSize = std::exchange(other.mSize, TextureSize {});
-    mPath = std::exchange(other.mPath, std::filesystem::path {});
+    m_id = std::exchange(other.m_id, 0);
+    m_size = std::exchange(other.m_size, TextureSize {});
+    m_path = std::exchange(other.m_path, std::filesystem::path {});
   }
 
   return *this;
@@ -103,25 +103,25 @@ OpenGLTexture::~OpenGLTexture() noexcept
 
 void OpenGLTexture::_dispose() noexcept
 {
-  if (mID != 0) {
-    glDeleteTextures(1, &mID);
-    mID = 0;
+  if (m_id != 0) {
+    glDeleteTextures(1, &m_id);
+    m_id = 0;
   }
 }
 
 auto OpenGLTexture::get_handle() const -> void*
 {
-  return std::bit_cast<void*>(static_cast<std::uintptr_t>(mID));
+  return std::bit_cast<void*>(static_cast<std::uintptr_t>(m_id));
 }
 
 auto OpenGLTexture::get_size() const -> TextureSize
 {
-  return mSize;
+  return m_size;
 }
 
 auto OpenGLTexture::get_path() const -> const std::filesystem::path&
 {
-  return mPath;
+  return m_path;
 }
 
-}  // namespace tactile
+}  // namespace tactile::gl

@@ -10,7 +10,7 @@
 #include "tactile/base/render/renderer.hpp"
 #include "tactile/opengl/api.hpp"
 
-namespace tactile {
+namespace tactile::gl {
 
 /**
  * Represents an OpenGL 4.1.0 renderer.
@@ -74,9 +74,9 @@ class TACTILE_OPENGL_API OpenGLRenderer final : public IRenderer
 
  private:
   struct Data;
-  std::unique_ptr<Data> mData;
+  std::unique_ptr<Data> m_data;
 
   OpenGLRenderer();
 };
 
-}  // namespace tactile
+}  // namespace tactile::gl

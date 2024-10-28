@@ -8,33 +8,35 @@
 #include "tactile/runtime/command_line_options.hpp"
 #include "tactile/runtime/runtime_impl.hpp"
 
-namespace tactile {
+namespace tactile::gl {
+namespace {
 
 class OpenGLRendererTest : public testing::Test
 {
  protected:
   void SetUp() override
   {
-    mPlugin.load(&mRuntime);
+    m_plugin.load(&m_runtime);
   }
 
   void TearDown() override
   {
-    mPlugin.unload();
+    m_plugin.unload();
   }
 
-  runtime::RuntimeImpl mRuntime {runtime::get_default_command_line_options()};
-  OpenGLRendererPlugin mPlugin {};
+  runtime::RuntimeImpl m_runtime {runtime::get_default_command_line_options()};
+  OpenGLRendererPlugin m_plugin {};
 };
 
-// tactile::OpenGLRenderer::load_texture
+// tactile::gl::OpenGLRenderer::load_texture
 TEST_F(OpenGLRendererTest, LoadTexture)
 {
-  auto* renderer = dynamic_cast<OpenGLRenderer*>(mRuntime.get_renderer());
+  auto* renderer = dynamic_cast<OpenGLRenderer*>(m_runtime.get_renderer());
   ASSERT_NE(renderer, nullptr);
 
   EXPECT_EQ(renderer->load_texture("assets/images/dummy.png"), TextureID {1});
   EXPECT_FALSE(renderer->load_texture("a/b/c.png").has_value());
 }
 
-}  // namespace tactile
+}  // namespace
+}  // namespace tactile::gl

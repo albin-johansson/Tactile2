@@ -5,7 +5,7 @@
 #include "tactile/base/debug/error_code.hpp"
 #include "tactile/opengl/api.hpp"
 
-namespace tactile {
+namespace tactile::gl {
 
 /**
  * Translates an OpenGL error code, e.g. \c GL_INVALID_ENUM, to a Tactile error code.
@@ -18,4 +18,4 @@ namespace tactile {
 [[nodiscard]]
 TACTILE_OPENGL_API auto map_opengl_error_code(unsigned error) noexcept -> ErrorCode;
 
-}  // namespace tactile
+}  // namespace tactile::gl

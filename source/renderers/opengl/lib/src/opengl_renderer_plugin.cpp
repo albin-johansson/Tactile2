@@ -10,7 +10,7 @@
 #include "tactile/base/runtime/runtime.hpp"
 #include "tactile/opengl/logging.hpp"
 
-namespace tactile {
+namespace tactile::gl {
 namespace {
 
 void _set_hints()
@@ -36,7 +36,7 @@ void _set_hints()
 void OpenGLRendererPlugin::load(IRuntime* runtime)
 {
   m_runtime = runtime;
-  gl::set_logger(runtime->get_logger());
+  set_logger(runtime->get_logger());
 
   _set_hints();
 
@@ -65,7 +65,7 @@ void OpenGLRendererPlugin::unload()
   m_runtime->set_renderer(nullptr);
   m_renderer.reset();
 
-  gl::set_logger(nullptr);
+  set_logger(nullptr);
   m_runtime = nullptr;
 }
 
@@ -79,4 +79,4 @@ void tactile_free_plugin(IPlugin* plugin)
   delete plugin;
 }
 
-}  // namespace tactile
+}  // namespace tactile::gl

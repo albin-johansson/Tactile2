@@ -9,7 +9,7 @@
 #include "tactile/opengl/api.hpp"
 #include "tactile/opengl/opengl_renderer.hpp"
 
-namespace tactile {
+namespace tactile::gl {
 
 /**
  * Manages the OpenGL renderer plugin.
@@ -33,4 +33,4 @@ extern "C"
   TACTILE_OPENGL_API void tactile_free_plugin(IPlugin* plugin);
 }
 
-}  // namespace tactile
+}  // namespace tactile::gl

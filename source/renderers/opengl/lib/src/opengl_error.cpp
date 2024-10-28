@@ -4,7 +4,7 @@
 
 #include <glad/glad.h>
 
-namespace tactile {
+namespace tactile::gl {
 
 auto map_opengl_error_code(const unsigned error) noexcept -> ErrorCode
 {
@@ -21,4 +21,4 @@ auto map_opengl_error_code(const unsigned error) noexcept -> ErrorCode
   return ErrorCode::kUnknown;
 }
 
-}  // namespace tactile
+}  // namespace tactile::gl
