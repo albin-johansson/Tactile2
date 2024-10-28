@@ -13,6 +13,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 // tactile::core::CreatePropertyCommand::redo
 // tactile::core::CreatePropertyCommand::undo
@@ -50,4 +51,5 @@ TEST(CreatePropertyCommand, RedoUndo)
   EXPECT_EQ(meta.components.size(), 0);
 }
 
+}  // namespace
 }  // namespace tactile::core

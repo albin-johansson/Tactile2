@@ -19,6 +19,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class CreateLayerCommandTest : public testing::Test
 {
@@ -142,4 +143,5 @@ TEST_F(CreateLayerCommandTest, Dispose)
   EXPECT_FALSE(is_layer(registry, layer_id));
 }
 
+}  // namespace
 }  // namespace tactile::core

@@ -18,6 +18,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class TileViewImplTest : public testing::Test
 {
@@ -81,4 +82,5 @@ TEST_F(TileViewImplTest, Getters)
   EXPECT_ANY_THROW((void) tile_view.get_animation_frame(tile_view.animation_frame_count()));
 }
 
+}  // namespace
 }  // namespace tactile::core

@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 
 namespace tactile::core {
+namespace {
 
 class EventDispatcherTest : public testing::Test
 {
@@ -27,11 +28,9 @@ class EventDispatcherTest : public testing::Test
   std::vector<float> mFloats {};
 };
 
-/**
- * \trace tactile::core::EventDispatcher::push
- * \trace tactile::core::EventDispatcher::update
- * \trace tactile::core::EventDispatcher::bind
- */
+// tactile::core::EventDispatcher::push
+// tactile::core::EventDispatcher::update
+// tactile::core::EventDispatcher::bind
 TEST_F(EventDispatcherTest, PushAndUpdate)
 {
   mDispatcher.bind<int, &EventDispatcherTest::on_int>(this);
@@ -63,11 +62,9 @@ TEST_F(EventDispatcherTest, PushAndUpdate)
   EXPECT_EQ(mFloats.size(), 1);
 }
 
-/**
- * \trace tactile::core::EventDispatcher::push
- * \trace tactile::core::EventDispatcher::update
- * \trace tactile::core::EventDispatcher::bind
- */
+// tactile::core::EventDispatcher::push
+// tactile::core::EventDispatcher::update
+// tactile::core::EventDispatcher::bind
 TEST_F(EventDispatcherTest, PushAndUpdateUnregisteredEvent)
 {
   ASSERT_EQ(mInts.size(), 0);
@@ -80,10 +77,8 @@ TEST_F(EventDispatcherTest, PushAndUpdateUnregisteredEvent)
   EXPECT_EQ(mFloats.size(), 0);
 }
 
-/**
- * \trace tactile::core::EventDispatcher::trigger
- * \trace tactile::core::EventDispatcher::bind
- */
+// tactile::core::EventDispatcher::trigger
+// tactile::core::EventDispatcher::bind
 TEST_F(EventDispatcherTest, Trigger)
 {
   mDispatcher.bind<int, &EventDispatcherTest::on_int>(this);
@@ -102,9 +97,7 @@ TEST_F(EventDispatcherTest, Trigger)
   EXPECT_EQ(mFloats.size(), 0);
 }
 
-/**
- * \trace tactile::core::EventDispatcher::trigger
- */
+// tactile::core::EventDispatcher::trigger
 TEST_F(EventDispatcherTest, TriggerUnregisteredEvent)
 {
   ASSERT_EQ(mInts.size(), 0);
@@ -116,4 +109,5 @@ TEST_F(EventDispatcherTest, TriggerUnregisteredEvent)
   EXPECT_EQ(mFloats.size(), 0);
 }
 
+}  // namespace
 }  // namespace tactile::core

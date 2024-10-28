@@ -10,6 +10,7 @@
 #include "tactile/test_util/ir_presets.hpp"
 
 namespace tactile::core {
+namespace {
 
 // tactile::core::is_meta
 TEST(Meta, IsMeta)
@@ -38,4 +39,5 @@ TEST(Meta, ConvertIrMetadata)
   compare_meta(registry, meta_id, ir_metadata);
 }
 
+}  // namespace
 }  // namespace tactile::core

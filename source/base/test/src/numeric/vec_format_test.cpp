@@ -6,7 +6,8 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 TEST(VecFormat, Formatting)
 {
@@ -15,4 +16,5 @@ TEST(VecFormat, Formatting)
   EXPECT_EQ(std::format("{}", Int4 {1, 2, 3, 4}), "{1, 2, 3, 4}");
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

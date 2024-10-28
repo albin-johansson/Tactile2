@@ -11,6 +11,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 // tactile::core::UpdatePropertyCommand::redo
 // tactile::core::UpdatePropertyCommand::undo
@@ -97,4 +98,5 @@ TEST(UpdatePropertyCommand, MergeWith)
   EXPECT_EQ(meta.properties.size(), 1);
 }
 
+}  // namespace
 }  // namespace tactile::core

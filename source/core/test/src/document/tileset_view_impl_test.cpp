@@ -16,6 +16,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class TilesetViewImplTest : public testing::Test
 {
@@ -42,7 +43,7 @@ TEST_F(TilesetViewImplTest, Getters)
   auto& registry = mDocument.get_registry();
 
   const auto map_id = registry.get<CDocumentInfo>().root;
-  auto& map = registry.get<CMap>(map_id);
+  const auto& map = registry.get<CMap>(map_id);
 
   add_tileset_to_map(registry, map_id, kDummyTilesetSpec).value();
 
@@ -76,4 +77,5 @@ TEST_F(TilesetViewImplTest, Getters)
   EXPECT_EQ(tileset_view.get_image_path(), texture.path);
 }
 
+}  // namespace
 }  // namespace tactile::core

@@ -7,15 +7,16 @@
 #include "tactile/core/platform/environment.hpp"
 
 namespace tactile::core {
+namespace {
 
-/// \trace tactile::core::get_persistent_storage_directory
+// tactile::core::get_persistent_storage_directory
 TEST(Filesystem, GetPersistentStorageDirectory)
 {
   const auto dir = get_persistent_storage_directory();
   EXPECT_TRUE(dir.has_value());
 }
 
-/// \trace tactile::core::get_user_home_directory
+// tactile::core::get_user_home_directory
 TEST(Filesystem, GetUserHomeDirectory)
 {
   const std::filesystem::path home_path {get_env(kOnWindows ? "USERPROFILE" : "HOME").value()};
@@ -23,14 +24,14 @@ TEST(Filesystem, GetUserHomeDirectory)
   EXPECT_EQ(dir, home_path);
 }
 
-/// \trace tactile::core::normalize_path
+// tactile::core::normalize_path
 TEST(Filesystem, NormalizePath)
 {
   EXPECT_EQ(normalize_path(R"(~/a/b)"), "~/a/b");
   EXPECT_EQ(normalize_path(R"(C:\a\b\c.txt)"), "C:/a/b/c.txt");
 }
 
-/// \trace tactile::core::strip_home_directory_prefix
+// tactile::core::strip_home_directory_prefix
 TEST(Filesystem, StripHomeDirectoryPrefix)
 {
   const auto home_dir = get_user_home_directory().value();
@@ -44,4 +45,5 @@ TEST(Filesystem, StripHomeDirectoryPrefix)
   EXPECT_FALSE(strip_home_directory_prefix(abc, home_dir).has_value());
 }
 
+}  // namespace
 }  // namespace tactile::core

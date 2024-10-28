@@ -16,6 +16,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class SetLayerOpacityCommandTest : public testing::Test
 {
@@ -100,4 +101,5 @@ TEST_F(SetLayerOpacityCommandTest, MergeWith)
   EXPECT_EQ(layer.opacity, opacity1);
 }
 
+}  // namespace
 }  // namespace tactile::core

@@ -11,6 +11,7 @@
 #include "tactile/core/meta/meta.hpp"
 
 namespace tactile::core {
+namespace {
 
 class TileLayerTest : public testing::TestWithParam<bool>
 {
@@ -261,4 +262,5 @@ TEST_P(TileLayerTest, SetLayerTile)
   set_and_verify(Index2D {4, 9}, TileID {865});
 }
 
+}  // namespace
 }  // namespace tactile::core

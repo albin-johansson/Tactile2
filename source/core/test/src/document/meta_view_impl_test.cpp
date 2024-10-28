@@ -12,6 +12,7 @@
 #include "tactile/core/meta/meta.hpp"
 
 namespace tactile::core {
+namespace {
 
 class MetaViewImplTest : public testing::Test
 {
@@ -81,4 +82,5 @@ TEST_F(MetaViewImplTest, GetProperty)
   EXPECT_ANY_THROW((void) meta_view.get_property(3));
 }
 
+}  // namespace
 }  // namespace tactile::core

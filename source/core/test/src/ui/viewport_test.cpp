@@ -7,6 +7,7 @@
 #include "tactile/core/entity/registry.hpp"
 
 namespace tactile::core {
+namespace {
 
 class ViewportTest : public testing::Test
 {
@@ -176,4 +177,5 @@ TEST_F(ViewportTest, ToWorldPos)
   EXPECT_EQ(to_world_pos(viewport, Float2 {0, 10}), (Float2 {-100, -40}));
 }
 
+}  // namespace
 }  // namespace tactile::core

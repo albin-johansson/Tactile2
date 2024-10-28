@@ -5,18 +5,20 @@
 #include <gtest/gtest.h>
 
 namespace tactile::core {
+namespace {
 
-/** \trace tactile::core::require_not_null */
+// tactile::core::require_not_null
 TEST(Validation, RequireNotNullWithValidPointer)
 {
-  const auto value = 42;
+  constexpr int value = 42;
   EXPECT_EQ(require_not_null(&value), &value);
 }
 
-/** \trace tactile::core::require_not_null */
+// tactile::core::require_not_null
 TEST(Validation, RequireNotNullWithNullPointer)
 {
   EXPECT_THROW((void) require_not_null(nullptr), Exception);
 }
 
+}  // namespace
 }  // namespace tactile::core

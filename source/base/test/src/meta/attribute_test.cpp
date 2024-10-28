@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 
 namespace tactile {
+namespace {
 
 // tactile::Attribute::Attribute
 TEST(Attribute, DefaultConstructor)
@@ -291,4 +292,5 @@ TEST(Attribute, IsVector)
   EXPECT_FALSE(Attribute {AttributeType::kObject}.is_vector());
 }
 
+}  // namespace
 }  // namespace tactile

@@ -13,8 +13,6 @@ inline constexpr UColor kLimeGreen {0x32, 0xCD, 0x32, 0xFF};
 inline constexpr UColor kDarkBlue {0x00, 0x00, 0x8B, 0xFF};
 inline constexpr UColor kHotPink {0xFF, 0x69, 0xB4, 0xFF};
 
-}  // namespace
-
 // tactile::to_string
 TEST(Color, ToStringRGB)
 {
@@ -162,4 +160,5 @@ TEST(Color, RoundTripConversionARGB)
   EXPECT_EQ(parse_color_argb(to_string(kLimeGreen, ColorFormat::kArgb)), kLimeGreen);
 }
 
+}  // namespace
 }  // namespace tactile::core

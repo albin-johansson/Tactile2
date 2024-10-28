@@ -13,6 +13,7 @@
 #include "tactile/base/container/string_map.hpp"
 
 namespace tactile {
+namespace {
 
 // tactile::exists_in
 // tactile::find_in
@@ -125,4 +126,5 @@ TEST(Lookup, ExistsIn)
   EXPECT_FALSE(exists_in(map, "c"));
 }
 
+}  // namespace
 }  // namespace tactile

@@ -12,6 +12,7 @@
 #include "tactile/test_util/ir_presets.hpp"
 
 namespace tactile::core {
+namespace {
 
 // tactile::core::make_layer [Registry&, const ir::Layer&]
 TEST(LayerCommon, MakeLayerWithTileLayerIR)
@@ -55,4 +56,5 @@ TEST(LayerCommon, MakeLayerWithGroupLayerIR)
   compare_layer(registry, layer_id, ir_layer);
 }
 
+}  // namespace
 }  // namespace tactile::core

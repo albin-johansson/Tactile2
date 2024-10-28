@@ -11,6 +11,7 @@
 #include "tactile/core/meta/meta.hpp"
 
 namespace tactile::core {
+namespace {
 
 // Root
 // ├── Layer 1
@@ -488,4 +489,5 @@ TEST_F(GroupLayerTest, CanMoveLayerDown)
   EXPECT_FALSE(can_move_layer_down(mRegistry, tree.root_id, tree.layer11_id));
 }
 
+}  // namespace
 }  // namespace tactile::core

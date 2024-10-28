@@ -4,7 +4,8 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 // tactile::parse_raw_tile_matrix
 TEST(TileIO, ParseRawTileMatrix)
@@ -119,4 +120,5 @@ TEST(TileIO, TileMatrixToByteStreamAndBack)
   EXPECT_EQ(new_tile_matrix->at(2).at(3), TileID {33});
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

@@ -10,8 +10,9 @@
 #include "tactile/core/logging.hpp"
 
 namespace tactile::core {
+namespace {
 
-/// \trace tactile::core::get_random_int
+// tactile::core::get_random_int
 TEST(Random, GetRandomInt)
 {
   EXPECT_EQ(get_random_int(0, 0), 0);
@@ -23,7 +24,7 @@ TEST(Random, GetRandomInt)
   EXPECT_LE(value, 10);
 }
 
-/// \trace tactile::core::get_random_uint
+// tactile::core::get_random_uint
 TEST(Random, GetRandomUInt)
 {
   EXPECT_EQ(get_random_uint(0u, 0u), 0u);
@@ -35,7 +36,7 @@ TEST(Random, GetRandomUInt)
   EXPECT_LE(value, 10u);
 }
 
-/// \trace tactile::core::get_random_float
+// tactile::core::get_random_float
 TEST(Random, GetRandomFloat)
 {
   const auto value = get_random_float(-4.2f, 83.1f);
@@ -43,7 +44,7 @@ TEST(Random, GetRandomFloat)
   EXPECT_LE(value, 83.1f);
 }
 
-/// \trace tactile::core::get_random_float_normalized
+// tactile::core::get_random_float_normalized
 TEST(Random, GetRandomFloatNormalized)
 {
   const auto value = get_random_float_normalized();
@@ -51,7 +52,7 @@ TEST(Random, GetRandomFloatNormalized)
   EXPECT_LT(value, 1.0f);
 }
 
-/// \trace tactile::core::get_random_bool
+// tactile::core::get_random_bool
 TEST(Random, GetRandomBool)
 {
   std::array<bool, 2'000> values;
@@ -70,4 +71,5 @@ TEST(Random, GetRandomBool)
   EXPECT_LT(ratio, 1.20);
 }
 
+}  // namespace
 }  // namespace tactile::core

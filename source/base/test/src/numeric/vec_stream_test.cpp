@@ -4,7 +4,8 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 // tactile::operator<< [Vec]
 TEST(VecStream, StreamOperator)
@@ -17,4 +18,5 @@ TEST(VecStream, StreamOperator)
   EXPECT_EQ(stream.str(), "{1, 2, 3, 4}");
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

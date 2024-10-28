@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 
 namespace tactile::core {
+namespace {
 
 struct C1 final : ICommand
 {
@@ -275,4 +276,5 @@ TEST(CommandStack, DynamicCapacityChange)
   EXPECT_EQ(stack.capacity(), 25);
 }
 
+}  // namespace
 }  // namespace tactile::core

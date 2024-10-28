@@ -11,6 +11,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 // tactile::core::RenamePropertyCommand::redo
 // tactile::core::RenamePropertyCommand::undo
@@ -87,4 +88,5 @@ TEST(RenamePropertyCommand, MergeWith)
   EXPECT_TRUE(meta.properties.contains(name3));
 }
 
+}  // namespace
 }  // namespace tactile::core

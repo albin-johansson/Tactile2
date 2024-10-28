@@ -5,20 +5,21 @@
 #include <gtest/gtest.h>
 
 namespace tactile::core {
+namespace {
 
-/// \trace tactile::core::is_valid [MapSpec]
+// tactile::core::is_valid [MapSpec]
 TEST(MapSpec, IsValid)
 {
-  const auto orthogonal = TileOrientation::kOrthogonal;
-  const auto hex = TileOrientation::kHexagonal;
+  constexpr auto orthogonal = TileOrientation::kOrthogonal;
+  constexpr auto hex = TileOrientation::kHexagonal;
 
-  const MapSpec bad_empty {};
-  const MapSpec bad_extent_width {orthogonal, {0, 1}, {1, 1}};
-  const MapSpec bad_extent_height {orthogonal, {1, 0}, {1, 1}};
-  const MapSpec bad_tile_width {orthogonal, {1, 1}, {0, 1}};
-  const MapSpec bad_tile_height {orthogonal, {1, 1}, {1, 0}};
-  const MapSpec good_orthogonal {orthogonal, {1, 1}, {1, 1}};
-  const MapSpec good_hexagonal {hex, {1, 1}, {1, 1}};
+  constexpr MapSpec bad_empty {};
+  constexpr MapSpec bad_extent_width {orthogonal, {0, 1}, {1, 1}};
+  constexpr MapSpec bad_extent_height {orthogonal, {1, 0}, {1, 1}};
+  constexpr MapSpec bad_tile_width {orthogonal, {1, 1}, {0, 1}};
+  constexpr MapSpec bad_tile_height {orthogonal, {1, 1}, {1, 0}};
+  constexpr MapSpec good_orthogonal {orthogonal, {1, 1}, {1, 1}};
+  constexpr MapSpec good_hexagonal {hex, {1, 1}, {1, 1}};
 
   EXPECT_FALSE(is_valid(bad_empty));
   EXPECT_FALSE(is_valid(bad_extent_width));
@@ -29,4 +30,5 @@ TEST(MapSpec, IsValid)
   EXPECT_TRUE(is_valid(good_hexagonal));
 }
 
+}  // namespace
 }  // namespace tactile::core

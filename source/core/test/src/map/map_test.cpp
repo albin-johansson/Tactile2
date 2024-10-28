@@ -18,6 +18,7 @@
 #include "tactile/test_util/ir_presets.hpp"
 
 namespace tactile::core {
+namespace {
 
 class MapTest : public testing::Test
 {
@@ -212,4 +213,5 @@ TEST_F(MapTest, AddTilesetToMap)
   EXPECT_EQ(mRegistry.count<CTilesetInstance>(), 1);
 }
 
+}  // namespace
 }  // namespace tactile::core

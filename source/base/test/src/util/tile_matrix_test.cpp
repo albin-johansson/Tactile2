@@ -4,7 +4,8 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 // tactile::make_tile_matrix
 TEST(TileMatrix, MakeTileMatrix)
@@ -24,4 +25,5 @@ TEST(TileMatrix, MakeTileMatrix)
   }
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

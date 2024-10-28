@@ -5,10 +5,9 @@
 #include <gtest/gtest.h>
 
 namespace tactile::core {
+namespace {
 
-/**
- * \trace tactile::core::parse_ini
- */
+// tactile::core::parse_ini
 TEST(Ini, ParseIni)
 {
   const auto ini = parse_ini("assets/test/core/test.ini");
@@ -28,4 +27,5 @@ TEST(Ini, ParseIni)
   EXPECT_TRUE(ini->at("s3").empty());
 }
 
+}  // namespace
 }  // namespace tactile::core

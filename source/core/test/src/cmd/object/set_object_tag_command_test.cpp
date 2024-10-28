@@ -11,6 +11,7 @@
 #include "test/object_command_test.hpp"
 
 namespace tactile::core {
+namespace {
 
 class SetObjectTagCommandTest : public ObjectCommandTest
 {};
@@ -68,4 +69,5 @@ TEST_F(SetObjectTagCommandTest, MergeWith)
   EXPECT_EQ(object.tag, tag0);
 }
 
+}  // namespace
 }  // namespace tactile::core

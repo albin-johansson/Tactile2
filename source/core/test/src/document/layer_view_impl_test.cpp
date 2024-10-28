@@ -16,6 +16,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class LayerViewImplTest : public testing::Test
 {
@@ -85,4 +86,5 @@ TEST_F(LayerViewImplTest, Getters)
   EXPECT_EQ(layer_view.get_tile(Index2D {0, 0}), kEmptyTile);
 }
 
+}  // namespace
 }  // namespace tactile::core

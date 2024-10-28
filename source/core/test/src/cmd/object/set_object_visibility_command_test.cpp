@@ -9,6 +9,7 @@
 #include "test/object_command_test.hpp"
 
 namespace tactile::core {
+namespace {
 
 class SetObjectVisibilityCommandTest : public ObjectCommandTest
 {};
@@ -38,4 +39,5 @@ TEST_F(SetObjectVisibilityCommandTest, RedoUndo)
   EXPECT_EQ(object.is_visible, new_visibility);
 }
 
+}  // namespace
 }  // namespace tactile::core

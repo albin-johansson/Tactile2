@@ -19,6 +19,7 @@
 #include "tactile/test_util/ir_presets.hpp"
 
 namespace tactile::core {
+namespace {
 
 class TilesetTest : public testing::Test
 {
@@ -394,4 +395,5 @@ TEST_F(TilesetTest, HasTile)
   EXPECT_FALSE(has_tile(range, TileID {182}));
 }
 
+}  // namespace
 }  // namespace tactile::core

@@ -9,6 +9,7 @@
 #include <gtest/gtest.h>
 
 namespace tactile {
+namespace {
 
 // tactile::Vec
 TEST(Vec, SpecialMembers)
@@ -505,4 +506,5 @@ TEST(Vec, VecCast)
   EXPECT_EQ(fvec.w(), static_cast<float>(ivec.w()));
 }
 
+}  // namespace
 }  // namespace tactile

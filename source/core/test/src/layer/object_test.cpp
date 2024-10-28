@@ -11,6 +11,7 @@
 #include "tactile/test_util/ir_presets.hpp"
 
 namespace tactile::core {
+namespace {
 
 class ObjectTest : public testing::Test
 {
@@ -103,4 +104,5 @@ TEST_F(ObjectTest, CopyObject)
   EXPECT_EQ(object1.is_visible, object2.is_visible);
 }
 
+}  // namespace
 }  // namespace tactile::core

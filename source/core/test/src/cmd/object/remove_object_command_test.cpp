@@ -11,6 +11,7 @@
 #include "test/object_command_test.hpp"
 
 namespace tactile::core {
+namespace {
 
 class RemoveObjectCommandTest : public ObjectCommandTest
 {
@@ -77,4 +78,5 @@ TEST_F(RemoveObjectCommandTest, Dispose)
   EXPECT_FALSE(is_object(registry, m_object_id));
 }
 
+}  // namespace
 }  // namespace tactile::core

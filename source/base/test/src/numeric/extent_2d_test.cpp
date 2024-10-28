@@ -4,11 +4,13 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 TEST(Extent2D, Format)
 {
   EXPECT_EQ(std::format("{}", Extent2D {24, 59}), "(rows: 24, cols: 59)");
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

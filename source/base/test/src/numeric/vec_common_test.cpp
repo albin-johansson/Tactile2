@@ -4,7 +4,8 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 // tactile::abs [Vec]
 TEST(VecCommon, Abs)
@@ -143,4 +144,5 @@ TEST(Vec, CompareElements)
   }
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

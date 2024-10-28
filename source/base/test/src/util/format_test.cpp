@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 
 namespace tactile {
+namespace {
 
 // tactile::format_to_buffer
 TEST(Format, FormatOneCharToBuffer)
@@ -74,4 +75,5 @@ TEST(Format, FormatToBufferWithOverflow)
   EXPECT_EQ(buffer.view()[buffer.size() - 1], 'o');
 }
 
+}  // namespace
 }  // namespace tactile

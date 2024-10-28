@@ -19,6 +19,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class ObjectViewImplTest : public testing::Test
 {
@@ -122,4 +123,5 @@ TEST_F(ObjectViewImplTest, ObjectInTile)
   EXPECT_EQ(object_view.is_visible(), object.is_visible);
 }
 
+}  // namespace
 }  // namespace tactile::core

@@ -16,6 +16,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class MoveLayerDownCommandTest : public testing::Test
 {
@@ -71,4 +72,5 @@ TEST_F(MoveLayerDownCommandTest, RedoUndo)
   EXPECT_TRUE(can_move_layer_down(registry, map.root_layer, mLayerId));
 }
 
+}  // namespace
 }  // namespace tactile::core

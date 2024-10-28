@@ -17,6 +17,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class RemoveLayerCommandTest : public testing::Test
 {
@@ -144,4 +145,5 @@ TEST_F(RemoveLayerCommandTest, Dispose)
   EXPECT_FALSE(is_layer(registry, layer_id));
 }
 
+}  // namespace
 }  // namespace tactile::core

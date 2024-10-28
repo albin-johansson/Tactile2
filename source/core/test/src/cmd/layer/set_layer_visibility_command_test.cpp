@@ -16,6 +16,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class SetLayerVisibilityCommandTest : public testing::Test
 {
@@ -64,4 +65,5 @@ TEST_F(SetLayerVisibilityCommandTest, RedoUndo)
   EXPECT_FALSE(layer.visible);
 }
 
+}  // namespace
 }  // namespace tactile::core

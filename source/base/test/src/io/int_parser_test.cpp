@@ -7,7 +7,8 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 // tactile::parse [integral]
 TEST(StringConv, ParseInvalidInt)
@@ -74,4 +75,5 @@ TEST(StringConv, ParseValidUint)
   EXPECT_EQ(parse<std::uint64_t>(std::string_view {"1234"}.substr(2, 2)), std::uint64_t {34});
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

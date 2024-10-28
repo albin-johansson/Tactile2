@@ -4,11 +4,13 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 TEST(Offset2D, Format)
 {
   EXPECT_EQ(std::format("{}", Offset2D {-5, 7}), "(dx: -5, dy: 7)");
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

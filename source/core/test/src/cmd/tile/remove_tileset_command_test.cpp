@@ -16,6 +16,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class RemoveTilesetCommandTest : public testing::Test
 {
@@ -88,4 +89,5 @@ TEST_F(RemoveTilesetCommandTest, RemovedTilesetShouldBeDestroyedByDestructor)
   EXPECT_FALSE(is_tileset_instance(registry, mTilesetId));
 }
 
+}  // namespace
 }  // namespace tactile::core

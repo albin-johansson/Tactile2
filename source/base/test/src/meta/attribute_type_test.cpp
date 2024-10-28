@@ -5,6 +5,7 @@
 #include <gtest/gtest.h>
 
 namespace tactile {
+namespace {
 
 // tactile::parse_attribute_type
 TEST(AttributeType, ParseAttributeType)
@@ -46,4 +47,5 @@ TEST(AttributeType, ToString)
   EXPECT_EQ(to_string(AttributeType::kObject), "object");
 }
 
+}  // namespace
 }  // namespace tactile

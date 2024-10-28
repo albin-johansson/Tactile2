@@ -4,7 +4,8 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 // tactile::Index2D::from_1d
 TEST(Index2D, From1D)
@@ -33,4 +34,5 @@ TEST(Index2D, Format)
   EXPECT_EQ(std::format("{}", Index2D {1, 2}), "(x1, y2)");
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

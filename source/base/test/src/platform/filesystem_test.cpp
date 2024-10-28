@@ -4,7 +4,8 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 // tactile::normalize_path_separators
 TEST(Filesystem, NormalizePathSeparators)
@@ -13,4 +14,5 @@ TEST(Filesystem, NormalizePathSeparators)
   EXPECT_EQ(normalize_path_separators(path), "f/o/o/b/a/r");
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

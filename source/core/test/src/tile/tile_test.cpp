@@ -15,6 +15,7 @@
 #include "tactile/test_util/ir_presets.hpp"
 
 namespace tactile::core {
+namespace {
 
 class TileTest : public testing::Test
 {
@@ -150,4 +151,5 @@ TEST_F(TileTest, IsTilePlain)
   EXPECT_FALSE(is_tile_plain(mRegistry, id5));  // Has component
 }
 
+}  // namespace
 }  // namespace tactile::core

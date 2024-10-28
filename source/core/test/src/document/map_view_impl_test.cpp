@@ -15,6 +15,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class MapViewImplTest : public testing::Test
 {
@@ -63,4 +64,5 @@ TEST_F(MapViewImplTest, Getters)
   // TODO component_count
 }
 
+}  // namespace
 }  // namespace tactile::core

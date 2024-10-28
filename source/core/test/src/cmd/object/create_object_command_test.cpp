@@ -12,6 +12,7 @@
 #include "test/object_command_test.hpp"
 
 namespace tactile::core {
+namespace {
 
 class CreateObjectCommandTest : public ObjectCommandTest
 {};
@@ -99,4 +100,5 @@ TEST_F(CreateObjectCommandTest, Dispose)
   EXPECT_FALSE(is_object(registry, object_id));
 }
 
+}  // namespace
 }  // namespace tactile::core

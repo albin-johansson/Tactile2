@@ -4,7 +4,8 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 // tactile::ScopeExit::~ScopeExit
 TEST(ScopeExit, Destructor)
@@ -43,4 +44,5 @@ TEST(ScopeExit, ShouldCallFunctionJustOnce)
   EXPECT_EQ(calls, 1);
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

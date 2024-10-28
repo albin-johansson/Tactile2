@@ -16,6 +16,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 class MoveLayerUpCommandTest : public testing::Test
 {
@@ -68,4 +69,5 @@ TEST_F(MoveLayerUpCommandTest, RedoUndo)
   EXPECT_TRUE(can_move_layer_up(registry, map.root_layer, mLayerId));
 }
 
+}  // namespace
 }  // namespace tactile::core

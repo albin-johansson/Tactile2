@@ -10,7 +10,8 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
+namespace {
 
 using testing::Const;
 
@@ -298,4 +299,5 @@ TEST(Buffer, ViewWithNonCharBuffer)
   EXPECT_EQ(buffer.view()[2], 3u);
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

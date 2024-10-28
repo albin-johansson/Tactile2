@@ -5,22 +5,23 @@
 #include <gtest/gtest.h>
 
 namespace tactile::core {
+namespace {
 
-/// \trace tactile::core::to_float2
+// tactile::core::to_float2
 TEST(ImGuiCompat, ToFloat2)
 {
-  const ImVec2 input {-10.0f, 20.0f};
-  const Float2 output = to_float2(input);
+  constexpr ImVec2 input {-10.0f, 20.0f};
+  constexpr Float2 output = to_float2(input);
 
   EXPECT_EQ(output.x(), input.x);
   EXPECT_EQ(output.y(), input.y);
 }
 
-/// \trace tactile::core::to_float4
+// tactile::core::to_float4
 TEST(ImGuiCompat, ToFloat4)
 {
-  const ImVec4 input {1.0f, 2.0f, 3.0f, 4.0f};
-  const Float4 output = to_float4(input);
+  constexpr ImVec4 input {1.0f, 2.0f, 3.0f, 4.0f};
+  constexpr Float4 output = to_float4(input);
 
   EXPECT_EQ(output.x(), input.x);
   EXPECT_EQ(output.y(), input.y);
@@ -28,21 +29,21 @@ TEST(ImGuiCompat, ToFloat4)
   EXPECT_EQ(output.w(), input.w);
 }
 
-/// \trace tactile::core::to_int2
+// tactile::core::to_int2
 TEST(ImGuiCompat, ToInt2)
 {
-  const ImVec2 input {-3.4f, 9.7f};
-  const Int2 output = to_int2(input);
+  constexpr ImVec2 input {-3.4f, 9.7f};
+  constexpr Int2 output = to_int2(input);
 
   EXPECT_EQ(output.x(), static_cast<Int4::value_type>(input.x));
   EXPECT_EQ(output.y(), static_cast<Int4::value_type>(input.y));
 }
 
-/// \trace tactile::core::to_int4
+// tactile::core::to_int4
 TEST(ImGuiCompat, ToInt4)
 {
-  const ImVec4 input {1.5f, 2.1f, 3.6f, 4.9f};
-  const Int4 output = to_int4(input);
+  constexpr ImVec4 input {1.5f, 2.1f, 3.6f, 4.9f};
+  constexpr Int4 output = to_int4(input);
 
   EXPECT_EQ(output.x(), static_cast<Int4::value_type>(input.x));
   EXPECT_EQ(output.y(), static_cast<Int4::value_type>(input.y));
@@ -50,7 +51,7 @@ TEST(ImGuiCompat, ToInt4)
   EXPECT_EQ(output.w(), static_cast<Int4::value_type>(input.w));
 }
 
-/// \trace tactile::core::to_imgui_data_type
+// tactile::core::to_imgui_data_type
 TEST(ImGuiCompat, ToImGuiDataType)
 {
   EXPECT_EQ(to_imgui_data_type<float>(), ImGuiDataType_Float);
@@ -67,4 +68,5 @@ TEST(ImGuiCompat, ToImGuiDataType)
   EXPECT_EQ(to_imgui_data_type<std::int64_t>(), ImGuiDataType_S64);
 }
 
+}  // namespace
 }  // namespace tactile::core

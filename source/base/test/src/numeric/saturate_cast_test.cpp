@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-namespace tactile::test {
+namespace tactile {
 namespace {
 
 template <typename T = std::int8_t>
@@ -24,8 +24,6 @@ inline constexpr T kMinI16 = T {std::numeric_limits<std::int16_t>::min()};
 
 template <typename T = std::int16_t>
 inline constexpr T kMaxI16 = T {std::numeric_limits<std::int16_t>::max()};
-
-}  // namespace
 
 // tactile::saturate_cast
 TEST(SaturateCast, SignedToSignedNarrowing)
@@ -95,4 +93,5 @@ TEST(SaturateCast, SignedToUnsignedPromoting)
   EXPECT_EQ(saturate_cast<std::uint8_t>(kMaxI8<>), kMaxI8<std::uint8_t>);
 }
 
-}  // namespace tactile::test
+}  // namespace
+}  // namespace tactile

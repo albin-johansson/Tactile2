@@ -27,7 +27,7 @@ class OpenGLRendererTest : public testing::Test
   OpenGLRendererPlugin mPlugin {};
 };
 
-/// \trace tactile::OpenGLRenderer::load_texture
+// tactile::OpenGLRenderer::load_texture
 TEST_F(OpenGLRendererTest, LoadTexture)
 {
   auto* renderer = dynamic_cast<OpenGLRenderer*>(mRuntime.get_renderer());

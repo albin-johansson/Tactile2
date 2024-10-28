@@ -28,7 +28,7 @@ class OpenGLTextureTest : public testing::Test
   RendererOptions m_options {};
 };
 
-/// \trace tactile::OpenGLTexture::load
+// tactile::OpenGLTexture::load
 TEST_F(OpenGLTextureTest, Load)
 {
   const auto texture = OpenGLTexture::load("assets/images/dummy.png", m_options);

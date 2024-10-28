@@ -11,6 +11,7 @@
 #include "test/document_testing.hpp"
 
 namespace tactile::core {
+namespace {
 
 // tactile::core::RemovePropertyCommand::redo
 // tactile::core::RemovePropertyCommand::undo
@@ -43,4 +44,5 @@ TEST(RemovePropertyCommand, RedoUndo)
   EXPECT_EQ(meta.properties.size(), 1);
 }
 
+}  // namespace
 }  // namespace tactile::core

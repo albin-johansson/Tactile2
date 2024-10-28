@@ -9,6 +9,7 @@
 #include "test/object_command_test.hpp"
 
 namespace tactile::core {
+namespace {
 
 class MoveObjectCommandTest : public ObjectCommandTest
 {};
@@ -38,4 +39,5 @@ TEST_F(MoveObjectCommandTest, RedoUndo)
   EXPECT_EQ(object.position, new_position);
 }
 
+}  // namespace
 }  // namespace tactile::core

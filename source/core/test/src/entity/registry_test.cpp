@@ -9,6 +9,7 @@
 #include <gtest/gtest.h>
 
 namespace tactile::core {
+namespace {
 
 using testing::Const;
 
@@ -18,7 +19,7 @@ class RegistryTest : public testing::Test
   Registry mRegistry {};
 };
 
-/// \trace tactile::core::Registry::make_entity
+// tactile::core::Registry::make_entity
 TEST_F(RegistryTest, MakeEntity)
 {
   const auto a = mRegistry.make_entity();
@@ -33,8 +34,8 @@ TEST_F(RegistryTest, MakeEntity)
   EXPECT_TRUE(mRegistry.is_valid(c));
 }
 
-/// \trace tactile::core::Registry::destroy
-/// \trace tactile::core::Registry::is_valid
+// tactile::core::Registry::destroy
+// tactile::core::Registry::is_valid
 TEST_F(RegistryTest, Destroy)
 {
   const auto entity = mRegistry.make_entity();
@@ -46,8 +47,8 @@ TEST_F(RegistryTest, Destroy)
   EXPECT_FALSE(mRegistry.is_valid(entity));
 }
 
-/// \trace tactile::core::Registry::add
-/// \trace tactile::core::Registry::has
+// tactile::core::Registry::add
+// tactile::core::Registry::has
 TEST_F(RegistryTest, Add)
 {
   EXPECT_FALSE(mRegistry.has<int>());
@@ -65,8 +66,8 @@ TEST_F(RegistryTest, Add)
   EXPECT_EQ(mRegistry.count(), 0);
 }
 
-/// \trace tactile::core::Registry::add [EntityID]
-/// \trace tactile::core::Registry::has [EntityID]
+// tactile::core::Registry::add [EntityID]
+// tactile::core::Registry::has [EntityID]
 TEST_F(RegistryTest, AddToEntity)
 {
   const auto a = mRegistry.make_entity();
@@ -81,7 +82,7 @@ TEST_F(RegistryTest, AddToEntity)
   EXPECT_FALSE(mRegistry.has<int>(b));
 }
 
-/// \trace tactile::core::Registry::erase
+// tactile::core::Registry::erase
 TEST_F(RegistryTest, Erase)
 {
   const auto entity = mRegistry.make_entity();
@@ -96,7 +97,7 @@ TEST_F(RegistryTest, Erase)
   EXPECT_TRUE(mRegistry.is_valid(entity));
 }
 
-/// \trace tactile::core::Registry::detach
+// tactile::core::Registry::detach
 TEST_F(RegistryTest, Detach)
 {
   const auto entity = mRegistry.make_entity();
@@ -110,7 +111,7 @@ TEST_F(RegistryTest, Detach)
   EXPECT_EQ(mRegistry.detach<float>(entity), std::nullopt);
 }
 
-/// \trace tactile::core::Registry::get
+// tactile::core::Registry::get
 TEST_F(RegistryTest, Get)
 {
   mRegistry.add<int>(0xDEAD);
@@ -123,7 +124,7 @@ TEST_F(RegistryTest, Get)
   EXPECT_THROW((void) Const(mRegistry).get<double>(), Exception);
 }
 
-/// \trace tactile::core::Registry::get [EntityID]
+// tactile::core::Registry::get [EntityID]
 TEST_F(RegistryTest, GetFromEntity)
 {
   const auto a = mRegistry.make_entity();
@@ -141,7 +142,7 @@ TEST_F(RegistryTest, GetFromEntity)
   EXPECT_THROW((void) Const(mRegistry).get<float>(b), Exception);
 }
 
-/// \trace tactile::core::Registry::find
+// tactile::core::Registry::find
 TEST_F(RegistryTest, Find)
 {
   mRegistry.add<std::uint32_t>(0xBEEFu);
@@ -153,7 +154,7 @@ TEST_F(RegistryTest, Find)
   EXPECT_EQ(Const(mRegistry).find<std::int32_t>(), nullptr);
 }
 
-/// \trace tactile::core::Registry::find [EntityID]
+// tactile::core::Registry::find [EntityID]
 TEST_F(RegistryTest, FindInEntity)
 {
   const auto a = mRegistry.make_entity();
@@ -173,7 +174,7 @@ TEST_F(RegistryTest, FindInEntity)
   EXPECT_EQ(Const(mRegistry).find<bool>(b), nullptr);
 }
 
-/// \trace tactile::core::Registry::each
+// tactile::core::Registry::each
 TEST_F(RegistryTest, Each)
 {
   const std::array<EntityID, 4> entities = {
@@ -217,7 +218,7 @@ TEST_F(RegistryTest, Each)
   EXPECT_EQ(observed_ints.at(entities[2]), 3);
 }
 
-/// \trace tactile::core::Registry::count [T]
+// tactile::core::Registry::count [T]
 TEST_F(RegistryTest, CountForSpecificComponent)
 {
   EXPECT_EQ(mRegistry.count<int>(), 0);
@@ -229,7 +230,7 @@ TEST_F(RegistryTest, CountForSpecificComponent)
   EXPECT_EQ(mRegistry.count<float>(), 0);
 }
 
-/// \trace tactile::core::Registry::count
+// tactile::core::Registry::count
 TEST_F(RegistryTest, Count)
 {
   EXPECT_EQ(mRegistry.count(), 0);
@@ -250,4 +251,5 @@ TEST_F(RegistryTest, Count)
   EXPECT_EQ(mRegistry.count(), 7);
 }
 
+}  // namespace
 }  // namespace tactile::core

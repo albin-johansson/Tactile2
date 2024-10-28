@@ -9,10 +9,9 @@
 #include "tactile/core/tile/tile.hpp"
 
 namespace tactile::core {
+namespace {
 
-/**
- * \trace tactile::core::update_animations
- */
+// tactile::core::update_animations
 TEST(Animation, UpdateAnimations)
 {
   Registry registry {};
@@ -58,9 +57,7 @@ TEST(Animation, UpdateAnimations)
   EXPECT_EQ(registry.get<CAnimation>(tile3_entity).frame_index, 0);
 }
 
-/**
- * \trace tactile::core::add_animation_frame
- */
+// tactile::core::add_animation_frame
 TEST(Animation, AddAnimationFrame)
 {
   Registry registry {};
@@ -112,9 +109,7 @@ TEST(Animation, AddAnimationFrame)
   EXPECT_EQ(animation.frames[3].duration, frame4.duration);
 }
 
-/**
- * \trace tactile::core::remove_animation_frame
- */
+// tactile::core::remove_animation_frame
 TEST(Animation, RemoveAnimationFrame)
 {
   Registry registry {};
@@ -159,4 +154,5 @@ TEST(Animation, RemoveAnimationFrame)
   EXPECT_FALSE(registry.has<CAnimation>(tile_entity));
 }
 
+}  // namespace
 }  // namespace tactile::core
