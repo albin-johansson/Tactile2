@@ -2,7 +2,7 @@
 
 #include "tactile/core/cmd/layer/duplicate_layer_command.hpp"
 
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/document/document_info.hpp"
 #include "tactile/core/document/map_document.hpp"
 #include "tactile/core/entity/registry.hpp"

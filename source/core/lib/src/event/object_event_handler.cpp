@@ -7,7 +7,7 @@
 #include "tactile/core/cmd/object/remove_object_command.hpp"
 #include "tactile/core/cmd/object/set_object_tag_command.hpp"
 #include "tactile/core/cmd/object/set_object_visibility_command.hpp"
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
 #include "tactile/core/logging.hpp"

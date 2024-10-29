@@ -11,7 +11,7 @@
 #include "tactile/core/cmd/layer/remove_layer_command.hpp"
 #include "tactile/core/cmd/layer/set_layer_opacity_command.hpp"
 #include "tactile/core/cmd/layer/set_layer_visibility_command.hpp"
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
 #include "tactile/core/logging.hpp"

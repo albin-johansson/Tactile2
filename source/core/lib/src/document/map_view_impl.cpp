@@ -3,7 +3,7 @@
 #include "tactile/core/document/map_view_impl.hpp"
 
 #include "tactile/base/document/document_visitor.hpp"
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/document/document_info.hpp"
 #include "tactile/core/document/layer_view_impl.hpp"
 #include "tactile/core/document/map_document.hpp"

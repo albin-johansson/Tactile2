@@ -2,14 +2,15 @@
 
 #include "tactile/core/tactile_app.hpp"
 
-#include <utility>  // move
+#include <stdexcept>  // runtime_error
+#include <utility>    // move
 
 #include <imgui.h>
 
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/base/render/renderer.hpp"
 #include "tactile/base/render/window.hpp"
 #include "tactile/base/runtime/runtime.hpp"
-#include "tactile/core/debug/validation.hpp"
 #include "tactile/core/event/events.hpp"
 #include "tactile/core/logging.hpp"
 #include "tactile/core/ui/common/style.hpp"
@@ -59,7 +60,7 @@ void TactileApp::on_startup()
   }
   else {
     TACTILE_CORE_ERROR("Could not parse language file: {}", to_string(language.error()));
-    throw Exception {"could not parse language file"};
+    throw std::runtime_error {"could not parse language file"};
   }
 
   auto& model = m_model.emplace(&m_settings, &m_language.value());

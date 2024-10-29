@@ -120,8 +120,8 @@ TEST_F(RegistryTest, Get)
   EXPECT_EQ(mRegistry.get<int>(), 0xDEAD);
   EXPECT_EQ(Const(mRegistry).get<int>(), 0xDEAD);
 
-  EXPECT_THROW((void) mRegistry.get<double>(), Exception);
-  EXPECT_THROW((void) Const(mRegistry).get<double>(), Exception);
+  EXPECT_ANY_THROW((void) mRegistry.get<double>());
+  EXPECT_ANY_THROW((void) Const(mRegistry).get<double>());
 }
 
 // tactile::core::Registry::get [EntityID]
@@ -138,8 +138,8 @@ TEST_F(RegistryTest, GetFromEntity)
   EXPECT_EQ(Const(mRegistry).get<int>(a), 10);
   EXPECT_EQ(Const(mRegistry).get<int>(b), 20);
 
-  EXPECT_THROW((void) mRegistry.get<float>(a), Exception);
-  EXPECT_THROW((void) Const(mRegistry).get<float>(b), Exception);
+  EXPECT_ANY_THROW((void) mRegistry.get<float>(a));
+  EXPECT_ANY_THROW((void) Const(mRegistry).get<float>(b));
 }
 
 // tactile::core::Registry::find

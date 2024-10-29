@@ -5,7 +5,7 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/logging.hpp"
 #include "tactile/core/platform/filesystem.hpp"
 #include "tactile/core/ui/i18n/language.hpp"

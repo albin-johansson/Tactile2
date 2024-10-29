@@ -4,7 +4,7 @@
 
 #include <SDL2/SDL.h>
 
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/runtime/logging.hpp"
 
 namespace tactile::runtime {
@@ -15,7 +15,7 @@ void WindowHandleDeleter::operator()(SDL_Window* window) noexcept
 }
 
 Window::Window(SDL_Window* window)
-  : m_window {core::require_not_null(window, "null window")}
+  : m_window {require_not_null(window, "null window")}
 {}
 
 auto Window::create(const std::uint32_t extra_flags) -> std::expected<Window, ErrorCode>

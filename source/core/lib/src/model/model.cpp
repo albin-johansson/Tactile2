@@ -2,7 +2,7 @@
 
 #include "tactile/core/model/model.hpp"
 
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/model/settings.hpp"
 
 namespace tactile::core {

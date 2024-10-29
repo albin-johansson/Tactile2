@@ -2,7 +2,8 @@
 
 #include "tactile/core/layer/tile_layer.hpp"
 
-#include <utility>  // move
+#include <stdexcept>  // runtime_error
+#include <utility>    // move
 
 #include "tactile/base/io/tile_io.hpp"
 #include "tactile/base/numeric/saturate_cast.hpp"
@@ -201,7 +202,7 @@ void resize_tile_layer(Registry& registry, const EntityID layer_entity, const Ex
     _resize(sparse->tiles, extent);
   }
   else {
-    throw Exception {"invalid tile layer"};
+    throw std::runtime_error {"invalid tile layer"};
   }
 }
 
@@ -240,7 +241,7 @@ void set_layer_tile(Registry& registry,
     _set_tile_unchecked(sparse->tiles, index, tile_id);
   }
   else {
-    throw Exception {"invalid tile layer"};
+    throw std::runtime_error {"invalid tile layer"};
   }
 }
 
@@ -263,7 +264,7 @@ auto get_layer_tile(const Registry& registry,
     return _get_tile_unchecked(sparse->tiles, index);
   }
 
-  throw Exception {"invalid tile layer"};
+  throw std::runtime_error {"invalid tile layer"};
 }
 
 }  // namespace tactile::core

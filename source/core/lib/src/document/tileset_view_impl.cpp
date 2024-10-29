@@ -6,7 +6,7 @@
 
 #include "tactile/base/document/document_visitor.hpp"
 #include "tactile/base/numeric/saturate_cast.hpp"
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/document/map_document.hpp"
 #include "tactile/core/document/tile_view_impl.hpp"
 #include "tactile/core/entity/registry.hpp"

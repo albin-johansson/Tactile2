@@ -2,14 +2,14 @@
 
 #pragma once
 
-#include <concepts>  // signed_integral, unsigned_integral, floating_point
+#include <concepts>   // signed_integral, unsigned_integral, floating_point
+#include <stdexcept>  // runtime_error
 
 #include <imgui.h>
 
 #include "tactile/base/numeric/vec.hpp"
 #include "tactile/base/prelude.hpp"
 #include "tactile/base/util/concepts.hpp"
-#include "tactile/core/debug/exception.hpp"
 
 namespace tactile::core {
 
@@ -117,7 +117,7 @@ template <std::signed_integral T>
     case sizeof(std::int16_t): return ImGuiDataType_S16;
     case sizeof(std::int32_t): return ImGuiDataType_S32;
     case sizeof(std::int64_t): return ImGuiDataType_S64;
-    default:                   throw Exception {"unsupported signed integer size"};
+    default:                   throw std::runtime_error {"unsupported signed integer size"};
   }
 }
 
@@ -137,7 +137,7 @@ template <std::unsigned_integral T>
     case sizeof(std::uint16_t): return ImGuiDataType_U16;
     case sizeof(std::uint32_t): return ImGuiDataType_U32;
     case sizeof(std::uint64_t): return ImGuiDataType_U64;
-    default:                    throw Exception {"unsupported unsigned integer size"};
+    default:                    throw std::runtime_error {"unsupported unsigned integer size"};
   }
 }
 
@@ -155,7 +155,7 @@ template <std::floating_point T>
   switch (sizeof(T)) {
     case sizeof(float):  return ImGuiDataType_Float;
     case sizeof(double): return ImGuiDataType_Double;
-    default:             throw Exception {"unsupported float size"};
+    default:             throw std::runtime_error {"unsupported float size"};
   }
 }
 

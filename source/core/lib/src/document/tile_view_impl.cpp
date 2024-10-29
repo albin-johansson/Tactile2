@@ -4,7 +4,7 @@
 
 #include "tactile/base/document/document.hpp"
 #include "tactile/base/document/document_visitor.hpp"
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/tile/animation_types.hpp"
 #include "tactile/core/tile/tile_types.hpp"

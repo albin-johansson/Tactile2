@@ -5,7 +5,7 @@
 #include <imgui.h>
 
 #include "tactile/base/numeric/vec_format.hpp"
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"

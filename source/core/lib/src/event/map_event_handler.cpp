@@ -9,7 +9,7 @@
 #include "tactile/base/io/save/save_format.hpp"
 #include "tactile/base/numeric/vec_format.hpp"
 #include "tactile/base/runtime/runtime.hpp"
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/document/map_view_impl.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"

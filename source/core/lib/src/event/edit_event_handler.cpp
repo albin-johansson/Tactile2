@@ -2,7 +2,7 @@
 
 #include "tactile/core/event/edit_event_handler.hpp"
 
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
 #include "tactile/core/logging.hpp"

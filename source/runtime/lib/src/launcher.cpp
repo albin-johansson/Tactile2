@@ -9,7 +9,6 @@
 #include <imgui.h>
 
 #include "tactile/base/render/renderer.hpp"
-#include "tactile/core/debug/exception.hpp"
 #include "tactile/core/engine/engine.hpp"
 #include "tactile/core/tactile_app.hpp"
 #include "tactile/runtime/command_line_options.hpp"
@@ -126,9 +125,6 @@ auto launch(const int argc, char* argv[]) -> int
     engine.run();
 
     return EXIT_SUCCESS;
-  }
-  catch (const core::Exception& exception) {
-    TACTILE_RUNTIME_ERROR("Unhandled exception: {}\n{}", exception.what(), exception.trace());
   }
   catch (const std::exception& exception) {
     TACTILE_RUNTIME_ERROR("Unhandled exception: {}", exception.what());

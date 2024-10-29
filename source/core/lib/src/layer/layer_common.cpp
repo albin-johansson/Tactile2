@@ -2,9 +2,10 @@
 
 #include "tactile/core/layer/layer_common.hpp"
 
+#include <stdexcept>  // runtime_error, invalid_argument
+
 #include "tactile/base/io/save/ir.hpp"
 #include "tactile/core/debug/assert.hpp"
-#include "tactile/core/debug/exception.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/layer/group_layer.hpp"
 #include "tactile/core/layer/layer.hpp"
@@ -56,7 +57,7 @@ auto make_layer(Registry& registry, const ir::Layer& ir_layer) -> EntityID
 
       break;
     }
-    default: throw Exception {"invalid layer type"};
+    default: throw std::runtime_error {"invalid layer type"};
   }
 
   auto& layer = registry.get<CLayer>(layer_id);
@@ -141,7 +142,7 @@ auto copy_layer(Registry& registry, const EntityID source_layer_entity, LayerID&
     }
   }
   else {
-    throw Exception {"invalid layer entity"};
+    throw std::invalid_argument {"invalid layer entity"};
   }
 
   TACTILE_ASSERT(is_layer(registry, new_layer_entity));

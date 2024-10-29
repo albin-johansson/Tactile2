@@ -6,7 +6,7 @@
 #include "tactile/base/render/renderer.hpp"
 #include "tactile/base/render/texture.hpp"
 #include "tactile/core/cmd/tile/add_tileset_command.hpp"
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/event/event_dispatcher.hpp"
 #include "tactile/core/event/events.hpp"
 #include "tactile/core/logging.hpp"

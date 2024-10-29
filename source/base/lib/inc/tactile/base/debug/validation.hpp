@@ -2,10 +2,9 @@
 
 #pragma once
 
-#include "tactile/base/prelude.hpp"
-#include "tactile/core/debug/exception.hpp"
+#include <stdexcept>  // invalid_argument
 
-namespace tactile::core {
+namespace tactile {
 
 /**
  * Throws an exception if the provided pointer is null, returns it if not.
@@ -21,7 +20,7 @@ namespace tactile::core {
  * {}
  * \endcode
  *
- * \tparam PointerType A pointer-like type.
+ * \tparam Pointer A pointer-like type.
  *
  * \param ptr           The pointer to validate.
  * \param error_message An error message used if the pointer is null.
@@ -29,15 +28,15 @@ namespace tactile::core {
  * \return
  * The provided pointer.
  */
-template <typename PointerType>
-[[nodiscard]] auto require_not_null(PointerType ptr,
-                                    const char* error_message = "null pointer") -> PointerType
+template <typename Pointer>
+[[nodiscard]] auto require_not_null(Pointer ptr, const char* error_message = "null pointer")
+    -> Pointer
 {
   if (ptr == nullptr) [[unlikely]] {
-    throw Exception {error_message};
+    throw std::invalid_argument {error_message};
   }
 
   return ptr;
 }
 
-}  // namespace tactile::core
+}  // namespace tactile

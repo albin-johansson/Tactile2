@@ -7,7 +7,7 @@
 
 #include "tactile/base/engine/engine_app.hpp"
 #include "tactile/base/render/renderer.hpp"
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/logging.hpp"
 
 namespace tactile::core {

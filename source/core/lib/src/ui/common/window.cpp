@@ -5,7 +5,7 @@
 #include <unordered_map>  // unordered_map
 
 #include "tactile/base/container/lookup.hpp"
-#include "tactile/core/debug/validation.hpp"
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/core/ui/imgui_compat.hpp"
 
 namespace tactile::core::ui {

@@ -2,11 +2,12 @@
 
 #include "tactile/core/document/meta_view_impl.hpp"
 
-#include <iterator>  // next
+#include <iterator>   // next
+#include <stdexcept>  // out_of_range
 
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/base/document/document.hpp"
 #include "tactile/base/numeric/saturate_cast.hpp"
-#include "tactile/core/debug/validation.hpp"
 #include "tactile/core/entity/registry.hpp"
 #include "tactile/core/meta/meta.hpp"
 
@@ -32,7 +33,7 @@ auto MetaViewImpl::get_property(const std::size_t index) const
   const auto& meta = registry.get<CMeta>(mMetaId);
 
   if (index >= meta.properties.size()) {
-    throw Exception {"bad property index"};
+    throw std::out_of_range {"bad property index"};
   }
 
   const auto iter = std::next(meta.properties.begin(), saturate_cast<std::ptrdiff_t>(index));

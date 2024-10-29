@@ -2,15 +2,15 @@
 
 #pragma once
 
-#include <cstddef>   // size_t
-#include <optional>  // optional, nullopt
-#include <utility>   // forward, move
+#include <cstddef>    // size_t
+#include <optional>   // optional, nullopt
+#include <stdexcept>  // out_of_range
+#include <utility>    // forward, move
 
 #include <entt/entity/registry.hpp>
 
 #include "tactile/base/prelude.hpp"
 #include "tactile/core/debug/assert.hpp"
-#include "tactile/core/debug/exception.hpp"
 #include "tactile/core/entity/entity.hpp"
 
 namespace tactile::core {
@@ -130,7 +130,7 @@ class Registry final
       return *component;
     }
 
-    throw Exception {"missing context component"};
+    throw std::out_of_range {"missing context component"};
   }
 
   /**
@@ -143,7 +143,7 @@ class Registry final
       return *component;
     }
 
-    throw Exception {"missing context component"};
+    throw std::out_of_range {"missing context component"};
   }
 
   /**
@@ -163,7 +163,7 @@ class Registry final
       return *component;
     }
 
-    throw Exception {"bad entity"};
+    throw std::out_of_range {"bad entity"};
   }
 
   /**
@@ -176,7 +176,7 @@ class Registry final
       return *component;
     }
 
-    throw Exception {"bad entity"};
+    throw std::out_of_range {"bad entity"};
   }
 
   /**

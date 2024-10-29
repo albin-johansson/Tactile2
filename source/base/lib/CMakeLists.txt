@@ -9,6 +9,8 @@ target_sources(tactile-base
                "inc/tactile/base/container/lookup.hpp"
                "inc/tactile/base/container/string.hpp"
                "inc/tactile/base/container/string_map.hpp"
+               "inc/tactile/base/debug/error_code.hpp"
+               "inc/tactile/base/debug/validation.hpp"
                "inc/tactile/base/document/component_view.hpp"
                "inc/tactile/base/document/document.hpp"
                "inc/tactile/base/document/document_visitor.hpp"

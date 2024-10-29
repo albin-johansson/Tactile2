@@ -2,9 +2,10 @@
 
 #include "tactile/core/document/layer_view_impl.hpp"
 
+#include <stdexcept>  // invalid_argument
+
+#include "tactile/base/debug/validation.hpp"
 #include "tactile/base/document/document_visitor.hpp"
-#include "tactile/core/debug/exception.hpp"
-#include "tactile/core/debug/validation.hpp"
 #include "tactile/core/document/document_info.hpp"
 #include "tactile/core/document/map_document.hpp"
 #include "tactile/core/document/object_view_impl.hpp"
@@ -101,7 +102,7 @@ auto LayerViewImpl::get_type() const -> LayerType
     return LayerType::kGroupLayer;
   }
 
-  throw Exception {"unexpected layer type"};
+  throw std::invalid_argument {"unexpected layer type"};
 }
 
 auto LayerViewImpl::get_opacity() const -> float
