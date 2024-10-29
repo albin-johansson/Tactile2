@@ -3,7 +3,7 @@
 #include "tactile/runtime/runtime_impl.hpp"
 
 #include <chrono>         // steady_clock
-#include <cstdlib>        // malloc, free, EXIT_SUCCESS, EXIT_FAILURE
+#include <cstdlib>        // malloc, free, abort, EXIT_SUCCESS, EXIT_FAILURE
 #include <exception>      // exception, set_terminate
 #include <optional>       // optional
 #include <unordered_map>  // unordered_map
@@ -12,7 +12,7 @@
 #include <imgui.h>
 
 #include "tactile/base/render/renderer.hpp"
-#include "tactile/core/debug/terminate.hpp"
+#include "tactile/core/debug/stacktrace.hpp"
 #include "tactile/core/logging.hpp"
 #include "tactile/core/numeric/random.hpp"
 #include "tactile/core/platform/win32.hpp"
@@ -27,6 +27,20 @@
 
 namespace tactile::runtime {
 namespace {
+
+[[noreturn]]
+void _on_terminate() noexcept
+{
+  try {
+    const auto trace = core::get_stacktrace();
+    TACTILE_RUNTIME_ERROR("Into exile I must go. Failed I have.\n{}", trace);
+  }
+  catch (...) {  // NOLINT(*-empty-catch)
+    // Not much we can do.
+  }
+
+  std::abort();
+}
 
 [[nodiscard]]
 auto _imgui_malloc(const std::size_t bytes, void*) -> void*
@@ -112,7 +126,7 @@ struct RuntimeImpl::Data final
 
 RuntimeImpl::RuntimeImpl(const CommandLineOptions& options)
 {
-  std::set_terminate(&core::on_terminate);
+  std::set_terminate(&_on_terminate);
   m_data = std::make_unique<Data>(options);
 
   core::init_random_number_generator();
