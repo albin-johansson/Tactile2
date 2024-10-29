@@ -13,28 +13,28 @@ PluginInstance::PluginInstance(IRuntime* runtime,
                                std::unique_ptr<IDynamicLibrary> dll,
                                PluginDestructor* plugin_destructor,
                                IPlugin* plugin)
-  : mRuntime {runtime},
-    mDLL {std::move(dll)},
-    mPluginDestructor {plugin_destructor},
-    mPlugin {plugin},
-    mPrimed {true}
+  : m_runtime {runtime},
+    m_dll {std::move(dll)},
+    m_plugin_destructor {plugin_destructor},
+    m_plugin {plugin},
+    m_primed {true}
 {}
 
 PluginInstance::~PluginInstance() noexcept
 {
-  if (mPrimed) {
-    mPlugin->unload();
-    mPluginDestructor(mPlugin);
-    mPrimed = false;
+  if (m_primed) {
+    m_plugin->unload();
+    m_plugin_destructor(m_plugin);
+    m_primed = false;
   }
 }
 
 PluginInstance::PluginInstance(PluginInstance&& other) noexcept
-  : mRuntime {std::exchange(other.mRuntime, nullptr)},
-    mDLL {std::exchange(other.mDLL, nullptr)},
-    mPluginDestructor {std::exchange(other.mPluginDestructor, nullptr)},
-    mPlugin {std::exchange(other.mPlugin, nullptr)},
-    mPrimed {std::exchange(other.mPrimed, false)}
+  : m_runtime {std::exchange(other.m_runtime, nullptr)},
+    m_dll {std::exchange(other.m_dll, nullptr)},
+    m_plugin_destructor {std::exchange(other.m_plugin_destructor, nullptr)},
+    m_plugin {std::exchange(other.m_plugin, nullptr)},
+    m_primed {std::exchange(other.m_primed, false)}
 {}
 
 auto PluginInstance::load(IRuntime* runtime, const std::string_view plugin_name)

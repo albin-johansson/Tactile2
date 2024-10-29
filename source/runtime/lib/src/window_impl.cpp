@@ -1,6 +1,6 @@
 // Copyright (C) 2024 Albin Johansson (GNU General Public License v3.0)
 
-#include "tactile/runtime/window.hpp"
+#include "tactile/runtime/window_impl.hpp"
 
 #include <SDL2/SDL.h>
 
@@ -15,12 +15,12 @@ void WindowHandleDeleter::operator()(SDL_Window* window) noexcept
 }
 
 Window::Window(SDL_Window* window)
-  : mWindow {core::require_not_null(window, "null window")}
+  : m_window {core::require_not_null(window, "null window")}
 {}
 
 auto Window::create(const std::uint32_t extra_flags) -> std::expected<Window, ErrorCode>
 {
-  const std::uint32_t basic_flags =
+  constexpr std::uint32_t basic_flags =
       SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
 
   auto* handle = SDL_CreateWindow("Tactile " TACTILE_VERSION_STRING,
@@ -55,7 +55,7 @@ void Window::maximize()
 
 auto Window::get_handle() -> SDL_Window*
 {
-  return mWindow.get();
+  return m_window.get();
 }
 
 }  // namespace tactile::runtime

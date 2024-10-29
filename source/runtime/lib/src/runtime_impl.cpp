@@ -23,7 +23,7 @@
 #include "tactile/runtime/logging.hpp"
 #include "tactile/runtime/protobuf_context.hpp"
 #include "tactile/runtime/sdl_context.hpp"
-#include "tactile/runtime/window.hpp"
+#include "tactile/runtime/window_impl.hpp"
 
 namespace tactile::runtime {
 namespace {
@@ -113,7 +113,7 @@ struct RuntimeImpl::Data final
 RuntimeImpl::RuntimeImpl(const CommandLineOptions& options)
 {
   std::set_terminate(&core::on_terminate);
-  mData = std::make_unique<Data>(options);
+  m_data = std::make_unique<Data>(options);
 
   core::init_random_number_generator();
 }
@@ -124,52 +124,52 @@ void RuntimeImpl::init_window(const std::uint32_t flags)
 {
   if (auto window = Window::create(flags)) {
     core::win32_use_immersive_dark_mode(window->get_handle());
-    mData->window = std::move(*window);
+    m_data->window = std::move(*window);
   }
 }
 
 void RuntimeImpl::set_renderer(IRenderer* renderer)
 {
-  mData->renderer = renderer;
+  m_data->renderer = renderer;
 }
 
 void RuntimeImpl::set_compression_format(const CompressionFormatId id,
                                          ICompressionFormat* format)
 {
   if (format != nullptr) {
-    mData->compression_formats.insert_or_assign(id, format);
+    m_data->compression_formats.insert_or_assign(id, format);
   }
   else {
-    mData->compression_formats.erase(id);
+    m_data->compression_formats.erase(id);
   }
 }
 
 void RuntimeImpl::set_save_format(const SaveFormatId id, ISaveFormat* format)
 {
   if (format != nullptr) {
-    mData->save_formats.insert_or_assign(id, format);
+    m_data->save_formats.insert_or_assign(id, format);
   }
   else {
-    mData->save_formats.erase(id);
+    m_data->save_formats.erase(id);
   }
 }
 
 auto RuntimeImpl::get_window() -> IWindow*
 {
-  return mData->window.has_value() ? &mData->window.value() : nullptr;
+  return m_data->window.has_value() ? &m_data->window.value() : nullptr;
 }
 
 auto RuntimeImpl::get_renderer() -> IRenderer*
 {
-  return mData->renderer;
+  return m_data->renderer;
 }
 
 auto RuntimeImpl::get_compression_format(const CompressionFormatId id) const
     -> const ICompressionFormat*
 {
-  const auto iter = mData->compression_formats.find(id);
+  const auto iter = m_data->compression_formats.find(id);
 
-  if (iter != mData->compression_formats.end()) {
+  if (iter != m_data->compression_formats.end()) {
     return iter->second;
   }
 
@@ -178,9 +178,9 @@ auto RuntimeImpl::get_compression_format(const CompressionFormatId id) const
 
 auto RuntimeImpl::get_save_format(const SaveFormatId id) const -> const ISaveFormat*
 {
-  const auto iter = mData->save_formats.find(id);
+  const auto iter = m_data->save_formats.find(id);
 
-  if (iter != mData->save_formats.end()) {
+  if (iter != m_data->save_formats.end()) {
     return iter->second;
   }
 
@@ -206,12 +206,12 @@ void RuntimeImpl::get_imgui_allocator_functions(imgui_malloc_fn** malloc_fn,
 
 auto RuntimeImpl::get_renderer_options() const -> const RendererOptions&
 {
-  return mData->renderer_options;
+  return m_data->renderer_options;
 }
 
 auto RuntimeImpl::get_logger() const -> log::Logger*
 {
-  return &mData->logger;
+  return &m_data->logger;
 }
 
 }  // namespace tactile::runtime

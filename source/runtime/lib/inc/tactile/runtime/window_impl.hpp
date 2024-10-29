@@ -60,7 +60,7 @@ class TACTILE_RUNTIME_API Window final : public IWindow
   auto get_handle() -> SDL_Window* override;
 
  private:
-  std::unique_ptr<SDL_Window, WindowHandleDeleter> mWindow {};
+  std::unique_ptr<SDL_Window, WindowHandleDeleter> m_window {};
 
   explicit Window(SDL_Window* window);
 };

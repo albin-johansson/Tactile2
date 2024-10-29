@@ -24,14 +24,14 @@ class UnixDynamicLibrary final : public IDynamicLibrary
   TACTILE_DELETE_MOVE(UnixDynamicLibrary);
 
   explicit UnixDynamicLibrary(void* handle) noexcept
-    : mHandle {handle}
+    : m_handle {handle}
   {}
 
   ~UnixDynamicLibrary() noexcept override
   {
-    if (mHandle) {
-      dlclose(mHandle);
-      mHandle = nullptr;
+    if (m_handle) {
+      dlclose(m_handle);
+      m_handle = nullptr;
     }
   }
 
@@ -51,11 +51,11 @@ class UnixDynamicLibrary final : public IDynamicLibrary
   [[nodiscard]]
   auto find_symbol(const char* name) const -> void* override
   {
-    return dlsym(mHandle, name);
+    return dlsym(m_handle, name);
   }
 
  private:
-  void* mHandle;
+  void* m_handle;
 };
 
 #endif  // TACTILE_OS_LINUX || TACTILE_OS_APPLE
@@ -69,14 +69,14 @@ class Win32DynamicLibrary final : public IDynamicLibrary
   TACTILE_DELETE_MOVE(Win32DynamicLibrary);
 
   explicit Win32DynamicLibrary(HMODULE handle)
-    : mHandle {handle}
+    : m_handle {handle}
   {}
 
   ~Win32DynamicLibrary() noexcept override
   {
-    if (mHandle) {
-      FreeLibrary(mHandle);
-      mHandle = nullptr;
+    if (m_handle) {
+      FreeLibrary(m_handle);
+      m_handle = nullptr;
     }
   }
 
@@ -96,11 +96,11 @@ class Win32DynamicLibrary final : public IDynamicLibrary
   [[nodiscard]]
   auto find_symbol(const char* name) const -> void* override
   {
-    return static_cast<void*>(GetProcAddress(mHandle, name));
+    return static_cast<void*>(GetProcAddress(m_handle, name));
   }
 
  private:
-  HMODULE mHandle;
+  HMODULE m_handle;
 };
 
 #endif  // TACTILE_OS_WINDOWS

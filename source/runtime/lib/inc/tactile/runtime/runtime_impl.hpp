@@ -79,7 +79,7 @@ class TACTILE_RUNTIME_API RuntimeImpl final : public IRuntime
 
  private:
   struct Data;
-  std::unique_ptr<Data> mData;
+  std::unique_ptr<Data> m_data;
 };
 
 }  // namespace tactile::runtime

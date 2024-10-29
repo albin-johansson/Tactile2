@@ -58,11 +58,11 @@ class TACTILE_RUNTIME_API PluginInstance final
       -> std::optional<PluginInstance>;
 
  private:
-  IRuntime* mRuntime;
-  std::unique_ptr<IDynamicLibrary> mDLL;
-  PluginDestructor* mPluginDestructor;
-  IPlugin* mPlugin;
-  bool mPrimed;
+  IRuntime* m_runtime;
+  std::unique_ptr<IDynamicLibrary> m_dll;
+  PluginDestructor* m_plugin_destructor;
+  IPlugin* m_plugin;
+  bool m_primed;
 
   PluginInstance(IRuntime* runtime,
                  std::unique_ptr<IDynamicLibrary> dll,

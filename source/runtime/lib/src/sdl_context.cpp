@@ -2,9 +2,10 @@
 
 #include "tactile/runtime/sdl_context.hpp"
 
+#include <stdexcept>  // runtime_error
+
 #include <SDL2/SDL.h>
 
-#include "tactile/core/debug/exception.hpp"
 #include "tactile/runtime/logging.hpp"
 
 namespace tactile::runtime {
@@ -15,7 +16,7 @@ SDLContext::SDLContext()
 
   if (SDL_Init(SDL_INIT_TIMER | SDL_INIT_EVENTS | SDL_INIT_VIDEO) != 0) {
     TACTILE_RUNTIME_ERROR("Could not initialize SDL: {}", SDL_GetError());
-    throw core::Exception {"Could not initialize SDL"};
+    throw std::runtime_error {"Could not initialize SDL"};
   }
 
   SDL_SetHint(SDL_HINT_APP_NAME, "Tactile");
