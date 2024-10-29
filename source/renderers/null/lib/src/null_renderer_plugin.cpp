@@ -6,7 +6,7 @@
 
 #include "tactile/base/runtime/runtime.hpp"
 
-namespace tactile::null_renderer {
+namespace tactile {
 
 void NullRendererPlugin::load(IRuntime* runtime)
 {
@@ -41,4 +41,4 @@ void tactile_free_plugin(IPlugin* plugin)
   delete plugin;
 }
 
-}  // namespace tactile::null_renderer
+}  // namespace tactile

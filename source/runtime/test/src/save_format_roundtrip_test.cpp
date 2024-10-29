@@ -120,7 +120,7 @@ class SaveFormatRoundtripTest : public testing::TestWithParam<SaveFormatRoundtri
  protected:
   RuntimeImpl m_runtime {_get_command_line_options()};
 
-  null_renderer::NullRendererPlugin m_null_renderer_plugin {};
+  NullRendererPlugin m_null_renderer_plugin {};
 
 #ifdef TACTILE_HAS_ZLIB
   zlib::ZlibCompressionPlugin m_zlib_compression_plugin {};

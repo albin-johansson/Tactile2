@@ -7,7 +7,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-namespace tactile::null_renderer {
+namespace tactile {
 
 NullTexture::NullTexture(const TextureSize size, std::filesystem::path path)
   : m_size {size},
@@ -46,4 +46,4 @@ auto NullTexture::get_path() const -> const std::filesystem::path&
   return m_path;
 }
 
-}  // namespace tactile::null_renderer
+}  // namespace tactile

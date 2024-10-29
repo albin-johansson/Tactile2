@@ -56,7 +56,7 @@ class TilesetTest : public testing::Test
 
  protected:
   Registry mRegistry {};
-  null_renderer::NullRenderer mRenderer {nullptr};
+  NullRenderer mRenderer {nullptr};
 };
 
 // tactile::core::make_tileset [Registry&, const TilesetSpec&]

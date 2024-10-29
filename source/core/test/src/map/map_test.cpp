@@ -30,7 +30,7 @@ class MapTest : public testing::Test
 
  protected:
   Registry mRegistry {};
-  null_renderer::NullRenderer mRenderer {nullptr};
+  NullRenderer mRenderer {nullptr};
 };
 
 // tactile::core::is_map

@@ -4,7 +4,7 @@
 
 #include <utility>  // move
 
-namespace tactile::null_renderer {
+namespace tactile {
 
 NullRenderer::NullRenderer(IWindow* window)
   : m_options {},
@@ -85,4 +85,4 @@ auto NullRenderer::get_options() -> const RendererOptions&
   return m_options;
 }
 
-}  // namespace tactile::null_renderer
+}  // namespace tactile

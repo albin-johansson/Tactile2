@@ -9,7 +9,7 @@
 #include "tactile/null_renderer/api.hpp"
 #include "tactile/null_renderer/null_texture.hpp"
 
-namespace tactile::null_renderer {
+namespace tactile {
 
 /**
  * A null renderer implementation.
@@ -64,4 +64,4 @@ class TACTILE_NULL_RENDERER_API NullRenderer final : public IRenderer
   TextureID m_next_texture_id;
 };
 
-}  // namespace tactile::null_renderer
+}  // namespace tactile

@@ -9,7 +9,7 @@
 #include "tactile/null_renderer/api.hpp"
 #include "tactile/null_renderer/null_renderer.hpp"
 
-namespace tactile::null_renderer {
+namespace tactile {
 
 /**
  * Manages the null renderer plugin.
@@ -35,4 +35,4 @@ extern "C"
   TACTILE_NULL_RENDERER_API void tactile_free_plugin(IPlugin* plugin);
 }
 
-}  // namespace tactile::null_renderer
+}  // namespace tactile
