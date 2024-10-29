@@ -9,14 +9,13 @@
 #include <vulkan/vulkan.h>
 
 #include "tactile/base/prelude.hpp"
+#include "tactile/base/render/renderer_options.hpp"
 #include "tactile/base/render/texture.hpp"
 #include "tactile/vulkan/api.hpp"
 #include "tactile/vulkan/vulkan_image.hpp"
 #include "vulkan_image_view.hpp"
 
-namespace tactile {
-
-struct RendererOptions;
+namespace tactile::vk {
 
 class TACTILE_VULKAN_API VulkanTexture final : public ITexture
 {
@@ -46,4 +45,4 @@ TACTILE_VULKAN_API auto load_vulkan_texture(VkDevice device,
                                             const RendererOptions& options)
     -> std::expected<VulkanTexture, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

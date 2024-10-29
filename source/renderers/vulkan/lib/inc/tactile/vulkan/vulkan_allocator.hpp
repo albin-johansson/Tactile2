@@ -10,7 +10,7 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 /**
  * Represents a Vulkan allocator.
@@ -47,4 +47,4 @@ TACTILE_VULKAN_API auto create_vulkan_allocator(VkInstance instance,
                                                 VkDevice device)
     -> std::expected<VulkanAllocator, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

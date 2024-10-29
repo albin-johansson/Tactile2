@@ -11,7 +11,7 @@
 #include "tactile/vulkan/vulkan_command_pool.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 namespace {
 
 // Used to determine access flags for layout transitions.
@@ -333,4 +333,4 @@ auto create_vulkan_image(VmaAllocator allocator, const VulkanImageParams& params
   return image;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

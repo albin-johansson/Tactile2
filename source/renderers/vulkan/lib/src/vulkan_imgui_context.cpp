@@ -16,7 +16,7 @@
 #include "tactile/vulkan/vulkan_shader_module.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 namespace {
 
 auto _create_imgui_descriptor_set_layout(VkDevice device)
@@ -370,4 +370,4 @@ auto VulkanImGuiContext::get_pipeline() const -> VkPipeline
   return m_pipeline.handle;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

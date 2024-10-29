@@ -12,7 +12,7 @@
 #include "tactile/vulkan/api.hpp"
 #include "tactile/vulkan/vulkan_command_buffer.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 class TACTILE_VULKAN_API VulkanCommandPool final
 {
@@ -88,4 +88,4 @@ template <std::invocable<VkCommandBuffer> T>
   return result;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

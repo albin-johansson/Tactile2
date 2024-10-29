@@ -6,7 +6,7 @@
 
 #include <imgui.h>
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanPipeline::VulkanPipeline(VulkanPipeline&& other) noexcept
   : device {std::exchange(other.device, VK_NULL_HANDLE)},
@@ -38,4 +38,4 @@ void VulkanPipeline::_destroy() noexcept
   }
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

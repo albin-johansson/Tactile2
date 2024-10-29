@@ -12,7 +12,7 @@
 #include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 namespace {
 
 [[nodiscard]]
@@ -97,4 +97,4 @@ auto create_vulkan_instance(IWindow& window, const RendererOptions& options)
   return VulkanInstance {instance};
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

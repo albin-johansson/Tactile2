@@ -9,13 +9,12 @@
 #include <vulkan/vulkan.h>
 
 #include "tactile/base/prelude.hpp"
+#include "tactile/base/render/renderer_options.hpp"
 #include "tactile/vulkan/api.hpp"
 #include "tactile/vulkan/vulkan_image.hpp"
 #include "tactile/vulkan/vulkan_image_view.hpp"
 
-namespace tactile {
-
-struct RendererOptions;
+namespace tactile::vk {
 
 struct VulkanSwapchainParams final
 {
@@ -71,4 +70,4 @@ TACTILE_VULKAN_API auto create_vulkan_swapchain(VkSurfaceKHR surface,
                                                 const RendererOptions& options)
     -> std::expected<VulkanSwapchain, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

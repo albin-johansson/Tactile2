@@ -10,7 +10,7 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 class TACTILE_VULKAN_API VulkanImageView final
 {
@@ -38,4 +38,4 @@ TACTILE_VULKAN_API auto create_vulkan_image_view(VkDevice device,
                                                  std::uint32_t mip_levels)
     -> std::expected<VulkanImageView, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

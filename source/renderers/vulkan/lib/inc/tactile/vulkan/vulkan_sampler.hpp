@@ -7,11 +7,10 @@
 #include <vulkan/vulkan.h>
 
 #include "tactile/base/prelude.hpp"
+#include "tactile/base/render/renderer_options.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
-
-struct RendererOptions;
+namespace tactile::vk {
 
 /**
  * Represents a Vulkan texture sampler.
@@ -46,4 +45,4 @@ class TACTILE_VULKAN_API VulkanSampler final
 TACTILE_VULKAN_API auto create_vulkan_sampler(VkDevice device, const RendererOptions& options)
     -> std::expected<VulkanSampler, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

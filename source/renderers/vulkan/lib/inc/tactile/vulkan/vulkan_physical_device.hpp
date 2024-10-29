@@ -12,7 +12,7 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 struct VulkanQueueFamilyIndices final
 {
@@ -114,4 +114,4 @@ TACTILE_VULKAN_API auto get_present_modes(VkPhysicalDevice physical_device,
 TACTILE_VULKAN_API auto select_physical_device(VkInstance instance, VkSurfaceKHR surface)
     -> std::expected<VkPhysicalDevice, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

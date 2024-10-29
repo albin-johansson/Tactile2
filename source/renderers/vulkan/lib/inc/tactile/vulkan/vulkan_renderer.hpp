@@ -11,6 +11,7 @@
 #include "tactile/base/id.hpp"
 #include "tactile/base/prelude.hpp"
 #include "tactile/base/render/renderer.hpp"
+#include "tactile/base/render/renderer_options.hpp"
 #include "tactile/vulkan/api.hpp"
 #include "tactile/vulkan/vulkan_allocator.hpp"
 #include "tactile/vulkan/vulkan_command_buffer.hpp"
@@ -26,9 +27,7 @@
 #include "tactile/vulkan/vulkan_swapchain.hpp"
 #include "tactile/vulkan/vulkan_texture.hpp"
 
-namespace tactile {
-
-class IWindow;
+namespace tactile::vk {
 
 struct VulkanFrame final
 {
@@ -128,4 +127,4 @@ class TACTILE_VULKAN_API VulkanRenderer final : public IRenderer
   auto _recreate_swapchain() -> VkResult;
 };
 
-}  // namespace tactile
+}  // namespace tactile::vk

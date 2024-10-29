@@ -7,7 +7,7 @@
 
 #include "tactile/vulkan/logging.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 auto get_physical_devices(VkInstance instance) -> std::vector<VkPhysicalDevice>
 {
@@ -180,4 +180,4 @@ auto select_physical_device(VkInstance instance, VkSurfaceKHR surface)
   return max_elem_iter->first;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

@@ -9,7 +9,7 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 class VulkanCommandBuffer final
 {
@@ -33,4 +33,4 @@ class VulkanCommandBuffer final
 TACTILE_VULKAN_API auto create_vulkan_command_buffer(VkDevice device, VkCommandPool pool)
     -> std::expected<VulkanCommandBuffer, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

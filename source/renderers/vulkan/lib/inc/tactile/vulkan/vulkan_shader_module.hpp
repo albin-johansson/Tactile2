@@ -11,7 +11,7 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 /**
  * Represents a Vulkan shader module.
@@ -47,4 +47,4 @@ TACTILE_VULKAN_API auto create_vulkan_shader_module(VkDevice device,
                                                     std::span<const std::uint32_t> code)
     -> std::expected<VulkanShaderModule, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

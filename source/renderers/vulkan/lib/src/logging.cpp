@@ -2,7 +2,7 @@
 
 #include "tactile/vulkan/logging.hpp"
 
-namespace tactile::vulkan {
+namespace tactile::vk {
 namespace {
 
 inline constinit log::Logger* gLogger {};
@@ -19,4 +19,4 @@ auto get_logger() noexcept -> log::Logger*
   return gLogger;
 }
 
-}  // namespace tactile::vulkan
+}  // namespace tactile::vk

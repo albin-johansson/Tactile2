@@ -5,6 +5,7 @@
 #include <optional>  // optional
 
 #include "tactile/base/prelude.hpp"
+#include "tactile/base/render/window.hpp"
 #include "tactile/base/util/scope_exit.hpp"
 #include "tactile/vulkan/api.hpp"
 #include "tactile/vulkan/vulkan_descriptor_set_layout.hpp"
@@ -14,9 +15,7 @@
 struct ImGui_ImplVulkan_InitInfo;
 struct ImGuiContext;
 
-namespace tactile {
-
-class IWindow;
+namespace tactile::vk {
 
 class TACTILE_VULKAN_API VulkanImGuiContext final
 {
@@ -46,4 +45,4 @@ class TACTILE_VULKAN_API VulkanImGuiContext final
   VulkanPipeline m_pipeline {};
 };
 
-}  // namespace tactile
+}  // namespace tactile::vk

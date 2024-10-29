@@ -20,7 +20,7 @@
 #include "tactile/vulkan/vulkan_physical_device.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 namespace {
 
 inline constexpr std::size_t _max_frame_in_flight_count {2};
@@ -578,4 +578,4 @@ auto VulkanRenderer::_recreate_swapchain() -> VkResult
   return VK_SUCCESS;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

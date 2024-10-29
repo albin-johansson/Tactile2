@@ -10,7 +10,7 @@
 #include "tactile/vulkan/api.hpp"
 #include "tactile/vulkan/vulkan_renderer.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 class TACTILE_VULKAN_API VulkanRendererPlugin final : public IPlugin
 {
@@ -31,4 +31,4 @@ extern "C"
   TACTILE_VULKAN_API void tactile_free_plugin(IPlugin* plugin);
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

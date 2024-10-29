@@ -8,11 +8,10 @@
 #include <vulkan/vulkan.h>
 
 #include "tactile/base/prelude.hpp"
+#include "tactile/base/render/renderer_options.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
-
-struct RendererOptions;
+namespace tactile::vk {
 
 class TACTILE_VULKAN_API VulkanDevice final
 {
@@ -38,4 +37,4 @@ TACTILE_VULKAN_API auto create_vulkan_device(VkPhysicalDevice physical_device,
                                              const RendererOptions& options)
     -> std::expected<VulkanDevice, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

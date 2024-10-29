@@ -11,7 +11,7 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 class TACTILE_VULKAN_API VulkanBuffer final
 {
@@ -48,4 +48,4 @@ TACTILE_VULKAN_API auto set_buffer_data(VulkanBuffer& buffer,
                                         const void* data,
                                         std::uint64_t data_size) -> VkResult;
 
-}  // namespace tactile
+}  // namespace tactile::vk

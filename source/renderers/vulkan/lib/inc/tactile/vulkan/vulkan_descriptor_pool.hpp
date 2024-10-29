@@ -9,7 +9,7 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 class TACTILE_VULKAN_API VulkanDescriptorPool final
 {
@@ -32,4 +32,4 @@ class TACTILE_VULKAN_API VulkanDescriptorPool final
 TACTILE_VULKAN_API auto create_vulkan_imgui_descriptor_pool(VkDevice device)
     -> std::expected<VulkanDescriptorPool, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

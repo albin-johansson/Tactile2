@@ -7,7 +7,7 @@
 #include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanShaderModule::VulkanShaderModule(VulkanShaderModule&& other) noexcept
   : device {std::exchange(other.device, VK_NULL_HANDLE)},
@@ -64,4 +64,4 @@ auto create_vulkan_shader_module(VkDevice device, std::span<const std::uint32_t>
   return shader_module;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

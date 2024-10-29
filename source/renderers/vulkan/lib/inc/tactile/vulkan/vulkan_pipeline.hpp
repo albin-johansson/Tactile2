@@ -7,7 +7,7 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 class TACTILE_VULKAN_API VulkanPipeline final
 {
@@ -26,4 +26,4 @@ class TACTILE_VULKAN_API VulkanPipeline final
   void _destroy() noexcept;
 };
 
-}  // namespace tactile
+}  // namespace tactile::vk

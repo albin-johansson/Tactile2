@@ -9,7 +9,7 @@
 #include "tactile/base/render/window.hpp"
 #include "tactile/vulkan/logging.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanSurface::VulkanSurface(VulkanSurface&& other) noexcept
   : instance {std::exchange(other.instance, VK_NULL_HANDLE)},
@@ -55,4 +55,4 @@ auto create_vulkan_surface(VkInstance instance, IWindow& window)
   return surface;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

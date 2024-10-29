@@ -10,7 +10,7 @@
 #include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanSampler::VulkanSampler(VulkanSampler&& other) noexcept
   : device {std::exchange(other.device, VK_NULL_HANDLE)},
@@ -91,4 +91,4 @@ auto create_vulkan_sampler(VkDevice device, const RendererOptions& options)
   return sampler;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

@@ -9,7 +9,7 @@
 #include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanBuffer::VulkanBuffer(VulkanBuffer&& other) noexcept
   : allocator {std::exchange(other.allocator, VK_NULL_HANDLE)},
@@ -118,4 +118,4 @@ auto set_buffer_data(VulkanBuffer& buffer, const void* data, const std::uint64_t
   return result;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

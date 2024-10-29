@@ -7,11 +7,10 @@
 #include <vulkan/vulkan.h>
 
 #include "tactile/base/prelude.hpp"
+#include "tactile/base/render/window.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
-
-class IWindow;
+namespace tactile::vk {
 
 /**
  * Represents a Vulkan surface.
@@ -46,4 +45,4 @@ class TACTILE_VULKAN_API VulkanSurface final
 TACTILE_VULKAN_API auto create_vulkan_surface(VkInstance instance, IWindow& window)
     -> std::expected<VulkanSurface, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

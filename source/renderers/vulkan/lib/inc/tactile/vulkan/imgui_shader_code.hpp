@@ -6,7 +6,7 @@
 
 #include "tactile/base/prelude.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 // glslangValidator -V -x imgui.vert -o imgui.vert.u32
 inline constexpr std::uint32_t kVulkanImGuiVertexShaderCode[] = {
@@ -141,4 +141,4 @@ inline constexpr std::uint32_t kVulkanImGuiFragShaderCode[] = {
   0x00000035, 0x00000032, 0x000200fe, 0x00000036, 0x00010038,
 };
 
-}  // namespace tactile
+}  // namespace tactile::vk

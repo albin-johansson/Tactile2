@@ -11,7 +11,7 @@
 #include "tactile/vulkan/vulkan_physical_device.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 namespace {
 
 [[nodiscard]]
@@ -142,4 +142,4 @@ auto create_vulkan_device(VkPhysicalDevice physical_device,
   return device;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

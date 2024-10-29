@@ -4,7 +4,7 @@
 
 #include <utility>  // exchange
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanDescriptorSetLayout::VulkanDescriptorSetLayout(
     VulkanDescriptorSetLayout&& other) noexcept
@@ -38,4 +38,4 @@ void VulkanDescriptorSetLayout::_destroy() noexcept
   }
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

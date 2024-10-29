@@ -13,7 +13,7 @@
 #include "tactile/vulkan/vulkan_physical_device.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 namespace {
 
 [[nodiscard]]
@@ -352,4 +352,4 @@ auto create_vulkan_swapchain(VkSurfaceKHR surface,
   return create_vulkan_swapchain(surface, device, allocator, params);
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

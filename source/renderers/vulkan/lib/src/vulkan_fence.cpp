@@ -7,7 +7,7 @@
 #include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanFence::VulkanFence(VulkanFence&& other) noexcept
   : device {std::exchange(other.device, VK_NULL_HANDLE)},
@@ -60,4 +60,4 @@ auto create_vulkan_fence(VkDevice device, const VkFenceCreateFlags flags)
   return fence;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

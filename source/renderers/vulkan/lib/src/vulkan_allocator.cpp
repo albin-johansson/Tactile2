@@ -10,7 +10,7 @@
 #include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanAllocator::VulkanAllocator(VulkanAllocator&& other) noexcept
   : handle {std::exchange(other.handle, VK_NULL_HANDLE)}
@@ -73,4 +73,4 @@ auto create_vulkan_allocator(VkInstance instance,
   return allocator;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

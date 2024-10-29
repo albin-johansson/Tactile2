@@ -9,7 +9,7 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 /**
  * Represents a Vulkan fence synchronization primitive.
@@ -44,4 +44,4 @@ class TACTILE_VULKAN_API VulkanFence final
 TACTILE_VULKAN_API auto create_vulkan_fence(VkDevice device, VkFenceCreateFlags flags)
     -> std::expected<VulkanFence, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

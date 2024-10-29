@@ -7,7 +7,7 @@
 #include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanDescriptorPool::VulkanDescriptorPool(VulkanDescriptorPool&& other) noexcept
   : device {std::exchange(other.device, VK_NULL_HANDLE)},
@@ -74,4 +74,4 @@ auto create_vulkan_imgui_descriptor_pool(VkDevice device)
   return descriptor_pool;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

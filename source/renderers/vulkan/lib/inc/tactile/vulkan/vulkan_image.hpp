@@ -13,7 +13,7 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 struct VulkanImageParams final
 {
@@ -77,4 +77,4 @@ TACTILE_VULKAN_API auto create_vulkan_image(VmaAllocator allocator,
                                             const VulkanImageParams& params)
     -> std::expected<VulkanImage, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

@@ -11,12 +11,12 @@
 #include "tactile/base/runtime/runtime.hpp"
 #include "tactile/vulkan/logging.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 void VulkanRendererPlugin::load(IRuntime* runtime)
 {
   m_runtime = runtime;
-  vulkan::set_logger(m_runtime->get_logger());
+  set_logger(m_runtime->get_logger());
 
   try {
     if (SDL_Vulkan_LoadLibrary(nullptr) == -1) {
@@ -54,7 +54,7 @@ void VulkanRendererPlugin::unload()
   m_runtime->set_renderer(nullptr);
   m_renderer.reset();
 
-  vulkan::set_logger(nullptr);
+  set_logger(nullptr);
   m_runtime = nullptr;
 }
 
@@ -68,4 +68,4 @@ void tactile_free_plugin(IPlugin* plugin)
   delete plugin;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

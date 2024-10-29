@@ -9,9 +9,9 @@
 #include "tactile/base/prelude.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 [[nodiscard]]
 TACTILE_VULKAN_API auto to_string(VkResult result) noexcept -> std::string_view;
 
-}  // namespace tactile
+}  // namespace tactile::vk

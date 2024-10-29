@@ -7,7 +7,7 @@
 #include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanImageView::~VulkanImageView() noexcept
 {
@@ -84,4 +84,4 @@ auto create_vulkan_image_view(VkDevice device,
   return image_view;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

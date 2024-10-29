@@ -7,7 +7,7 @@
 #include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanSemaphore::VulkanSemaphore(VulkanSemaphore&& other) noexcept
   : device {std::exchange(other.device, VK_NULL_HANDLE)},
@@ -60,4 +60,4 @@ auto create_vulkan_semaphore(VkDevice device) -> std::expected<VulkanSemaphore, 
   return semaphore;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

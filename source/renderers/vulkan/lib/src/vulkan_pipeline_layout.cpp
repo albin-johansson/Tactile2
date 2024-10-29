@@ -4,7 +4,7 @@
 
 #include <utility>  // exchange
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanPipelineLayout::VulkanPipelineLayout(VulkanPipelineLayout&& other) noexcept
   : device {std::exchange(other.device, VK_NULL_HANDLE)},
@@ -37,4 +37,4 @@ void VulkanPipelineLayout::_destroy() noexcept
   }
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

@@ -8,12 +8,11 @@
 #include <vulkan/vulkan.h>
 
 #include "tactile/base/prelude.hpp"
+#include "tactile/base/render/renderer_options.hpp"
+#include "tactile/base/render/window.hpp"
 #include "tactile/vulkan/api.hpp"
 
-namespace tactile {
-
-class IWindow;
-struct RendererOptions;
+namespace tactile::vk {
 
 struct TACTILE_VULKAN_API VulkanInstanceDeleter final
 {
@@ -35,4 +34,4 @@ using VulkanInstance = std::unique_ptr<VkInstance_T, VulkanInstanceDeleter>;
 TACTILE_VULKAN_API auto create_vulkan_instance(IWindow& window, const RendererOptions& options)
     -> std::expected<VulkanInstance, VkResult>;
 
-}  // namespace tactile
+}  // namespace tactile::vk

@@ -12,7 +12,7 @@
 #include "tactile/base/util/scope_exit.hpp"
 #include "tactile/vulkan/vulkan_buffer.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 auto VulkanTexture::get_handle() const -> void*
 {
@@ -139,4 +139,4 @@ auto load_vulkan_texture(VkDevice device,
   return texture;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk

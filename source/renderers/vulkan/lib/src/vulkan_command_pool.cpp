@@ -7,7 +7,7 @@
 #include "tactile/vulkan/logging.hpp"
 #include "tactile/vulkan/vulkan_util.hpp"
 
-namespace tactile {
+namespace tactile::vk {
 
 VulkanCommandPool::VulkanCommandPool(VulkanCommandPool&& other) noexcept
   : device {std::exchange(other.device, VK_NULL_HANDLE)},
@@ -64,4 +64,4 @@ auto create_vulkan_command_pool(VkDevice device,
   return command_pool;
 }
 
-}  // namespace tactile
+}  // namespace tactile::vk
