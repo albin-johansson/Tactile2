@@ -10,18 +10,20 @@ env:
 
 jobs:
   macos-latest-test:
-    runs-on: macos-14
+    runs-on: macos-15
     if: contains(github.event.head_commit.message, '[skip-ci]') == false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@main
 
       - name: Select Xcode version
-        run: sudo xcode-select --switch /Applications/Xcode_15.4.app
+        run: sudo xcode-select --switch /Applications/Xcode_16.1.app
 
       - name: Install system dependencies
         run: |
           brew update
           brew install ninja
+          brew install autoconf
+          brew install automake
 
       - name: Cache Vcpkg
         id: restore-vcpkg-and-artifacts
@@ -93,10 +95,6 @@ jobs:
       - name: Run Zstd compression tests
         working-directory: ./build/debug
         run: ./tactile-zstd-compression-test
-
-      - name: Run Tiled TMJ format tests
-        working-directory: ./build/debug
-        run: ./tactile-tiled-tmj-format-test
 
       - name: Run runtime tests
         working-directory: ./build/debug

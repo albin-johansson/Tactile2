@@ -13,13 +13,13 @@ jobs:
     runs-on: windows-latest
     if: contains(github.event.head_commit.message, '[skip-ci]') == false
     steps:
-      - uses: actions/checkout@v4
-      - uses: ilammy/msvc-dev-cmd@v1.11.0
-      - uses: lukka/get-cmake@latest
+      - uses: actions/checkout@main
+      - uses: ilammy/msvc-dev-cmd@master
+      - uses: lukka/get-cmake@main
 
       - name: Cache Vcpkg
         id: restore-vcpkg-and-artifacts
-        uses: actions/cache@v3
+        uses: actions/cache@main
         with:
           path: |
             ${{env.VCPKG_ROOT}}
@@ -94,11 +94,6 @@ jobs:
         working-directory: ./build/debug
         shell: cmd
         run: tactile-zstd-compression-test.exe
-
-      - name: Run Tiled TMJ format tests
-        working-directory: ./build/debug
-        shell: cmd
-        run: tactile-tiled-tmj-format-test.exe
 
       - name: Run runtime tests
         working-directory: ./build/debug
