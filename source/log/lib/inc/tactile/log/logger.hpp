@@ -100,7 +100,7 @@ class Logger final
 
  private:
   struct Data;
-  std::unique_ptr<Data> m_data {};
+  std::unique_ptr<Data> m_data;
 
   void _log(LogLevel level, std::string_view fmt, std::format_args args) noexcept;
 };
