@@ -175,8 +175,9 @@ auto _read_tileset_tiles(const JSON& tileset_json, ir::Tileset& tileset)
 }
 
 [[nodiscard]]
-auto _read_common_tileset_attributes(const JSON& tileset_json, ir::Tileset& tileset)
-    -> std::expected<void, ErrorCode>
+auto _read_common_tileset_attributes(const JSON& tileset_json,
+                                     const SaveFormatReadOptions& options,
+                                     ir::Tileset& tileset) -> std::expected<void, ErrorCode>
 {
   return _read_metadata(tileset_json, tileset.meta)
       .and_then([&] { return read_attr_to(tileset_json, "name", tileset.meta.name); })
@@ -190,25 +191,27 @@ auto _read_common_tileset_attributes(const JSON& tileset_json, ir::Tileset& tile
           [&] { return read_attr_to(tileset_json, "imageheight", tileset.image_size[1]); })
       .and_then([&] { return read_attr<std::string>(tileset_json, "image"); })
       .and_then([&](const std::string& image_path) {
-        tileset.image_path = image_path;
+        tileset.image_path = options.base_dir / image_path;
         return std::expected<void, ErrorCode> {};
       })
       .and_then([&] { return _read_tileset_tiles(tileset_json, tileset); });
 }
 
 [[nodiscard]]
-auto _read_embedded_tileset(const JSON& tileset_json) -> std::expected<ir::Tileset, ErrorCode>
+auto _read_embedded_tileset(const JSON& tileset_json, const SaveFormatReadOptions& options)
+    -> std::expected<ir::Tileset, ErrorCode>
 {
   ir::Tileset tileset {};
   tileset.is_embedded = true;
 
-  return _read_common_tileset_attributes(tileset_json, tileset).transform([&] {
+  return _read_common_tileset_attributes(tileset_json, options, tileset).transform([&] {
     return std::move(tileset);
   });
 }
 
 [[nodiscard]]
-auto _read_external_tileset(const std::filesystem::path& path)
+auto _read_external_tileset(const std::filesystem::path& path,
+                            const SaveFormatReadOptions& options)
     -> std::expected<ir::Tileset, ErrorCode>
 {
   ir::Tileset tileset {};
@@ -216,7 +219,7 @@ auto _read_external_tileset(const std::filesystem::path& path)
 
   return read_json_document(path)
       .and_then([&](const JSON& tileset_json) {
-        return _read_common_tileset_attributes(tileset_json, tileset);
+        return _read_common_tileset_attributes(tileset_json, options, tileset);
       })
       .transform([&] { return std::move(tileset); });
 }
@@ -229,8 +232,8 @@ auto _read_tileset_ref(const JSON& tileset_ref_json, const SaveFormatReadOptions
   return read_attr_to(tileset_ref_json, "firstgid", tileset_ref.first_tile_id)
       .and_then([&] {
         const auto source = read_attr<std::string>(tileset_ref_json, "source");
-        return source.has_value() ? _read_external_tileset(options.base_dir / *source)
-                                  : _read_embedded_tileset(tileset_ref_json);
+        return source.has_value() ? _read_external_tileset(options.base_dir / *source, options)
+                                  : _read_embedded_tileset(tileset_ref_json, options);
       })
       .transform([&](ir::Tileset&& tileset) {
         tileset_ref.tileset = std::move(tileset);
